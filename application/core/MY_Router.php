@@ -31,13 +31,9 @@ class MY_Router extends CI_Router {
 		}
 
 		//modificamos 
-
-		$real_name_class = $this->get_class_name_controller_from_translation($segments[0]);
-		
+		$real_name_class = $this->get_class_name_controller_from_translation($segments[0]);		
 		$this->set_class($real_name_class);
-		//$this->set_class($segments[0]);
 
-		//echo $segments[0];
 
 		if (isset($segments[1]))
 		{

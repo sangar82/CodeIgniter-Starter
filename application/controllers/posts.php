@@ -2,7 +2,7 @@
 
 class Posts extends CI_Controller {
 
-
+	public $layout = 'frontend';
 
 	function __construct()
 	{
@@ -14,30 +14,7 @@ class Posts extends CI_Controller {
 		$this->load->library('form_validation');
 
 	}
-/*
-	public function _remap($method)
-	{
-	    if ($method == 'crear')
-	    {
-	        $this->create();
-	    }
-	    else
-	    {
-	        $this->index();
-	    }
-	 }   
 
-
-	public function _remap($method, $params = array())
-	{
-	    $method = 'process/'.$method;
-	    if (method_exists($this, $method))
-	    {
-	        return call_user_func_array(array($this, $method), $params);
-	    }
-	    show_404();
-	}
-*/
 
 	public function index()
 	{
@@ -64,6 +41,7 @@ class Posts extends CI_Controller {
 		$this->load->view('posts/index' , $data);
 
 	}
+
 
 	public function create(){
 		
@@ -115,6 +93,3 @@ class Posts extends CI_Controller {
 	}
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
