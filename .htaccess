@@ -1,0 +1,9 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^ci.com$
+RewriteRule ^(.*)$ http://www.ci.com/$1 [R=301,L]
+
+RewriteCond $1 !^(index\.php|images|table-images|js|robots\.txt|css|captcha)
+RewriteRule ^(.*)$ /index.php/$1 [L]
+
+
