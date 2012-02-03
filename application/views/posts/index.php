@@ -19,4 +19,7 @@
 <?php endif; ?>
 
 
-<?= $this->config->item('language') ; ?>
+<?php 
+//$this->config->item('language');
+//lang('site_intro');
+?>

@@ -12,7 +12,6 @@ class Posts extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library("pagination");
 		$this->load->library('form_validation');
-
 	}
 
 
@@ -25,10 +24,11 @@ class Posts extends CI_Controller {
         $config["use_page_numbers"] = TRUE;
         $config["per_page"] = 3;
         $config["uri_segment"] = 1;
-        $config['first_link'] = true;
-        $config['last_link'] = true;
-       	$choice = $config["total_rows"] / $config["per_page"];
+        $config["first_link"] = "< First";
+        $config["last_link"] = "Last >";
+        $choice = $config["total_rows"] / $config["per_page"];
 	    $config["num_links"] = round($choice);
+
 
         $this->pagination->initialize($config);
 

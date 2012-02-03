@@ -5,11 +5,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='expires' content='1200' />
 	<meta http-equiv='content-language' content='es' />
-	<link href='/css/fstyles.css' rel="stylesheet" type="text/css" />
+	<base href="<?php echo $this->config->item('base_url') ?>/public/" />
+	<link rel="stylesheet" href="css/fstyles.css" type="text/css" media="screen" />
 </head>
 
 <body>
-<?=$yield?>
+	<?=$yield?>
 </body>
 
 </html>
