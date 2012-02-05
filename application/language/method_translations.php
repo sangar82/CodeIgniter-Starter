@@ -5,7 +5,8 @@ $mn_trans = array(
 		"spanish"	=>	array(
 								
 						"usuarios"		=>		array(		
-															"articulos"			=>		'articles'),
+															"articulos"			=>		'articles',
+															"crear"				=>		'create'),
 															
 						"articulos"		=>		array(		
 															"crear"				=>		'create',
@@ -14,7 +15,8 @@ $mn_trans = array(
 		"english"	=>	array(		
 			
 						"users"			=>		array(		
-															"articles"			=>		'articles'),
+															"articles"			=>		'articles',
+															"create"			=>		'create'),
 															
 						"posts"			=>		array(		
 															"create"			=>		'create',

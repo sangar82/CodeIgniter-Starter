@@ -71,7 +71,8 @@ class Posts extends CI_Controller {
 		
 			if ( Post::create($form_data) == TRUE) // the information has therefore been successfully saved in the db
 			{
-				redirect('posts/success');   // or whatever logic needs to occur
+				$this->session->set_flashdata('message', 'creado correctamente');
+				redirect('/');   // or whatever logic needs to occur
 			}
 			else
 			{

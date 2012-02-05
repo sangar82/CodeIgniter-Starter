@@ -6,7 +6,7 @@
 	<meta http-equiv='expires' content='1200' />
 	<meta http-equiv='content-language' content='es' />
 	<base href="<?php echo $this->config->item('base_url') ?>/public/" />
-	<link rel="stylesheet" href="css/fstyles.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/bstyles.css" type="text/css" media="screen" />
 </head>
 
 <body>
