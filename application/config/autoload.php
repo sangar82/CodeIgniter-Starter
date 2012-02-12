@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'form_validation');
+$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation');
 $autoload['sparks'] = array('php-activerecord/0.0.2');
 
 
@@ -65,7 +65,7 @@ $autoload['sparks'] = array('php-activerecord/0.0.2');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'language');
+$autoload['helper'] = array('url', 'language', 'form', 'tablecolumns', 'myform');
 
 
 /*
@@ -97,7 +97,7 @@ $autoload['config'] = array();
 |
 */
 
-$autoload['language'] = array('site', 'calendar', 'date', 'db', 'email', 'form_validation', 'ftp', 'imglib', 'number', 'profiler', 'tank_auth', 'unit_test', 'upload');
+$autoload['language'] = array('site', 'calendar', 'date', 'db', 'email', 'form_validation', 'ftp', 'imglib', 'number', 'profiler', 'tank_auth', 'unit_test', 'upload', 'web');
 
 
 /*

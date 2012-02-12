@@ -1,19 +1,16 @@
-<div class='message'>
-<?
+
+<?php
+
     $message = $this->session->flashdata('message');
+
     if($message)
     {
-        if(is_array($message))
-        {
-            foreach($message as $line)
-            {
-                echo $line . '<br/>';
-            }
-        }
-        else
-        {
-            echo $message;
-        }
+
+        echo "<div class='msg_".$message['type']."'>";
+
+            echo "<span>".$message['text'] . "</span>";
+
+        echo "</div>";
+
     }
 ?>
-</div>
