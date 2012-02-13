@@ -14,7 +14,7 @@ $lang['web_delete_success'] 		= 'Eliminado correctamente';
 $lang['web_delete_failed'] 			= 'Error eliminando. Vuelva a intentarlo';
 
 $lang['web_no_elements'] 			= 'Aún no existe ningún registro en la base de datos.';
-$lang['web_object_not_exit'] 		= 'El elemento seleccionado no existe en la base de datos.';
+$lang['web_object_not_exist'] 		= 'El elemento seleccionado no existe en la base de datos.';
 $lang['web_back_to_list']	 		= 'Volver al listado';
 
 $lang['web_category'] 				= 'Categoría';

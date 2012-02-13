@@ -231,6 +231,8 @@ class Products extends CI_Controller {
 
 	function delete($id = NULL){
 
+		$this->load->helper('file');
+
 		//filter & Sanitize $id
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
 
@@ -244,6 +246,7 @@ class Products extends CI_Controller {
 		if ( Product::exists($id) )
 		{
 			$product = Product::find($id);
+			$image = $product->image;
 		}
 		else
 		{
@@ -254,6 +257,13 @@ class Products extends CI_Controller {
 		//delete the item
 		if ( $product->delete() == TRUE) 
 		{
+			//delete all the images
+			if ( is_file(FCPATH.'public/uploads/img/'.$image) )
+				unlink(FCPATH.'public/uploads/img/'.$image);
+			
+			if ( is_file(FCPATH.'public/uploads/img/thumbs/'.$image) )	
+				unlink(FCPATH.'public/uploads/img/thumbs/'.$image);
+
 			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));
 			redirect('products/');
 		}

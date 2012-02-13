@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "posts";
+$route['default_controller'] = "admin";
 $route['404_override'] = '';
 
 //route para las categorias

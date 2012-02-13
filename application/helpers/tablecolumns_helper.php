@@ -8,8 +8,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	{
 		$data = array();
 		$sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$tName'";
-		$query = User::find_by_sql($sql);
-		if ( User::count() > 0) 
+		$query = Category::find_by_sql($sql);
+		if ( Category::count() > 0) 
 		{
 
 			foreach ($query as $row)
