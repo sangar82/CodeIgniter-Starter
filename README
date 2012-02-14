@@ -1,0 +1,14 @@
+Custom Codeigniter with preinstalled features:
+
+- Sparks installed (http://getsparks.org/)
+- Ion Auth modified and ready to work (all views translateds and CRUD users) (http://benedmunds.com/ion_auth/)
+- Subdomains for languages
+- Controllers & Methods names with translations
+- Backend Template
+- Example of code (CRUD categories, CRUD products)
+- Translation on 3 languages (english, spanish, catalan) 30%
+- Basic layout (frontend, backend)
+- System Messages implemented as partial in layouts
+- Folder for public content (images, js, uploads, ...)
+
+Ready to work! (in development)
