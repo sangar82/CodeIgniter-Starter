@@ -1,6 +1,10 @@
 <?php
 class Category extends ActiveRecord\Model {
 
+	static $has_many = array(
+		array('products')
+    );
+
     /**
     * Return values of database with pagination
     *	

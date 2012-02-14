@@ -11,6 +11,15 @@ class Products extends CI_Controller {
 
 	public function index()
 	{	
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
 		//set the title of the page 
 		$layout['title'] = "Lista de productos";
 
@@ -40,6 +49,15 @@ class Products extends CI_Controller {
 
 	function create() 
 	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
 		//search the categories and send to the view
 		$this->load->model('category');
 		$data['categories']  = Category::find('all');
@@ -125,6 +143,15 @@ class Products extends CI_Controller {
 
 	function edit($id = FALSE) 
 	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
 		//search the categories and send to the view
 		$this->load->model('category');
 		$data['categories']  = Category::find('all');
@@ -231,6 +258,15 @@ class Products extends CI_Controller {
 
 	function delete($id = NULL){
 
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+		
 		$this->load->helper('file');
 
 		//filter & Sanitize $id

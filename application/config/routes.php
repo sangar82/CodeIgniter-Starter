@@ -51,6 +51,11 @@ $route['products/(:num)'] = "products/index/$1";
 $route['(:num)'] = "posts/index/$1";
 $route['posts/(.+)/(\d+)'] = "posts/archive/$1/$2";
 
+//route para el logout
+$route['login'] = "auth/login";
+$route['logout'] = "auth/logout";
+$route['forgot_password'] = "auth/forgot_password";
+
 
 
 

@@ -6,7 +6,13 @@ $lang['web_delete'] 				= 'Eliminar';
 $lang['web_options'] 				= 'Opciones';
 $lang['web_confirm_delete'] 		= '¿Estás seguro de borrar este registro?';
 
+$lang['web_private_zone'] 			= 'Portal de administración';
+$lang['web_private_zone_p1'] 		= 'Bienvenido al portal de administración.';
+$lang['web_private_zone_p2'] 		= 'Desde este portal podrá administrar los contenidos de su web.';
+$lang['web_private_zone_p3'] 		= 'Elija una opción del menú superior.';
+
 $lang['web_create_success'] 		= 'Creado correctamente';
+$lang['web_create_success_act'] 	= 'Creado correctamente. El usuario debe activar el usuario a través del mail de confirmación.';
 $lang['web_create_failed'] 			= 'Error creando. Vuelva a intentarlo';
 $lang['web_edit_success'] 			= 'Editado correctamente';
 $lang['web_edit_failed'] 			= 'Error editando. Vuelva a intentarlo';
@@ -16,6 +22,9 @@ $lang['web_delete_failed'] 			= 'Error eliminando. Vuelva a intentarlo';
 $lang['web_no_elements'] 			= 'Aún no existe ningún registro en la base de datos.';
 $lang['web_object_not_exist'] 		= 'El elemento seleccionado no existe en la base de datos.';
 $lang['web_back_to_list']	 		= 'Volver al listado';
+
+$lang['web_yes']	 				= 'Sí';
+$lang['web_no']	 					= 'No';
 
 $lang['web_category'] 				= 'Categoría';
 $lang['web_categories'] 			= 'Categorías';
@@ -30,17 +39,73 @@ $lang['web_products'] 				= 'Productos';
 $lang['web_add_product'] 			= 'Crear producto';
 $lang['web_edit_product'] 			= 'Editar producto';
 
+$lang['web_user'] 					= 'Usuario';
+$lang['web_users'] 					= 'Usuarios';
+$lang['web_add_user'] 				= 'Crear usuario';
+$lang['web_edit_user']	 			= 'Editar usuario';
+$lang['web_list_user']	 			= 'Listado de usuarios';
+$lang['web_list_deactivate_user']	= 'Desactivar usuario';
+$lang['web_list_deuser_conf']		= '¿Estás seguro de desactivar el usuario ';
+
+
+$lang['web_active']					= 'Activo';
+$lang['web_inactive']				= 'Inactivo';
 $lang['web_name']					= 'Nombre';
 $lang['web_lastname']				= 'Apellidos';
-$lang['web_email']					= 'Email';
+$lang['web_email']					= 'Correo electrónico';
+$lang['web_password']				= 'Contraseña';
+$lang['web_password_confirm']		= 'Repite la contraseña';
 $lang['web_description']			= 'Descripción';
 $lang['web_active']					= 'Activo';
 $lang['web_image_create']			= 'Añade una imagen';
 $lang['web_image_edit']				= 'Edita la imagen';
 $lang['web_choose_option']			= 'Escoja una opción';
 $lang['web_image']					= 'Imagén';
+$lang['web_groups']					= 'Grupos';
 
 
 $lang['web_home']					= 'Inicio';
 $lang['web_first']					= 'Primero';
 $lang['web_last']					= 'Último';
+$lang['web_my_account']				= 'Mi cuenta';
+
+
+$lang['web_hello']					= 'Hola';
+$lang['web_login']					= 'Login';
+$lang['web_logout']					= 'Logout';
+$lang['web_lastlogin']				= 'Último login';
+$lang['web_not_logged']				= 'No tienes permisos para ver este contenido';
+$lang['web_login_incorrect']		= 'El nombre de usuario o la contraseña introducidos no son correctos';
+$lang['web_user_deactivate']		= 'Desactivado correctamente';
+$lang['web_login_remb']				= '¿No puedes acceder a tu cuenta?';
+$lang['web_login_no_close']			= 'No cerrar sesión';
+$lang['web_login_access']			= 'Acceder';
+$lang['web_login_forgot']			= '¿Has olvidado tu contraseña?';
+$lang['web_login_forgot_p']			= 'Para restablecer tu contraseña, introduzca la dirección de correo electrónico que utilizas para iniciar sesión en este sitio.';
+$lang['web_login_forgot_e']			= 'Dirección de correo electrónico';
+$lang['web_email_taken']			= 'El correo electrónico que ha escogido está en uso por otra persona';
+$lang['web_auth_voc']				= 'Verificación de olvido de contraseña';
+$lang['web_auth_np']				= 'Nueva contraseña';
+$lang['web_auth_act']				= 'Activación de nueva cuenta';
+
+$lang['confirm_email_title']		= 'Bienvenido';
+$lang['activate_account']			= 'Activar su cuenta';
+$lang['confirm_email_0']			= 'Gracias por unirse a ';
+$lang['confirm_email_1']			= 'Para verificar su dirección de correo electrónico y activar su cuenta, por favor, siga este enlace:';
+$lang['confirm_email_not_work']		= '¿El link no funciona? Copia el siguiente enlace en tu barra de direcciones del navegador:';
+$lang['confirm_email_48']			= 'Por favor, verifique su correo electrónico dentro de 48 horas, de lo contrario su inscripción no será válida y usted tendrá que registrarse de nuevo.';
+$lang['confirm_data_log']			= 'Le recordamos sus datos de acceso para entrar en el portal:';
+
+$lang['confirm_email_thanks']		= '¡Saludos!';
+$lang['confirm_email_team']			= 'El equipo de ';
+
+$lang['changpass_title']			= 'Petición de cambio de contraseña';
+$lang['changpass_p1']				= 'Hemos recibido su solicitud para cambiar la contraseña.';
+$lang['changpass_p2']				= 'Por favor, pulsa el siguiente enlace para ';
+$lang['changpass_rest']				= 'restablecer la contraseña';
+
+$lang['npass_title']				= 'Nueva contraseña';
+$lang['npass_p1']					= 'Tras recibir su solicitud, hemos procedido a crear una nueva contraseña para su cuenta.';
+$lang['npass_p2']					= 'Su nueva contraseña es';
+$lang['npass_p3']					= "Recuerde que puede cambiar su contraseña desde el enlace 'Mi cuenta' en la parte privada.";
+

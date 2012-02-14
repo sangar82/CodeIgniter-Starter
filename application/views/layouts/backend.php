@@ -1,7 +1,12 @@
+<?php
+$user = $this->ion_auth->user()->row();
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
   <head>
+  	<title><?=$title?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='expires' content='1200' />
 	<meta http-equiv='content-language' content='es' />
@@ -21,10 +26,9 @@
 			<div id="btop">
 
 			  <h1><a href="#">Cleanity</a></h1>
+			  <p id="userbox"><?=lang('web_hello')?> <strong><?=$user->first_name?> <?=$user->last_name?></strong> &nbsp;| &nbsp;<a href="/auth/edit/<?=$user->id?>"><?=lang('web_my_account')?></a> &nbsp;| &nbsp;<a href="/logout"><?=lang('web_logout')?></a> <br>
 
-			  <p id="userbox">Hello <strong>John Doe</strong> &nbsp;| &nbsp;<a href="#">Settings</a> &nbsp;| &nbsp;<a href="#">Logout</a> <br>
-
-			  <small>Last Login: 12 May 2009</small></p>
+			  <small><?=lang('web_lastlogin')?>: <?=date('d-M-Y H:i:s', $user->last_login)?></small></p>
 
 			  <span class="clearFix">&nbsp;</span>
 
@@ -35,6 +39,9 @@
 
 				<?php  $mactive = ($this->uri->rsegment(1) == 'admin')  ? "class='selected'" : "" ?>
 				<li <?=$mactive?>><a href="/admin/" style="background-position: 0px 0px;"><?=lang('web_home')?></a></li>
+
+				<?php  $mactive = ($this->uri->rsegment(1) == 'auth')  ? "class='selected'" : "" ?>
+				<li <?=$mactive?>><a href="/auth/" style="background-position: 0px 0px;"><?=lang('web_users')?></a></li>
 
 				<?php  $mactive = ($this->uri->rsegment(1) == 'categories')  ? "class='selected'" : "" ?>
 				<li <?=$mactive?> ><a href="/categories/" class="top-level" style="background-position: 0px 0px;"><?=lang('web_categories')?><span>&nbsp;</span></a></li>

@@ -1,6 +1,11 @@
 <?php
 class Product extends ActiveRecord\Model {
 
+	static $belongs_to = array(
+	    array('category')
+	);
+
+
     /**
     * Return values of database with pagination
     *	

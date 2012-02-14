@@ -11,6 +11,16 @@ class Categories extends CI_Controller {
 
 	public function index()
 	{	
+
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
 		//set the title of the page 
 		$layout['title'] = lang('web_category_list');
 
@@ -40,17 +50,26 @@ class Categories extends CI_Controller {
 
 	function create() 
 	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
 		//Rules for validation
 		$this->set_rules();
 
+		//create control variables
+		$data['title'] = lang('web_category_create');
+		$data['updType'] = 'create';
+		$data['user'] = getTableColumns('categories', true);		
+
 		//validate the fields of form
 		if ($this->form_validation->run() == FALSE) 
-		{
-			//create control variables
-			$data['title'] = lang('web_category_create');
-			$data['updType'] = 'create';
-			$data['user'] = getTableColumns('categories', true);
-			
+		{	
 			//load the view and the layout
 			$layout['body'] = $this->load->view('categories/create', $data, TRUE);
 			$this->load->view('layouts/backend', $layout);
@@ -79,15 +98,25 @@ class Categories extends CI_Controller {
 
 	function edit($id = FALSE) 
 	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
 		//Rules for validation
 		$this->set_rules();
 
+		//create control variables
+		$data['title'] = lang("web_category_edit");
+		$data['updType'] = 'edit';
+
+
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
-			//create control variables
-			$data['title'] = lang("web_category_edit");
-			$data['updType'] = 'edit';
-
 			//get the $id
 			$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
 
@@ -136,6 +165,15 @@ class Categories extends CI_Controller {
 
 	function delete($id = NULL){
 
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+		
 		//filter & Sanitize $id
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
 

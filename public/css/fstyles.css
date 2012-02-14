@@ -1,20 +1,21 @@
 html, body{
 	margin: 0 20px;
 	padding: 0;
-}
-
-html{
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-family: Helvetica,Arial,Tahoma,sans-serif;
+  font-size:14px;
 }
 
 .error{
 	color: red;
 	font-size:13px;
+  padding-top:4px;
+  display:block;
 }
 
-form input{
+.signtable input[type='text'], .signtable  input[type='password']{
 	padding:2px 2px;
 	font-size:13px;
+  width:250px;
 }
 
 
@@ -46,3 +47,148 @@ form input{
 .msg_warning { background:#F7F3E8; border-color: #E4964D; }
 .msg_warning span { background-image: url(/public/img/flash_icons/warning.png); }
 /* icons flashdata */
+
+
+/* login */
+
+#submit{
+
+  -webkit-border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  
+  border: 2px solid #919191;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 10px;
+
+  background:#F0F0F0;
+  color:#444;
+}
+
+
+.sign-in {
+    margin:0px auto;
+    width: 335px;
+}
+
+.signin-box, .accountchooser-box {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border: 1px solid #E5E5E5;
+    margin: 12px 0 0;
+    padding: 20px 25px 15px;
+}
+
+.signin-box h2 {
+    font-size: 16px;
+    height: 16px;
+    line-height: 17px;
+    margin: 0 0 1.2em;
+    position: relative;
+}
+
+.signin-box h2 strong {
+    display: inline-block;
+    height: 19px;
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 52px;
+}
+
+.signin-box input[type="text"], .signin-box input[type="password"] {
+    font-size: 13px;
+    height: 25px;
+    width: 100%;
+}
+
+.signin-box label {
+    display: block;
+    margin: 0 0 1.5em;
+}
+
+.signin-box .email-label, .signin-box .passwd-label {
+    -moz-user-select: none;
+    display: block;
+    font-weight: bold;
+    margin: 0 0 0.5em;
+    font-size:14px
+}
+
+strong {
+    color: #222222;
+}
+
+.signin-box ul {
+    margin: 0;
+    line-height: 17px;
+    list-style: none outside none;
+}
+
+.signin-box ul li a {
+    color: #1155CC;
+    text-decoration: none;
+    font-size:13px;
+}
+
+.signin-box .remember-label {
+    -moz-user-select: none;
+    color: #666666;
+    font-weight: normal;
+    line-height: 0;
+    padding: 0 0 0 0.4em;
+    font-size:13px;
+}
+
+.signin-box, .accountchooser-box {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border: 1px solid #E5E5E5;
+    margin: 12px 0 0;
+    padding: 20px 25px 15px;
+}
+
+.signin-box input[type="submit"] {
+    font-size: 13px;
+    height: 32px;
+    margin: 0 1.5em 1.2em 0;
+    cursor:pointer;
+}
+
+.signin-box label.remember {
+    display: inline-block;
+    margin: 9px 0 0;
+    vertical-align: top;
+}
+
+.g-button-submit {
+    background-color: #4D90FE;
+    background-image:  -moz-linear-gradient(center top , #4D90FE, #4787ED);
+    border: 1px solid #3079ED;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* login */
+
+
+.labelforminline{
+    font-size:13px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #222222;
+    font-size: 1.54em;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 0 0.46em;
+}
+
+.par{
+  margin-bottom:15px;
+}
+
+.forgot_input{
+  display: inline-block;
+  height: 20px;
+  margin: 0;
+  

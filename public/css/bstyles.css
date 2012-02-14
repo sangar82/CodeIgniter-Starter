@@ -148,7 +148,7 @@ table.ftable{
 	width: 700px;
 	background: #ffffff;
 	padding:10px;
-	font-size:15px;
+	font-size:14px;
 	border-radius:8px;
 	padding-bottom: 20px;
 	margin-bottom:10px;
@@ -429,6 +429,10 @@ div#bfooter-bottom p a {
 
 .text{
     font-size:14px;
+}
+
+p{
+    margin-bottom:15px;
 }
 
 

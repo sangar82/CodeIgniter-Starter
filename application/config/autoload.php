@@ -53,7 +53,7 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation');
-$autoload['sparks'] = array('php-activerecord/0.0.2');
+$autoload['sparks'] = array('php-activerecord/0.0.2', 'ion_auth/2.1.2');
 
 
 /*
@@ -97,7 +97,7 @@ $autoload['config'] = array();
 |
 */
 
-$autoload['language'] = array('site', 'calendar', 'date', 'db', 'email', 'form_validation', 'ftp', 'imglib', 'number', 'profiler', 'tank_auth', 'unit_test', 'upload', 'web');
+$autoload['language'] = array('site', 'calendar', 'date', 'db', 'email', 'form_validation', 'ftp', 'imglib', 'number', 'profiler', 'tank_auth', 'unit_test', 'upload', 'web', 'ion_auth');
 
 
 /*
