@@ -10,9 +10,15 @@ $user = $this->ion_auth->user()->row();
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='expires' content='1200' />
 	<meta http-equiv='content-language' content='es' />
+
 	<base href="<?php echo $this->config->item('base_url') ?>/public/" />
 	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.17.custom.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/bstyles.css" type="text/css" media="screen" />
+	
+	<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui-1.8.17.custom.min.js" type="text/javascript"></script>
+	<script src="js/sortertables.js" type="text/javascript"></script>
 	
 </head>
 

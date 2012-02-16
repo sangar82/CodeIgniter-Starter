@@ -32,7 +32,7 @@ if ($category_id){
 
 <?php if ($categories): ?>
 
-	<table class='ftable' cellpadding="5" cellspacing="5">
+	<table id='tcategories' class='ftable' cellpadding="5" cellspacing="5">
 
 		<thead>
 			<th><?=lang('web_name')?></th>
@@ -44,8 +44,11 @@ if ($category_id){
 			<?php foreach ($categories as $category): ?>
 				
 				<tr id='<?=$category->id?>'>
-					<td><a href='/categories/<?=$category->id?>'><?=$category->name?></a> (<?= ($category->categories) ?  count($category->categories) :  "0" ?>)</td>
-					<td><a href='/products/product_list/<?=$category->id?>/1'>Listado de productos</a> (<?= ($category->products) ?  count($category->products) :  "0" ?>)</td>
+					<td width='150'>
+						<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+						<a href='/categories/<?=$category->id?>'><?=$category->name?></a> (<?= ($category->categories) ?  count($category->categories) :  "0" ?>)
+					</td>
+					<td width='370'><a href='/products/product_list/<?=$category->id?>/1'>Listado de productos</a> (<?= ($category->products) ?  count($category->products) :  "0" ?>)</td>
 					<td width="60"><a class='ledit' href='/categories/edit/<?=$category->id?>/<?=($category->category) ? $category->category->id : "" ?>'><?=lang('web_edit')?></a></td>
 					<td width="60"><a class='ldelete' onClick="return confirm('<?=lang('web_confirm_delete')?>')" href='/categories/delete/<?=$category->id?>'><?=lang('web_delete')?></a></td>
 				</tr>

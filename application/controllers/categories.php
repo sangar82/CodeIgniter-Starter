@@ -80,9 +80,15 @@ class Categories extends CI_Controller {
 					       	'name' => set_value('name')
 						);
 
+			
 			if($parent_id)
 			{
 				$form_data['category_id'] = $parent_id;
+				$form_data['orden'] = Category::count( array('conditions' => 'category_id = '.$parent_id.'') ) + 1;
+			}
+			else
+			{
+				$form_data['orden'] = Category::count(  array('conditions' => 'category_id is null' ) ) + 1;
 			}			
 
 			// run insert model to write data to db
@@ -194,7 +200,9 @@ class Categories extends CI_Controller {
 		//search the item to delete
 		if ( Category::exists($id) )
 		{
-			$category = Category::find($id);
+			$category 		= Category::find($id);
+			$order 			= $category->orden;
+			$category_id 	= $category->category_id;
 		}
 		else
 		{
@@ -205,17 +213,39 @@ class Categories extends CI_Controller {
 		//delete the item
 		if ( $category->delete() == TRUE) 
 		{
-			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));
-			redirect('categories/');
+			Category::reorder_rows($order, $category_id);
+
+			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));	
 		}
 		else
 		{
 			$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_delete_failed') ) );
-			redirect('categories/');
-			
 		}	
 
+		if ($category_id)
+			redirect('categories/'.$category_id);
+		else
+			redirect('categories');
+
 	}
+
+
+
+	public function update_order_categories(){
+		
+		$categories = $this->input->post('categories');
+
+		$array_cat = explode(',', $categories);
+
+		$order = 1;
+
+		foreach ($array_cat as $category) {
+			Category::change_orders_categories($category, $order);
+			$order++;
+		}
+
+	}
+
 
 
     /**

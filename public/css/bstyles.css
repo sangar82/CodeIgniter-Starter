@@ -495,5 +495,17 @@ p{
     margin-bottom:15px;
 }
 
+.ui-state-highlight { height: 2.5em; line-height: 1.2em;  }
+
+.ui-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    text-indent: -99999px;
+    top: 3px;
+    cursor:hand;
+}
+
 
 

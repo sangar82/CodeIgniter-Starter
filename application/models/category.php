@@ -27,11 +27,11 @@ class Category extends ActiveRecord\Model {
 	static function findby($category_id)
 	{
 		if ($category_id){
-			$result = Category::find( 'all', array('conditions' => 'category_id = '.$category_id.'') );
+			$result = Category::find('all', array('conditions' => 'category_id = '.$category_id.'', 'order' => 'orden asc') );
 		}
 		else
 		{
-			$result = Category::find( 'all',array( 'conditions' => 'category_id is null') );
+			$result = Category::find('all', array( 'conditions' => 'category_id is null', 'order' => 'orden asc' ));
 		}	
 
 		if ($result) {
@@ -65,6 +65,28 @@ class Category extends ActiveRecord\Model {
 
 		return $combo;
 
+	}
+
+	static function reorder_rows($order = 1, $category_id = NULL )
+	{
+		$conn = ActiveRecord\ConnectionManager::get_connection("development");  
+		
+		if ($category_id)
+			 $result = $conn->query('UPDATE categories SET orden = orden - 1 WHERE orden > '.$order.' and category_id = '. $category_id);
+		else
+			 $result = $conn->query('UPDATE categories SET orden = orden - 1 WHERE orden > '.$order.' and category_id is null');
+
+		return $result;		 
+	}
+
+
+	static function change_orders_categories($category, $order = 1){
+
+		$conn = ActiveRecord\ConnectionManager::get_connection("development");
+
+		$result = $conn->query('UPDATE categories SET orden = '.$order.' WHERE  id = '. $category);
+
+		return $result;
 	}
 
 
