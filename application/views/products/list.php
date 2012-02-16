@@ -1,6 +1,10 @@
 <div id="content-top">
     <h2>Listado de productos</h2>
-    <a href='/products/create' class='bcreate'>Crear producto</a>
+    <a href='/products/create/<?= ($category_id != "")  ? $category_id : "0"?>/<?=$page?>' class='bcreate'>Crear producto</a>
+    <?php if (isset($control)): ?>
+    	<a href='/categories/<?=$parent_category?>' class='bforward bforwardmargin'><?=lang('web_category_back')?></a>	
+    <?php endif ?>
+    
     <span class="clearFix">&nbsp;</span>
 </div>
 
@@ -22,8 +26,8 @@
 				<tr>
 					<td><img src='/public/uploads/img/thumbs/<?=$product->image?>' /></td>
 					<td><?=$product->name?> <br /></td>
-					<td width="60"><a class='ledit' href='/products/edit/<?=$product->id?>'><?=lang('web_edit')?></a></td>
-					<td width="60"><a class='ldelete' onClick="return confirm('<?=lang('web_confirm_delete')?>')" href='/products/delete/<?=$product->id?>'><?=lang('web_delete')?></a></td>
+					<td width="60"><a class='ledit' href='/products/edit/<?=$product->id?>/<?=($category_id != "") ? $category_id : "0" ?>/<?=$page?>'><?=lang('web_edit')?></a></td>
+					<td width="60"><a class='ldelete' onClick="return confirm('<?=lang('web_confirm_delete')?>')" href='/products/delete/<?=$product->id?>/<?=($category_id != "") ? $category_id : "0" ?>/<?=$page?>'><?=lang('web_delete')?></a></td>
 				</tr>
 				
 			<?php endforeach ?>

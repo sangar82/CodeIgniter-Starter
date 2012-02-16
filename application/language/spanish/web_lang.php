@@ -33,6 +33,8 @@ $lang['web_edit_category'] 			= 'Editar categoría';
 $lang['web_category_list'] 			= 'Listado de categorías';
 $lang['web_category_create'] 		= 'Crear categoría';
 $lang['web_category_edit'] 			= 'Editar categoría';
+$lang['web_category_back'] 			= 'Volver al listado de categorías';
+
 
 $lang['web_product'] 				= 'Producto';
 $lang['web_products'] 				= 'Productos';

@@ -9,8 +9,9 @@ class Categories extends CI_Controller {
 
 
 
-	public function index()
+	public function index($parent_id = NULL)
 	{	
+		//print_r( Category::get_formatted_combo() );
 
 		if (!$this->ion_auth->logged_in())
 		{
@@ -24,20 +25,10 @@ class Categories extends CI_Controller {
 		//set the title of the page 
 		$layout['title'] = lang('web_category_list');
 
-		//set the pagination configuration array and initialize the pagination
-		$config = $this->set_paginate_options();
-
-		//Initialize the pagination class
-		$this->pagination->initialize($config);
-
-		//control of number page
-		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
-
 		//find all the categories with paginate and save it in array to past to the view
-		$data["categories"] = Category::paginate($config["per_page"], $page);
-
-		//create paginate´s links
-		$data["links"] = $this->pagination->create_links();
+		$data["categories"] 	= 	Category::findby($parent_id);
+		$data["category_id"] 	= 	$parent_id;
+		$data['category']		= 	Category::find($parent_id);
 
 		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
 		$layout['body'] = $this->load->view('categories/list', $data, TRUE);
@@ -48,7 +39,7 @@ class Categories extends CI_Controller {
 
 
 
-	function create() 
+	function create($parent_id = FALSE) 
 	{
 		if (!$this->ion_auth->logged_in())
 		{
@@ -59,13 +50,21 @@ class Categories extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 
+		//get the parent id
+		$parent_id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('parent_id', TRUE);
+
+		//Filter & Sanitize $id
+		$parent_id = ($parent_id != 0) ? filter_var($parent_id, FILTER_VALIDATE_INT) : NULL;
+
+
 		//Rules for validation
 		$this->set_rules();
 
 		//create control variables
 		$data['title'] = lang('web_category_create');
 		$data['updType'] = 'create';
-		$data['user'] = getTableColumns('categories', true);		
+		$data['user'] = getTableColumns('categories', true);
+		$data['parent_id'] = $parent_id;		
 
 		//validate the fields of form
 		if ($this->form_validation->run() == FALSE) 
@@ -81,22 +80,27 @@ class Categories extends CI_Controller {
 					       	'name' => set_value('name')
 						);
 
+			if($parent_id)
+			{
+				$form_data['category_id'] = $parent_id;
+			}			
+
 			// run insert model to write data to db
 			if ( Category::create($form_data) == TRUE) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
-				redirect('categories/');
+				redirect('categories/'.$parent_id);
 			}
 			else
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_create_failed') ));
-				redirect('categories/');
+				redirect('categories/'.$parent_id);
 			}	
 	  	} 
 	}
 
 
-	function edit($id = FALSE) 
+	function edit($id = FALSE, $parent_id = FALSE) 
 	{
 		if (!$this->ion_auth->logged_in())
 		{
@@ -110,24 +114,28 @@ class Categories extends CI_Controller {
 		//Rules for validation
 		$this->set_rules();
 
+		//get the parent id and sanitize
+		$parent_id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
+		$parent_id = ($parent_id != 0) ? filter_var($parent_id, FILTER_VALIDATE_INT) : NULL;
+
+		//get the $id and sanitize
+		$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
+		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
+
+		//redirect if it´s no correct
+		if (!$id){
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
+			redirect('categories/');
+		}
+
 		//create control variables
 		$data['title'] = lang("web_category_edit");
 		$data['updType'] = 'edit';
+		$data['parent_id'] = $parent_id;
 
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
-			//get the $id
-			$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
-
-			//Filter & Sanitize $id
-			$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
-
-			//redirect if it´s no correct
-			if (!$id){
-				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
-				redirect('categories/');
-			}
 
 			//search the item to show in edit form
 			$data['category'] = Category::find_by_id($id);
@@ -151,12 +159,12 @@ class Categories extends CI_Controller {
 			if ( $user->update_attributes($form_data) == TRUE) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
-				redirect('categories/');
+				redirect('categories/'.$parent_id);
 			}
 			else
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_edit_failed') ) );
-				redirect('categories/');
+				redirect('categories/'.$parent_id);
 				
 			}	
 	  	} 
@@ -222,16 +230,26 @@ class Categories extends CI_Controller {
 	}	
 
 
-	private function set_paginate_options()
+	private function set_paginate_options($category_id = NULL)
 	{
 		$config = array();
 
-        $config["base_url"] = site_url() . "categories";
-        $config["total_rows"] = Category::count();
-
+        
+        if ($category_id)
+        {
+        	$config["base_url"] = site_url() . "categories/$category_id";
+        	$config["total_rows"] = Category::count( array('conditions' => 'category_id = '.$category_id.'') );
+        }
+        	
+        else
+        {
+        	$config["base_url"] = site_url() . "categories";
+        	$config["total_rows"] = Category::count(  array('conditions' => 'category_id is null' ) );
+        }
+        	
         $config["use_page_numbers"] = TRUE;
         $config["per_page"] = 10;
-        $config["uri_segment"] = 2;
+        $config["uri_segment"] = 3;
 
         $config["first_link"] = "<< ".lang('web_first');
         $config['first_tag_open'] = "<span class='pag'>";

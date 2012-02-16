@@ -1,6 +1,6 @@
 <div id="content-top">
     <h2><?=lang(($updType == 'create') ? "web_add_category" : "web_edit_category")?></h2>
-    <a href='/categories/' class='bforward'><?=lang('web_back_to_list')?></a>
+    <a href='/categories/<?=$parent_id?>' class='bforward'><?=lang('web_back_to_list')?></a>
     <span class="clearFix">&nbsp;</span>
 </div>
 
@@ -17,9 +17,10 @@ echo ($updType == 'create') ? form_open('categories/create', $attributes) : form
 </p>
 
 <p>
-    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_category_edit') : lang('web_category_create') ); ?>
+    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_category_edit') : lang('web_category_create'), (($updType == 'create') ? "class='bcreateform'" : "class='beditform'") ); ?>
 </p>
-
+	
+	<?=form_hidden('parent_id',$parent_id) ?>	
 
 <?php if ($updType == 'edit'): ?>
 	<?=form_hidden('id',$category->id) ?>

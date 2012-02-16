@@ -1,11 +1,32 @@
 <div id="content-top">
     <h2><?=($updType == 'create') ? "Crear Producto" : "Editar producto"?></h2>
-    <a href='/products/' class='bforward'><?=lang('web_back_to_list')?></a>
+    
+    <?php if ($updType == 'create'): ?>
+
+	    <?php if ($parent_id != "0"): ?>
+	    	<a href='/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+	    <?php else: ?>
+	    	 <a href='/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
+	    <?php endif ?>
+
+    <?php else: ?>
+
+ 	    <?php if ($parent_id != "0"): ?>
+    		<a href='/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+	    <?php else: ?>
+	    	 <a href='/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
+	    <?php endif ?>
+    	
+    <?php endif ?>
+
+
+   
     <span class="clearFix">&nbsp;</span>
 </div>
 
 
 <?php 
+
 $attributes = array('class' => 'tform', 'id' => '');
 echo ($updType == 'create') ? form_open_multipart('products/create', $attributes) : form_open_multipart('products/edit', $attributes); 
 ?>
@@ -63,8 +84,11 @@ echo ($updType == 'create') ? form_open_multipart('products/create', $attributes
 </p>
 
 <p>
-    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_edit_product') : lang('web_add_product') ); ?>
+    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_edit_product') : lang('web_add_product'), (($updType == 'create') ? "class='bcreateform'" : "class='beditform'")); ?>
 </p>
+
+<?=form_hidden('page',set_value('page', $page)) ?>
+<?=form_hidden('parent_id',set_value('parent_id', $parent_id)) ?>
 
 
 <?php if ($updType == 'edit'): ?>

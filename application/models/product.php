@@ -11,7 +11,26 @@ class Product extends ActiveRecord\Model {
     *	
     * @return mixed
     */
-	static function paginate($limit, $page){
+	static function paginate($category_id, $limit, $page){
+
+		$offset = $limit * ( $page - 1) ;
+
+		$result = Product::find('all', array('conditions' => 'category_id = '.$category_id.'', 'limit' => $limit, 'offset' => $offset ) );
+
+		if ($result) {
+			return $result;
+		}else{
+			return FALSE;
+		}
+	}
+	
+
+	/**
+    * Return values of database with pagination
+    *	
+    * @return mixed
+    */
+	static function paginate_all($limit, $page){
 
 		$offset = $limit * ( $page - 1) ;
 
@@ -23,6 +42,5 @@ class Product extends ActiveRecord\Model {
 			return FALSE;
 		}
 	}
-
-
+	
 }

@@ -46,6 +46,7 @@ $route['categories/(:num)'] = "categories/index/$1";
 
 //route para los productos
 $route['products/(:num)'] = "products/index/$1";
+$route['products/(:num)/(:num)'] = "products/index/$1/$2";
 
 //route para los posts del index
 $route['(:num)'] = "posts/index/$1";

@@ -132,7 +132,7 @@ div#bcontent {
 
 div#content-top {
     border-bottom: 1px solid #BCBCB7;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     padding-bottom: 8px;
 }
 
@@ -176,8 +176,7 @@ table.ftable tbody tr:nth-child(2n+1){
 
 table.ftable tbody tr td a{
     color:#333;
-    font-size:13px;
-    text-decoration:none;
+    font-size:14px;
 }
 
 table.ftable tbody tr td a:hover{
@@ -267,10 +266,44 @@ div#bfooter-bottom p a {
     color:#444;
 }
 
-.bcreate:hover{
+.bcreateform{
+    border-radius:4px;
+    -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px; 
+    border: 1px solid #919191;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 7px 3px 26px; 
+    text-decoration:none; 
+    position:relative;
+    background: url('/public/img/admin/badge-square-plus-16.png') no-repeat 6px 3px #fff;
+    color:#444;
+}
+
+.beditform{
+    border-radius:4px;
+    -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px; 
+    border: 1px solid #919191;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 7px 3px 26px; 
+    text-decoration:none; 
+    position:relative;
+    background: url('/public/img/admin/page-pencil-16.png') no-repeat 6px 2px #fff;
+    color:#444;
+}
+
+.bcreate:hover, .bcreateform:hover, .beditform:hover{
     color:#000;
     border: 1px solid #333;
     background: url('/public/img/admin/badge-circle-plus-16.png') no-repeat 6px 3px #ddd;
+}
+
+.beditform:hover{
+    color:#000;
+    border: 1px solid #333;
+    background: url('/public/img/admin/page-pencil-16.png') no-repeat 6px 2px #ddd;
 }
 
 .bforward{
@@ -294,14 +327,22 @@ div#bfooter-bottom p a {
     background-color:#ddd;
 }
 
+.bforwardmargin{
+    margin-right:20px;
+}
+
 .ledit{
     padding-left:20px;
     background: url('/public/img/admin/page-pencil-16.png') no-repeat -1px -3px;
+    text-decoration:none;
+    font-size:12px !important;
 }
 
 .ldelete{
     padding-left:20px;
     background: url('/public/img/admin/cross-16.png') no-repeat 0px -2px;
+    text-decoration:none;
+    font-size:12px !important
 }
 /* buttons */
 
@@ -423,8 +464,27 @@ div#bfooter-bottom p a {
 .msg_warning span { background-image: url(/public/img/flash_icons/warning.png); }
 /* icons flashdata */
 
+/*nav categories*/
+#nav_categories{
+    margin-top:4px;
+    font-size:13px;
+    position:relative;
+    
+}
+
+#nav_categories a{
+    color:#333;
+    font-size:13px;
+}   
+/*nav categories*/
+
 .clear{
     clear:both;
+}
+
+img{
+    border:1px solid #aaa;
+    paddding:2px;
 }
 
 .text{

@@ -5,10 +5,11 @@ Custom Codeigniter with preinstalled features:
 - Subdomains for languages
 - Controllers & Methods names with translations
 - Backend Template
-- Example of code (CRUD categories, CRUD products)
+- Example: Categories as a tree of categories
+- Example of code (CRUD categories, CRUD products with upload and thumbnail)
 - Translation on 3 languages (english, spanish, catalan) 30%
 - Basic layout (frontend, backend)
-- System Messages implemented as partial in layouts
+- System Messages implemented as partials in layouts
 - Folder for public content (images, js, uploads, ...)
 
 Ready to work! (in development)

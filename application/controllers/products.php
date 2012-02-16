@@ -24,16 +24,67 @@ class Products extends CI_Controller {
 		$layout['title'] = "Lista de productos";
 
 		//set the pagination configuration array and initialize the pagination
-		$config = $this->set_paginate_options();
+		$config = $this->set_paginate_options('index');
 
 		//Initialize the pagination class
 		$this->pagination->initialize($config);
 
 		//control of number page
 		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
+		$data['parent_category'] = "";
 
 		//find all the categories with paginate and save it in array to past to the view
-		$data["products"] = Product::paginate($config["per_page"], $page);
+		$data["products"] = Product::paginate_all($config["per_page"], $page);
+
+		//create paginate´s links
+		$data["links"] = $this->pagination->create_links();
+
+		//control variables
+		$data['page'] = $page;
+		$data['category_id'] = NULL;
+
+		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
+		$layout['body'] = $this->load->view('products/list', $data, TRUE);
+
+		//Cargamos el layout y le pasamos el contenido que esta en la variable $layout
+		$this->load->view('layouts/backend', $layout);
+	}
+
+
+	public function product_list( $category_id = NULL, $page = 1)
+	{	
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
+		//set the title of the page 
+		$layout['title'] = "Lista de productos";
+
+		//set the pagination configuration array and initialize the pagination
+		$config = $this->set_paginate_options('product_list', $category_id);
+
+		//Initialize the pagination class
+		$this->pagination->initialize($config);
+
+		//control of number page
+		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
+
+		//find all the categories with paginate and save it in array to past to the view
+		$data["products"] 			= 	Product::paginate($category_id, $config["per_page"], $page);
+		$data['category_id']		=	$category_id;
+		$data['page']				=	$page;
+		$data['control']			= 	TRUE;
+		
+		if ( ! is_null( Category::find($category_id)->category) )
+			$data['parent_category']	=	Category::find($category_id)->category->id;
+		else
+			$data['parent_category']	=	"";
+		
 
 		//create paginate´s links
 		$data["links"] = $this->pagination->create_links();
@@ -46,8 +97,7 @@ class Products extends CI_Controller {
 	}
 
 
-
-	function create() 
+	function create($category_id = NULL, $page = NULL) 
 	{
 		if (!$this->ion_auth->logged_in())
 		{
@@ -60,12 +110,15 @@ class Products extends CI_Controller {
 
 		//search the categories and send to the view
 		$this->load->model('category');
-		$data['categories']  = Category::find('all');
+		$data['categories']  = Category::get_formatted_combo();
 
 		//create control variables
-		$data['title'] = "Crear producto";
-		$data['updType'] = 'create';
-		$data['user'] = getTableColumns('products', true);
+		$data['title'] 					= 	"Crear producto";
+		$data['updType'] 				= 	'create';
+		$data['product'] 				= 	getTableColumns('products', true);
+		$data['product']->category_id 	= 	$category_id;
+		$data['page']					=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('page', TRUE);
+		$data['parent_id']				=	( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('parent_id', TRUE);
 
 		//Rules for validation
 		$this->set_rules();
@@ -128,13 +181,17 @@ class Products extends CI_Controller {
 					if ( Product::create($form_data) == TRUE) // the information has therefore been successfully saved in the db
 					{
 						$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
-						redirect('products/');
 					}
 					else
 					{
 						$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_create_failed') ));
-						redirect('products/');
 					}
+
+					if ($this->input->post('parent_id'))
+						redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
+					else
+						redirect('products/'.$this->input->post('page', TRUE));
+
 				}
 			}	
 	  	} 
@@ -152,30 +209,34 @@ class Products extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 
+
+		//get the $id and sanitize
+		$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
+		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
+
 		//search the categories and send to the view
 		$this->load->model('category');
-		$data['categories']  = Category::find('all');
+		$data['categories']  = Category::get_formatted_combo();
+
+		//create control variables
+		$data['title'] 		= 	"Editar producto";
+		$data['updType'] 	= 	'edit';
+		$data['page']		=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('page', TRUE);
+		$data['parent_id']	=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
+
+
+		//redirect if it´s no correct
+		if (!$id){
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
+			redirect('products/');
+		}		
 
 		//Rules for validation
 		$this->set_rules();
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
-			//create control variables
-			$data['title'] = "Editar producto";
-			$data['updType'] = 'edit';
 
-			//get the $id
-			$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
-
-			//Filter & Sanitize $id
-			$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
-
-			//redirect if it´s no correct
-			if (!$id){
-				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
-				redirect('products/');
-			}
 
 			//search the item to show in edit form
 			$data['product'] = Product::find_by_id($id);
@@ -222,7 +283,6 @@ class Products extends CI_Controller {
 				}
 			}
 
-
 			// build array for the model
 			$form_data = array(
 					       	'name' 			=> $this->input->post('name', TRUE ), 
@@ -244,19 +304,21 @@ class Products extends CI_Controller {
 			if ( $product->update_attributes($form_data) == TRUE) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
-				redirect('products/');
 			}
 			else
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_edit_failed') ) );
-				redirect('products/');
-				
 			}	
+
+			if ($this->input->post('parent_id'))
+				redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
+			else
+				redirect('products/'.$this->input->post('page', TRUE));
 	  	} 
 	}
 
 
-	function delete($id = NULL){
+	function delete($id = NULL, $category_id = NULL, $page = NULL){
 
 		if (!$this->ion_auth->logged_in())
 		{
@@ -301,7 +363,11 @@ class Products extends CI_Controller {
 				unlink(FCPATH.'public/uploads/img/thumbs/'.$image);
 
 			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));
-			redirect('products/');
+
+			if ($category_id != 0)
+				redirect('products/product_list/'.$category_id.'/'.$page);
+			else				
+				redirect('products/'. $page);
 		}
 		else
 		{
@@ -361,16 +427,31 @@ class Products extends CI_Controller {
 	}
 
 
-	private function set_paginate_options()
+	private function set_paginate_options($method = NULL, $category_id = NULL)
 	{
 		$config = array();
 
-        $config["base_url"] = site_url() . "categories";
-        $config["total_rows"] = Category::count();
+		if ($method == 'index')
+        	$config["base_url"] = site_url() . "products";
+        else
+        	$config["base_url"] = site_url() . "products/product_list/".$category_id;
+
+        if ($method == 'index')
+        	$config["total_rows"] = Product::count();
+        else
+        	$config["total_rows"] = Product::count( array('conditions' => 'category_id = '.$category_id.'') );
+
 
         $config["use_page_numbers"] = TRUE;
-        $config["per_page"] = 10;
-        $config["uri_segment"] = 2;
+
+        $config["per_page"] = 5;
+
+        if ($method == 'index')
+        	$config["uri_segment"] = 2;
+        else
+        	$config["uri_segment"] = 4;
+
+
 
         $config["first_link"] = "<< ".lang('web_first');
         $config['first_tag_open'] = "<span class='pag'>";
