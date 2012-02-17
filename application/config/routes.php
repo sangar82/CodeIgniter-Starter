@@ -37,9 +37,10 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
 $route['default_controller'] = "admin";
 $route['404_override'] = '';
+
+$route['test'] = "test/mytest";
 
 //route para las categorias
 $route['categories/(:num)'] = "categories/index/$1";
@@ -48,14 +49,11 @@ $route['categories/(:num)'] = "categories/index/$1";
 $route['products/(:num)'] = "products/index/$1";
 $route['products/(:num)/(:num)'] = "products/index/$1/$2";
 
-//route para los posts del index
-$route['(:num)'] = "posts/index/$1";
-$route['posts/(.+)/(\d+)'] = "posts/archive/$1/$2";
-
 //route para el logout
 $route['login'] = "auth/login";
 $route['logout'] = "auth/logout";
 $route['forgot_password'] = "auth/forgot_password";
+
 
 
 

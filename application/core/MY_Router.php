@@ -150,19 +150,19 @@ class MY_Router extends CI_Router {
 		}
 
 
-
 		// Is the controller in a sub-folder?
-		if (is_dir(APPPATH.'controllers/'.$real_name_class))
+		if (is_dir(APPPATH.'controllers/'.$segments[0]))
 		{
+
 			// Set the directory and remove it from the segment array
-			$this->set_directory($real_name_class);
+			$this->set_directory($segments[0]);
 			$segments = array_slice($segments, 1);
 
 			if (count($segments) > 0)
 			{
 				// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$real_name_class.'.php'))
-				{
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
+				{	
 					if ( ! empty($this->routes['404_override']))
 					{
 						$x = explode('/', $this->routes['404_override']);
@@ -175,7 +175,7 @@ class MY_Router extends CI_Router {
 					}
 					else
 					{
-						show_404($this->fetch_directory().$real_name_class);
+						show_404($this->fetch_directory().$segments[0]);
 					}
 				}
 			}

@@ -3,16 +3,16 @@ global $cn_trans;
 
 $cn_trans = array(
 		"spanish"		=>		array(		
-						"articulos"			=>		'posts',
-						"usuarios"			=>		'users'
+						"productos"			=>		'products',
+						"usuarios"			=>		'auth'
 
 	
 								),
 
 
 		"english"		=>		array(		
-						"posts"				=>		'posts',
-						"users"				=>		'users'
+						"products"			=>		'products',
+						"auth"				=>		'auth'
 
 								)
 							
