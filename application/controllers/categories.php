@@ -77,22 +77,12 @@ class Categories extends CI_Controller {
 		{
 			// build array for the model
 			$form_data = array(
-					       	'name' => set_value('name')
-						);
-
-			
-			if($parent_id)
-			{
-				$form_data['category_id'] = $parent_id;
-				$form_data['orden'] = Category::count( array('conditions' => 'category_id = '.$parent_id.'') ) + 1;
-			}
-			else
-			{
-				$form_data['orden'] = Category::count(  array('conditions' => 'category_id is null' ) ) + 1;
-			}			
+				'name' => set_value('name'),
+				'category_id' => $parent_id,
+			);
 
 			// run insert model to write data to db
-			if ( Category::create($form_data) == TRUE) // the information has therefore been successfully saved in the db
+			if ( Category::create($form_data)) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
 				redirect('categories/'.$parent_id);
@@ -118,7 +108,7 @@ class Categories extends CI_Controller {
 		}
 
 		//Rules for validation
-		$this->set_rules();
+		$this->set_rules('edit');
 
 		//get the parent id and sanitize
 		$parent_id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
@@ -201,8 +191,6 @@ class Categories extends CI_Controller {
 		if ( Category::exists($id) )
 		{
 			$category 		= Category::find($id);
-			$order 			= $category->orden;
-			$category_id 	= $category->category_id;
 		}
 		else
 		{
@@ -213,8 +201,6 @@ class Categories extends CI_Controller {
 		//delete the item
 		if ( $category->delete() == TRUE) 
 		{
-			Category::reorder_rows($order, $category_id);
-
 			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));	
 		}
 		else
@@ -222,8 +208,8 @@ class Categories extends CI_Controller {
 			$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_delete_failed') ) );
 		}	
 
-		if ($category_id)
-			redirect('categories/'.$category_id);
+		if ($category->category_id)
+			redirect('categories/'.$category->category_id);
 		else
 			redirect('categories');
 
@@ -253,11 +239,45 @@ class Categories extends CI_Controller {
      *	
      * @return void
      */
-	private function set_rules()
+	private function set_rules($type = 'create')
 	{
-		$this->form_validation->set_rules('name', 'lang:web_name', 'required|trim|xss_clean|min_length[2]|max_length[100]');			
+
+		$this->form_validation->set_rules('name', 'lang:web_name', 'required|trim|xss_clean|min_length[2]|max_length[100]|callback_name_check');
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
+
 	}	
+	
+
+	public function name_check($name){
+		
+		$category_id = $this->input->post('parent_id');
+		$id = $this->input->post('id');
+
+		if ($category_id)
+		{
+			if ($id)
+				$rows = Category::count( array('conditions' => array('category_id = ? AND name = ? AND id <> ?', $category_id, $name, $id)) );
+			else
+				$rows = Category::count( array('conditions' => array('category_id = ? AND name = ?', $category_id, $name)) );
+		}
+		else
+		{
+			if ($id)
+				$rows = Category::count( array('conditions' => array('category_id is null AND name = ? AND id <> ?', $name, $id)) );
+			else
+				$rows = Category::count( array('conditions' => array('category_id is null AND name = ?', $name )) );
+		}
+
+		if ($rows)
+		{
+			$this->form_validation->set_message('name_check', lang('web_category_unique'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 
 
 	private function set_paginate_options($category_id = NULL)

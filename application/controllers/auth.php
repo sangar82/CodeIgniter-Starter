@@ -510,7 +510,7 @@ class Auth extends CI_Controller {
 		//validate form input
 		$this->form_validation->set_rules('first_name', 'lang:web_name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'lang:web_lastname', 'required|xss_clean');
-		$this->form_validation->set_rules('email', 'lang:web_email', 'required|valid_email');
+		$this->form_validation->set_rules('email', 'lang:web_email', 'required|valid_email|is_unique[users.email]|xss_clean');
 
 		if ($type = 'edit')
 			$this->form_validation->set_rules('password', 'lang:web_password', 'min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');

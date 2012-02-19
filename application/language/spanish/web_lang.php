@@ -34,6 +34,8 @@ $lang['web_category_list'] 			= 'Listado de categorías';
 $lang['web_category_create'] 		= 'Crear categoría';
 $lang['web_category_edit'] 			= 'Editar categoría';
 $lang['web_category_back'] 			= 'Volver al listado de categorías';
+$lang['web_category_unique'] 		= 'El nombre de la categoria ya está en uso en esta rama. Escoja otro.';
+
 
 
 $lang['web_product'] 				= 'Producto';
