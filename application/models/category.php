@@ -26,7 +26,6 @@ class Category extends ActiveRecord\Model {
 
 
 
-
 	//relations
 
 	static $has_many = array(
@@ -190,7 +189,7 @@ class Category extends ActiveRecord\Model {
 
 		if ($rows)
 		{
-			return FALSE;
+			$this->errors->add('name', "El nombre no es único en esta categoría");
 		}
 		else
 		{

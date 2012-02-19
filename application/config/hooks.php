@@ -11,12 +11,12 @@
 */
 
 
- $hook['display_override'][] = array(
-   'class'    => 'Yield',
-   'function' => 'run',
-   'filename' => 'Yield.php',
-   'filepath' => 'hooks'
-  );
+$hook['pre_controller'][] = array(
+    'class'    => '',
+    'function' => 'initialize_php_activerecord',
+    'filename' => 'ActiveRecord.php',
+    'filepath' => 'third_party/php-activerecord'                                
+);
 
 
 /* End of file hooks.php */

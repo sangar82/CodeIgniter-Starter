@@ -52,8 +52,8 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation');
-$autoload['sparks'] = array('php-activerecord/0.0.2', 'ion_auth/2.1.2');
+$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation', 'ion_auth');
+//$autoload['sparks'] = array('');
 
 
 /*
