@@ -2,14 +2,18 @@ Custom Codeigniter with preinstalled features:
 
 - Sparks installed (http://getsparks.org/)
 - Ion Auth modified and ready to work (all views translateds and CRUD users) (http://benedmunds.com/ion_auth/)
+- Php-ActiveRecord installed (https://github.com/kla/php-activerecord)
 - Subdomains for languages
 - Controllers & Methods names with translations
 - Backend Template
 - Example: Categories as a tree of categories
 - Example of code (CRUD categories, CRUD products with upload and thumbnail)
+- Examples of validation of
 - Translation on 3 languages (english, spanish, catalan) 30%
 - Basic layout (frontend, backend)
 - System Messages implemented as partials in layouts
 - Folder for public content (images, js, uploads, ...)
+- Includes basic before_filter and after_filter support (Matthew Machuga
+)https://github.com/machuga/codeigniter-filter
 
 Ready to work! (in development)

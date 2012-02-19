@@ -1,6 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Categories extends CI_Controller {
+class Categories extends MY_Controller {
+
+	protected $before_filter = array(
+		'action' => 'is_logged_in',
+		//'except' => array('index')
+		//'only' => array('index')
+	);
 	
 	function __construct()
 	{
@@ -8,19 +14,8 @@ class Categories extends CI_Controller {
 	}
 
 
-
 	public function index($parent_id = NULL)
 	{	
-		//print_r( Category::get_formatted_combo() );
-
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
 
 		//set the title of the page 
 		$layout['title'] = lang('web_category_list');
@@ -41,15 +36,6 @@ class Categories extends CI_Controller {
 
 	function create($parent_id = FALSE) 
 	{
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-
 		//get the parent id
 		$parent_id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('parent_id', TRUE);
 
@@ -98,15 +84,6 @@ class Categories extends CI_Controller {
 
 	function edit($id = FALSE, $parent_id = FALSE) 
 	{
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-
 		//Rules for validation
 		$this->set_rules('edit');
 
@@ -167,17 +144,8 @@ class Categories extends CI_Controller {
 	}
 
 
-	function delete($id = NULL){
-
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-		
+	function delete($id = NULL)
+	{
 		//filter & Sanitize $id
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
 
@@ -239,7 +207,7 @@ class Categories extends CI_Controller {
      *	
      * @return void
      */
-	private function set_rules($type = 'create')
+	private function _set_rules($type = 'create')
 	{
 
 		$this->form_validation->set_rules('name', 'lang:web_name', 'required|trim|xss_clean|min_length[2]|max_length[100]|callback_name_check');
@@ -332,6 +300,18 @@ class Categories extends CI_Controller {
 	    return $config;
 	}
 	
-		
+
+
+	function is_logged_in()
+	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//set message 
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+			
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+	}		
 
 }
