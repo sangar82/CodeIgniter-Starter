@@ -171,6 +171,66 @@ strong {
 /* login */
 
 
+/* table forms */
+.error{
+  color: red;
+  font-size:13px;
+}
+
+.required{
+    font-weight:bold;
+    color: red;
+}
+
+
+.labelform{
+    display:block;
+    margin-bottom:4px;
+    font-size:15px;
+}
+
+.labelforminline{
+    font-size:13px;
+}
+
+
+.tform input[type='text'], .tform input[type='file']{
+    width:400px;
+    padding:2px 2px;
+    font-size:12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.tform input[type='radio']{
+    margin-bottom:8px;
+}
+
+.tform textarea{
+    width:400px;
+    height:100px;
+    padding:4px;
+    font-size:12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.tform select{
+    width:200px;
+    padding:4px;
+    font-size:12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.tform p{
+    padding:5px;
+    margin-bottom:15px;
+}
+
+/* table forms */
+
+p{
+    margin-bottom:15px;
+}
+
 .labelforminline{
     font-size:13px;
 }

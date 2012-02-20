@@ -1,5 +1,4 @@
 <?php
-
 require_once(APPPATH . '/controllers/test/Toast.php');
 
 class Categories_test extends Toast
@@ -41,7 +40,7 @@ class Categories_test extends Toast
 
     function test_pre_count()
     {   
-        $this->m_all_count = Category::count();   
+        $this->m_all_count = Category::count();
     }
 
 
@@ -82,7 +81,7 @@ class Categories_test extends Toast
     }
 
 
-    function test_dont_create_same_name()
+    function test_dont_create_same_name_that_other()
     {
         $form_data_2 = array(
             'name'          =>      'TEST_name',
@@ -93,6 +92,36 @@ class Categories_test extends Toast
 
         $this->_assert_false($category->is_valid()) ;
         
+    }
+
+
+    function test_dont_edit_same_name_that_other()
+    {
+        $form_data_2 = array(
+            'name'          =>      'TEST_name_2',
+            'category_id'   =>      NULL
+        );
+
+        Category::create($form_data_2);
+
+        $category2 = Category::last();
+
+        $category2->update_attributes( array('name' =>  'TEST_name') );
+
+        $category2->delete();
+
+        $this->_assert_false($category2->is_valid()) ;      
+    }
+
+    function test_dont_blank_name()
+    {
+        $form_data_2 = array(
+            'name'          =>  '',
+            'category_id'   =>   NULL
+        );
+
+        $category = new Category($form_data_2);  
+        $this->_assert_false($category->is_valid()) ;           
     }
 
 

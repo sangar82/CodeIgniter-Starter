@@ -44,7 +44,7 @@ class Categories extends MY_Controller {
 
 
 		//Rules for validation
-		$this->set_rules();
+		$this->_set_rules();
 
 		//create control variables
 		$data['title'] = lang('web_category_create');
@@ -85,7 +85,7 @@ class Categories extends MY_Controller {
 	function edit($id = FALSE, $parent_id = FALSE) 
 	{
 		//Rules for validation
-		$this->set_rules('edit');
+		$this->_set_rules('edit');
 
 		//get the parent id and sanitize
 		$parent_id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
@@ -158,7 +158,7 @@ class Categories extends MY_Controller {
 		//search the item to delete
 		if ( Category::exists($id) )
 		{
-			$category 		= Category::find($id);
+			$category = Category::find($id);
 		}
 		else
 		{

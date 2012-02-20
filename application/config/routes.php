@@ -37,10 +37,11 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['default_controller'] = "admin";
+$route['default_controller'] = "index/index";
 $route['404_override'] = '';
 
-$route['test'] = "test/mytest";
+
+$route['contact'] = "index/contact";
 
 //route para las categorias
 $route['categories/(:num)'] = "categories/index/$1";

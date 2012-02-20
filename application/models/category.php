@@ -19,14 +19,14 @@ class Category extends ActiveRecord\Model {
 	after_destroy: called after a model has been deleted
 	*/
 
-	//callbacks
+	// Callbacks
 
 	static $before_save = array('set_order');
 	static $after_destroy = array('set_order_after_delete');
 
 
 
-	//relations
+	// Relations
 
 	static $has_many = array(
 		array('products'),
@@ -39,23 +39,25 @@ class Category extends ActiveRecord\Model {
 	);
 
 
-	//validations
+	// Validations
+	
+	static $validates_presence_of = array(
+      array('name', 'message' => 'not blank')
+    );
+
+
 /*
 	static $validates_uniqueness_of = array(
       array('name', 'message' => 'taken')
     );
-
-
-    static $validates_presence_of = array(
-      array('name', 'message' => 'not blank')
-    );
 */
 
-	//methods
+	// Methods
 
 	public function get_parent() {
         return $this->category;
     }
+
 
     public function get_children() {
         return $this->categories;

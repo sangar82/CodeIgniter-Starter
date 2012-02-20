@@ -66,6 +66,8 @@ $lang['web_image_edit']				= 'Edita la imagen';
 $lang['web_choose_option']			= 'Escoja una opción';
 $lang['web_image']					= 'Imagén';
 $lang['web_groups']					= 'Grupos';
+$lang['web_phone']					= 'Teléfono';
+$lang['web_comments']				= 'Comentarios';
 
 
 $lang['web_home']					= 'Inicio';
@@ -112,4 +114,10 @@ $lang['npass_title']				= 'Nueva contraseña';
 $lang['npass_p1']					= 'Tras recibir su solicitud, hemos procedido a crear una nueva contraseña para su cuenta.';
 $lang['npass_p2']					= 'Su nueva contraseña es';
 $lang['npass_p3']					= "Recuerde que puede cambiar su contraseña desde el enlace 'Mi cuenta' en la parte privada.";
+
+
+$lang['web_mail_ok']				= "Mail enviado correctamente. En breve nos pondremos en contacto con ústed.";
+$lang['web_mail_ko']				= "Error enviando el mail. Pruébelo más tarde.";
+
+
 

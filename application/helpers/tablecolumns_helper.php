@@ -7,22 +7,23 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
     function getTableColumns($tName, $empty=FALSE) 
 	{
 		$data = array();
+		$conn = ActiveRecord\ConnectionManager::get_connection("development");
 		$sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$tName'";
-		$query = Category::find_by_sql($sql);
+		$result = (object)$conn->query($sql);
 		if ( Category::count() > 0) 
 		{
 
-			foreach ($query as $row)
+			foreach ($result as $row)
 			{
 	           // if $empty is true, return associative array with empty values
 	           // else return array containing column names
 				if ($empty) 
 				{
-		         	$data[$row->column_name] = '';
+		         	$data[$row['column_name']] = '';
 				} 
 				else 
 				{
-					$data[] = $row->column_name;
+					$data[] = $row['column_name'];
 				} 	
 	        }
 		}	
