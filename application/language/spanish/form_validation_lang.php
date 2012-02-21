@@ -24,5 +24,7 @@ $lang['less_than']			= "EL campo %s debe contener un numero menor a %s.";
 $lang['greater_than']		= "El campo %s debe cotener un numero mayos a %s.";
 $lang['is_unique']			= "Ya existe un usuario con este email."; //no esta en los demas idiomas
 
+$lang['blank']				= "No puede dejar el campo en blanco";
+
 /* End of file form_validation_lang.php */
 /* Location: ./system/language/english/form_validation_lang.php */

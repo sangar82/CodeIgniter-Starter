@@ -31,7 +31,7 @@ html, body{
   font-family:Arial, Helvetica, sans-serif;
   margin-top:20px;
 }
-.msg_error span, .msg_success span, .msg_info span, .msg_warning span {
+.msg_error span, .msg_success span, .msg_info span, .msg_warning span, .msg_error ul li span, .msg_success ul li span, .msg_info ul li span, .msg_warning ul li span {
   background-repeat: no-repeat;
   background-position: top left;
   display: block;

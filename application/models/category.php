@@ -42,7 +42,7 @@ class Category extends ActiveRecord\Model {
 	// Validations
 	
 	static $validates_presence_of = array(
-      array('name', 'message' => 'not blank')
+      array('name')
     );
 
 
@@ -149,7 +149,8 @@ class Category extends ActiveRecord\Model {
 	}
 
 
-	static function change_orders_categories($category, $order = 1){
+	static function change_orders_categories($category, $order = 1)
+	{
 
 		$conn = ActiveRecord\ConnectionManager::get_connection("development");
 
@@ -196,9 +197,6 @@ class Category extends ActiveRecord\Model {
 		else
 		{
 			return TRUE;
-		}
-				
+		}			
 	}
-
-
 }

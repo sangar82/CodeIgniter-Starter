@@ -42,7 +42,6 @@ class Categories extends MY_Controller {
 		//Filter & Sanitize $id
 		$parent_id = ($parent_id != 0) ? filter_var($parent_id, FILTER_VALIDATE_INT) : NULL;
 
-
 		//Rules for validation
 		$this->_set_rules();
 
@@ -67,15 +66,19 @@ class Categories extends MY_Controller {
 				'category_id' => $parent_id,
 			);
 
+			$category = Category::create($form_data);
+
 			// run insert model to write data to db
-			if ( Category::create($form_data)) // the information has therefore been successfully saved in the db
+			if ( $category->is_valid() ) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
 				redirect('categories/'.$parent_id);
 			}
-			else
+			
+			if ( $category->is_invalid() )
 			{
-				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_create_failed') ));
+				//$this->session->set_flashdata('message', array( 'type' =>  'error', 'text' => lang('web_create_failed') ));
+				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $category->errors->full_messages()));
 				redirect('categories/'.$parent_id);
 			}	
 	  	} 
@@ -126,19 +129,20 @@ class Categories extends MY_Controller {
 						);
 		
 			//find the item to update
-			$user = Category::find($this->input->post('id', TRUE));
+			$category = Category::find($this->input->post('id', TRUE));
+			$category->update_attributes($form_data);
 
 			// run insert model to write data to db
-			if ( $user->update_attributes($form_data) == TRUE) // the information has therefore been successfully saved in the db
+			if ( $category->is_valid()) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
 				redirect('categories/'.$parent_id);
 			}
-			else
+
+			if ($category->is_invalid())
 			{
-				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_edit_failed') ) );
-				redirect('categories/'.$parent_id);
-				
+				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $category->errors->full_messages() ) );
+				redirect('categories/'.$parent_id);	
 			}	
 	  	} 
 	}

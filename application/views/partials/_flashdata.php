@@ -3,16 +3,20 @@
 
     $message = $this->session->flashdata('message');
 
-    //print_r($message);
-
     if($message)
     {
 
-    	if ( is_array($message))
+    	if ( is_array($message['text']))
     	{
 	        echo "<div class='msg_".$message['type']."'>";
 
-	            echo "<span>".$message['text'] . "</span>";
+                echo "<ul>";
+
+                foreach ($message['text'] as $msg) {
+                    echo "<li><span>".$msg."</span></li>";
+                }
+
+                echo "<ul>";
 
 	        echo "</div>";
 	    }
@@ -20,7 +24,7 @@
     	{
 	        echo "<div class='msg_success'>";
 
-	            echo "<span>".$message . "</span>";
+	            echo "<span>".$message['text'] . "</span>";
 
 	        echo "</div>";
 	    }
