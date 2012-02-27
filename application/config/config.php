@@ -72,7 +72,7 @@ $config['url_suffix'] = '';
 */
 //$config['language']	= 'english';
 $config['language'] = "spanish";
-$config['languages'] = array("es" => "spanish", "en" => "english");
+$config['languages'] = array("es" => "spanish", "en" => "english", "ca" => "catalan");
 $config['redirect_urls'] = false;
 
 /*
