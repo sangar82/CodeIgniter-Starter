@@ -2,18 +2,20 @@
 global $cn_trans;
 
 $cn_trans = array(
-		"spanish"		=>		array(		
-						"productos"			=>		'products',
-						"usuarios"			=>		'auth'
+        "spanish"       =>      array(      
+                        "productos"         =>      'products',
+                        "categorias"        =>      'categories',
+                        "usuarios"          =>      'auth'
 
-	
-								),
+    
+                                ),
 
 
-		"english"		=>		array(		
-						"products"			=>		'products',
-						"auth"				=>		'auth'
+        "english"       =>      array(      
+                        "products"          =>      'products',
+                        "categories"        =>      'categories',
+                        "auth"              =>      'auth'
 
-								)
-							
+                                )
+                            
 );

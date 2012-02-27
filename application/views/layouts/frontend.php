@@ -21,8 +21,12 @@ $user = $this->ion_auth->user()->row();
 	<div id='bcontainer'>
 
 		<div id="fheader">
-
+			<a href='http://www.ci.com'>ES</a> |
+			<a href='http://ca.ci.com'>CA</a> |
+			<a href='http://en.ci.com'>EN</a> 
 		</div>
+
+		<br/><br/><br/><br/>
 
 
 	    <div id="bcontent">

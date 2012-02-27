@@ -5,21 +5,34 @@ $mn_trans = array(
 		"spanish"	=>	array(
 								
 						"usuarios"		=>		array(		
-															"articulos"			=>		'articles',
-															"crear"				=>		'create'),
-															
-						"articulos"		=>		array(		
 															"crear"				=>		'create',
-															"archivo"			=>		'archive')),
+															"editar"			=>		'edit',
+															"eliminar"			=>		'delete'),															
+						"categorias"	=>		array(		
+															"crear"				=>		'create',
+															"editar"			=>		'edit',
+															"eliminar"			=>		'delete'),
+															
+						"productos"		=>		array(		
+															"crear"				=>		'create',
+															"editar"			=>		'edit',
+															"eliminar"			=>		'delete')),
+															
 
 		"english"	=>	array(		
 			
-						"users"			=>		array(		
-															"articles"			=>		'articles',
-															"create"			=>		'create'),
-															
-						"posts"			=>		array(		
+						"auth"			=>		array(		
 															"create"			=>		'create',
-															"archive"			=>		'archive'))
+															"edit"				=>		'edit',
+															"delete"			=>		'delete'),															
+						"categories"	=>		array(		
+															"create"			=>		'create',
+															"edit"				=>		'edit',
+															"delete"			=>		'delete'),
+															
+						"products"		=>		array(		
+															"create"			=>		'create',
+															"edit"				=>		'edit',
+															"delete"			=>		'delete'))
 						
 );

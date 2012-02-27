@@ -10,7 +10,8 @@ class Index extends CI_Controller
 
 	public function index()
 	{
-		echo "inici";
+		$layout['body'] = $this->load->view('/index/index', NULL, TRUE);
+		$this->load->view('/layouts/frontend', $layout);
 	}
 
 
