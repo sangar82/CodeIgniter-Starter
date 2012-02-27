@@ -11,6 +11,8 @@ class Categories extends MY_Controller {
 	function __construct()
 	{
 		parent::__construct();
+
+		//$this->output->cache(10000);
 	}
 
 

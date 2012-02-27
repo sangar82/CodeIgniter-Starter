@@ -12,7 +12,7 @@ $lang['web_private_zone_p2'] 		= 'Desde este portal podrá administrar los conte
 $lang['web_private_zone_p3'] 		= 'Elija una opción del menú superior.';
 
 $lang['web_create_success'] 		= 'Creado correctamente';
-$lang['web_create_success_act'] 	= 'Creado correctamente. El usuario debe activar el usuario a través del mail de confirmación.';
+$lang['web_create_success_act'] 	= 'Creado correctamente. El usuario debe activar su cuenta a través del mail de confirmación.';
 $lang['web_create_failed'] 			= 'Error creando. Vuelva a intentarlo';
 $lang['web_edit_success'] 			= 'Editado correctamente';
 $lang['web_edit_failed'] 			= 'Error editando. Vuelva a intentarlo';
@@ -37,7 +37,6 @@ $lang['web_category_back'] 			= 'Volver al listado de categorías';
 $lang['web_category_unique'] 		= 'El nombre de la categoria ya está en uso en esta rama. Escoja otro.';
 
 
-
 $lang['web_product'] 				= 'Producto';
 $lang['web_products'] 				= 'Productos';
 $lang['web_add_product'] 			= 'Crear producto';
@@ -49,7 +48,7 @@ $lang['web_add_user'] 				= 'Crear usuario';
 $lang['web_edit_user']	 			= 'Editar usuario';
 $lang['web_list_user']	 			= 'Listado de usuarios';
 $lang['web_list_deactivate_user']	= 'Desactivar usuario';
-$lang['web_list_deuser_conf']		= '¿Estás seguro de desactivar el usuario ';
+$lang['web_list_deuser_conf']		= '¿Estás seguro de desactivar el usuario?';
 
 
 $lang['web_active']					= 'Activo';
