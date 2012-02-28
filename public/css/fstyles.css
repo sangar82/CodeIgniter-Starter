@@ -45,7 +45,7 @@ html, body{
 .msg_info { background:#E8F6F6;border-color: #6B99C7; }
 .msg_info span { background-image: url(/public/img/flash_icons/info.gif); }
 .msg_warning { background:#F7F3E8; border-color: #E4964D; }
-.msg_warning span { background-image: url(/public/img/flash_icons/warning.png); }
+.msg_warning span { background-image: url(/public/img/flash_icons/warning.png);background-position: 1px -2px;}
 /* icons flashdata */
 
 

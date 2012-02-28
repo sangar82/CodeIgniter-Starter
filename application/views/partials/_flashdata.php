@@ -22,7 +22,7 @@
 	    }
     	else
     	{
-	        echo "<div class='msg_success'>";
+	        echo "<div class='msg_".$message['type']."'>";
 
 	            echo "<span>".$message['text'] . "</span>";
 
