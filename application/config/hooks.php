@@ -18,6 +18,15 @@ $hook['pre_controller'][] = array(
     'filepath' => 'third_party/php-activerecord'                                
 );
 
+$hook['pre_system'] = array(
+    'class'    => 'Language',
+    'function' => 'get_language',
+    'filename' => 'language.php',
+    'filepath' => 'hooks'
+);  
+
+
+
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

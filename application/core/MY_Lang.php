@@ -17,7 +17,7 @@ class MY_Lang extends CI_Lang
    if(strlen($lang) == 2 && array_key_exists($lang,$config['languages']) == true)
    {
     $config['language']=$config['languages'][$lang];
-    $config['base_url'] = "http://$lang.".$config['base_domain'] ."/";
+    $config['base_url'] = "http://$lang.".$config['base_domain'];
    }
    elseif($config['redirect_urls'] == true || strlen($lang) == 2 && array_key_exists($lang,$config['languages']) == false)
    {

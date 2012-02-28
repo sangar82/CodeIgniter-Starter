@@ -2,6 +2,7 @@
 global $mn_trans;
 
 $mn_trans = array(
+
 		"spanish"	=>	array(
 								
 						"usuarios"		=>		array(		
@@ -14,6 +15,22 @@ $mn_trans = array(
 															"eliminar"			=>		'delete'),
 															
 						"productos"		=>		array(		
+															"crear"				=>		'create',
+															"editar"			=>		'edit',
+															"eliminar"			=>		'delete')),
+															
+		"catalan"	=>	array(
+								
+						"usuaris"		=>		array(		
+															"crear"				=>		'create',
+															"editar"			=>		'edit',
+															"eliminar"			=>		'delete'),															
+						"categories"	=>		array(		
+															"crear"				=>		'create',
+															"editar"			=>		'edit',
+															"eliminar"			=>		'delete'),
+															
+						"productes"		=>		array(		
 															"crear"				=>		'create',
 															"editar"			=>		'edit',
 															"eliminar"			=>		'delete')),
