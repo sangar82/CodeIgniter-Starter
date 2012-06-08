@@ -21,7 +21,7 @@ class Category extends ActiveRecord\Model {
 
 	// Callbacks
 
-	static $before_save = array('set_order');
+	static $before_create = array('set_order');
 	static $after_destroy = array('set_order_after_delete');
 
 
