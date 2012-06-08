@@ -1,5 +1,7 @@
 RewriteEngine on
 
+AddDefaultCharset UTF-8
+
 RewriteCond %{HTTP_HOST} ^ci.com$
 RewriteRule ^(.*)$ http://www.ci.com/$1 [R=301,L]
 
