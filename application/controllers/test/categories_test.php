@@ -113,6 +113,34 @@ class Categories_test extends Toast
         $this->_assert_false($category2->is_valid()) ;      
     }
 
+
+    function test_dont_change_order_on_edit()
+    {
+        $category = Category::find($this->m_id);
+
+        $orden_first = $category->orden;
+
+        $form_data_2 = array(
+            'name'          =>      'TEST_name_22',
+            'category_id'   =>      NULL
+        );
+
+        Category::create($form_data_2);
+
+        $category3 = Category::last();
+
+        $orden_first = $category->orden;
+
+        $category->update_attributes( array('name' =>  'TEST_name') );
+
+        $orden_last = $category->orden;
+
+        $category3->delete();
+
+        $this->_assert_equals($orden_first, $orden_last);
+    }
+    
+
     function test_dont_blank_name()
     {
         $form_data_2 = array(
