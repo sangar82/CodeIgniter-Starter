@@ -154,7 +154,18 @@ abstract class Connection
 	 */
 	public static function parse_connection_url($connection_url)
 	{
-		$url = @parse_url($connection_url);
+
+			$CI =& get_instance();
+	        $CI->load->database();
+        			
+			$url["scheme"] 	= $CI->db->dbdriver;
+			$url["host"] 	= $CI->db->hostname;
+			$url["user"] 	= $CI->db->username;
+			$url["pass"] 	= $CI->db->password;
+			$url["path"] 	= "/".$CI->db->database;
+			$url["query"] 	= "charset=".$CI->db->char_set;
+		
+      
 
 		if (!isset($url['host']))
 			throw new DatabaseException('Database host must be specified in the connection string. If you want to specify an absolute filename, use e.g. sqlite://unix(/path/to/file)');
