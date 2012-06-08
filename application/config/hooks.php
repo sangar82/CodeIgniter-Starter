@@ -10,14 +10,6 @@
 |
 */
 
-
-$hook['pre_controller'][] = array(
-    'class'    => '',
-    'function' => 'initialize_php_activerecord',
-    'filename' => 'ActiveRecord.php',
-    'filepath' => 'third_party/php-activerecord'                                
-);
-
 $hook['pre_system'] = array(
     'class'    => 'Language',
     'function' => 'get_language',
