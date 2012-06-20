@@ -369,8 +369,21 @@ class Auth extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 
+		//get the $id
+		$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
+
+		//Filter & Sanitize $id
+		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
+
+		//redirect if it´s no correct
+		if (!$id){
+			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
+			redirect('auth/');
+		}
+
+
 		//Rules for validation
-		$this->_set_rules('edit');
+		$this->_set_rules('edit', $id);
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
@@ -378,17 +391,6 @@ class Auth extends CI_Controller {
 			$data['title'] = lang("web_edit_user");
 			$data['updType'] = 'edit';
 
-			//get the $id
-			$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
-
-			//Filter & Sanitize $id
-			$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
-
-			//redirect if it´s no correct
-			if (!$id){
-				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
-				redirect('auth/');
-			}
 
 			//search the item to show in edit form
 			//$data['user'] = User::find_by_id($id);
@@ -505,12 +507,20 @@ class Auth extends CI_Controller {
      *	
      * @return void
      */
-	private function _set_rules($type = 'create')
+	private function _set_rules($type = 'create', $id = NULL)
 	{
 		//validate form input
 		$this->form_validation->set_rules('first_name', 'lang:web_name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'lang:web_lastname', 'required|xss_clean');
-		$this->form_validation->set_rules('email', 'lang:web_email', 'required|valid_email|is_unique[users.email]|xss_clean');
+
+		if ($id)
+		{
+			$this->form_validation->set_rules('email', 'lang:web_email', 'required|valid_email|is_unique[users.email.id.'.$id.']|xss_clean');	
+		}
+		else
+		{
+			$this->form_validation->set_rules('email', 'lang:web_email', 'required|valid_email|is_unique[users.email]|xss_clean');	
+		}
 
 		if ($type = 'edit')
 			$this->form_validation->set_rules('password', 'lang:web_password', 'min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
@@ -523,9 +533,6 @@ class Auth extends CI_Controller {
 			$this->form_validation->set_rules('password_confirm', 'lang:web_password_confirm', 'required');
 
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
-	}
-	
-	
-		
+	}	
 
 }

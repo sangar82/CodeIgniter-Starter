@@ -69,6 +69,9 @@ $lang['web_comments']				= 'Comments';
 
 
 $lang['web_home']					= 'Home';
+$lang['web_welcome']				= 'Welcome to CodeIgniter-Starter 2.1';
+$lang['web_home_lang']				= 'The actual language is';
+$lang['web_home_lang_trans']		= 'Translated URL example:';
 $lang['web_first']					= 'First';
 $lang['web_last']					= 'Last';
 $lang['web_my_account']				= 'my account';

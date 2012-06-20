@@ -178,13 +178,16 @@ class Products extends CI_Controller {
 								);
 
 					// run insert model to write data to db
-					if ( Product::create($form_data) == TRUE) // the information has therefore been successfully saved in the db
+					$product = Product::create($form_data);
+
+					if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
 					{
 						$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
 					}
-					else
+					
+					if ( $product->is_invalid() )
 					{
-						$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_create_failed') ));
+						$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $product->errors->full_messages() ));
 					}
 
 					if ($this->input->post('parent_id'))
@@ -301,13 +304,17 @@ class Products extends CI_Controller {
 			$product = Product::find($this->input->post('id', TRUE));
 
 			// run insert model to write data to db
-			if ( $product->update_attributes($form_data) == TRUE) // the information has therefore been successfully saved in the db
+			$product->update_attributes($form_data);
+
+
+			if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
 			}
-			else
+
+			if ( $product->is_invalid() )
 			{
-				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_edit_failed') ) );
+				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $product->errors->full_messages() ) );
 			}	
 
 			if ($this->input->post('parent_id'))

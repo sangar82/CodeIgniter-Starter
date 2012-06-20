@@ -1,5 +1,5 @@
-<?=lang('web_home')?> <br>
+<h1><?=lang('web_welcome')?></h1><br>
 
-<?= $this->config->item('language') ?>
+<?=lang('web_home_lang')?>: <?= $this->config->item('language') ?><br><br>
 
-<?=lang_anchor('auth', 'create', '3')?>
+<?=lang('web_home_lang_trans')?>: <?=lang_anchor('auth', 'create', '3')?>

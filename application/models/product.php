@@ -5,6 +5,18 @@ class Product extends ActiveRecord\Model {
 	    array('category')
 	);
 
+    public function get_children() {
+        return $this->categories;
+    }
+
+		
+	static $validates_presence_of = array(
+	  array('name'),	
+      array('description'),
+      array('category_id'),
+      array('image')
+    );
+
 
     /**
     * Return values of database with pagination
@@ -40,6 +52,25 @@ class Product extends ActiveRecord\Model {
 			return $result;
 		}else{
 			return FALSE;
+		}
+	}
+
+
+	public function validate()
+	{
+		if ( $this->id)
+		{
+			$rows = Product::count( array('conditions' => array('category_id = ? AND name = ? AND id <> ?', $this->category_id, $this->name, $this->id)) );
+		}
+		else
+		{
+			$rows = Product::count( array('conditions' => array('category_id = ? AND name = ? ', $this->category_id, $this->name)) );			
+		}
+
+
+		if ($rows)
+		{
+			$this->errors->add('name', "El nombre del producto no es único en esta categoría. Por favor, escribe otro nombre");
 		}
 	}
 	

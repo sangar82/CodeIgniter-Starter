@@ -69,7 +69,11 @@ $lang['web_phone']					= 'Telèfon';
 $lang['web_comments']				= 'Comentaris';
 
 
+
 $lang['web_home']					= 'Inici';
+$lang['web_welcome']				= 'Benvinguts a CodeIgniter-Starter 2.1';
+$lang['web_home_lang']				= "L'idioma actual es";
+$lang['web_home_lang_trans']		= 'Exemple de url amb traducció';
 $lang['web_first']					= 'Primer';
 $lang['web_last']					= 'Últim';
 $lang['web_my_account']				= 'La meva compte';
@@ -77,7 +81,7 @@ $lang['web_my_account']				= 'La meva compte';
 
 $lang['web_hello']					= 'Hola';
 $lang['web_login']					= 'Login';
-$lang['web_logout']					= 'Logout';
+$lang['web_logout']					= 'Sortir';
 $lang['web_lastlogin']				= 'Últim login';
 $lang['web_not_logged']				= 'No tens permisos per veure aquest contingut';
 $lang['web_login_incorrect']		= "El nom d'usuari o la contrasenya introduïts no són correctes";

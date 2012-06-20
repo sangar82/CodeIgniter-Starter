@@ -16,6 +16,7 @@
 
 		<thead>
 			<th><?=lang('web_image')?></th>
+			<th><?=lang('web_category')?></th>
 			<th><?=lang('web_name')?></th>
 			<th colspan='2'><?=lang('web_options')?></th>
 		</thead>
@@ -25,6 +26,7 @@
 				
 				<tr>
 					<td><img src='/public/uploads/img/thumbs/<?=$product->image?>' /></td>
+					<td><?=$product->category->name?> <br /></td>
 					<td><?=$product->name?> <br /></td>
 					<td width="60"><a class='ledit' href='/products/edit/<?=$product->id?>/<?=($category_id != "") ? $category_id : "0" ?>/<?=$page?>'><?=lang('web_edit')?></a></td>
 					<td width="60"><a class='ldelete' onClick="return confirm('<?=lang('web_confirm_delete')?>')" href='/products/delete/<?=$product->id?>/<?=($category_id != "") ? $category_id : "0" ?>/<?=$page?>'><?=lang('web_delete')?></a></td>

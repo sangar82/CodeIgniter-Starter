@@ -18,7 +18,6 @@ class Categories extends MY_Controller {
 
 	public function index($parent_id = NULL)
 	{	
-
 		//set the title of the page 
 		$layout['title'] = lang('web_category_list');
 
@@ -74,14 +73,14 @@ class Categories extends MY_Controller {
 			if ( $category->is_valid() ) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
-				redirect('categories/'.$parent_id);
+				redirect('categories/create/'.$parent_id);
 			}
 			
 			if ( $category->is_invalid() )
 			{
 				//$this->session->set_flashdata('message', array( 'type' =>  'error', 'text' => lang('web_create_failed') ));
 				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $category->errors->full_messages()));
-				redirect('categories/'.$parent_id);
+				redirect('categories/create/'.$parent_id);
 			}	
 	  	} 
 	}

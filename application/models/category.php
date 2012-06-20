@@ -42,7 +42,7 @@ class Category extends ActiveRecord\Model {
 	// Validations
 	
 	static $validates_presence_of = array(
-      array('name')
+      array('name', 'message'=>'The name can not be blank.')
     );
 
 
@@ -173,8 +173,8 @@ class Category extends ActiveRecord\Model {
 	}
 
 
-	public function validate(){
-
+	public function validate()
+	{
 		if ($this->category_id)
 		{
 			if ($this->id)

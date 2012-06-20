@@ -70,6 +70,9 @@ $lang['web_comments']				= 'Comentarios';
 
 
 $lang['web_home']					= 'Inicio';
+$lang['web_welcome']				= 'Bienvenido a CodeIgniter-Starter 2.1';
+$lang['web_home_lang']				= 'El idioma actual es';
+$lang['web_home_lang_trans']		= 'Ejemplo de url con traducción';
 $lang['web_first']					= 'Primero';
 $lang['web_last']					= 'Último';
 $lang['web_my_account']				= 'Mi cuenta';
@@ -77,7 +80,7 @@ $lang['web_my_account']				= 'Mi cuenta';
 
 $lang['web_hello']					= 'Hola';
 $lang['web_login']					= 'Login';
-$lang['web_logout']					= 'Logout';
+$lang['web_logout']					= 'Salir';
 $lang['web_lastlogin']				= 'Último login';
 $lang['web_not_logged']				= 'No tienes permisos para ver este contenido';
 $lang['web_login_incorrect']		= 'El nombre de usuario o la contraseña introducidos no son correctos';
@@ -117,6 +120,8 @@ $lang['npass_p3']					= "Recuerde que puede cambiar su contraseña desde el enla
 
 $lang['web_mail_ok']				= "Mail enviado correctamente. En breve nos pondremos en contacto con ústed.";
 $lang['web_mail_ko']				= "Error enviando el mail. Pruébelo más tarde.";
+
+$lang['web_merrors_not_blank']		= "- El campo es obligatorio.";
 
 
 
