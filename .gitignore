@@ -1,3 +1,3 @@
 .DS_Store
-database_server.php
-config_server.php
+application/config/config_server.php
+application/config/database_server.php
