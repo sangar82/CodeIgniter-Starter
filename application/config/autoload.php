@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation', 'ion_auth');
+$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation', 'sangar_auth');
 $autoload['sparks'] = array('php-activerecord/0.0.2');
 
 
@@ -81,7 +81,7 @@ $autoload['helper'] = array('url', 'language', 'form', 'tablecolumns', 'myform',
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('sangar_auth');
 
 
 /*

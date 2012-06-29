@@ -16,6 +16,13 @@
 
 class MY_Controller extends CI_Controller {
 
+    function __construct()
+    {
+        parent::__construct();
+
+        $this->user = $this->session->userdata('user_id') ? User::find($this->session->userdata('user_id')) : FALSE;
+    }
+
     protected $before_filter   = array(
         // Example
         // 'action'    => 'redirect_if_not_logged_in',
@@ -119,21 +126,26 @@ class MY_Controller extends CI_Controller {
      *
      */
 
-    protected function redirect_if_logged_in()
+    protected function is_logged_in()
     {
-        $this->load->library('Authentic');
-        if ($this->authentic->logged_in())
+        if (!$this->user)
         {
-            redirect(base_url());
+            //set message 
+            $this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
+            
+            //redirect them to the login page
+            redirect('login/', 'refresh');
         }
-    }
+        else
+        {
+            $result = $this->sangar_auth->check();
 
-    protected function redirect_if_not_logged_in()
-    {
-        $this->load->library('Authentic');
-        if ( ! $this->authentic->logged_in())
-        {
-            redirect(site_url('login'));
+            if (!$result)
+            {
+                $this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('session_not_correct') ));
+                redirect('login/');
+            }
         }
     }
+    
 }

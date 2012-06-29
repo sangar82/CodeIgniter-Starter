@@ -1,25 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Products extends CI_Controller {
+class Products extends MY_Controller {
+	
+	protected $before_filter = array(
+		'action' => 'is_logged_in',
+		//'except' => array('index')
+		//'only' => array('index')
+	);
 	
 	function __construct()
 	{
 		parent::__construct();
 	}
 
-
-
 	public function index()
 	{	
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-
 		//set the title of the page 
 		$layout['title'] = "Lista de productos";
 
@@ -53,15 +48,6 @@ class Products extends CI_Controller {
 
 	public function product_list( $category_id = NULL, $page = 1)
 	{	
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-
 		//set the title of the page 
 		$layout['title'] = "Lista de productos";
 
@@ -99,15 +85,6 @@ class Products extends CI_Controller {
 
 	function create($category_id = NULL, $page = NULL) 
 	{
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-
 		//search the categories and send to the view
 		$this->load->model('category');
 		$data['categories']  = Category::get_formatted_combo();
@@ -203,16 +180,6 @@ class Products extends CI_Controller {
 
 	function edit($id = FALSE) 
 	{
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-
-
 		//get the $id and sanitize
 		$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
@@ -325,17 +292,8 @@ class Products extends CI_Controller {
 	}
 
 
-	function delete($id = NULL, $category_id = NULL, $page = NULL){
-
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-		
+	function delete($id = NULL, $category_id = NULL, $page = NULL)
+	{	
 		$this->load->helper('file');
 
 		//filter & Sanitize $id

@@ -1,16 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+class Admin extends MY_Controller {
+
+	protected $before_filter = array(
+		'action' => 'is_logged_in',
+		//'except' => array('index')
+		//'only' => array('index')
+	);
 	
 	function __construct()
 	{
 		parent::__construct();
 	} 
 
-
 	public function index()
 	{	
-		if (!$this->ion_auth->logged_in())
+		if(!$this->user)
 		{
 			//set message 
 			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );

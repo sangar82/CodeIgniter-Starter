@@ -190,8 +190,8 @@ class Categories extends MY_Controller {
 
 
 
-	public function update_order_categories(){
-		
+	public function update_order_categories()
+	{
 		$categories = $this->input->post('categories');
 
 		$array_cat = explode(',', $categories);
@@ -202,7 +202,6 @@ class Categories extends MY_Controller {
 			Category::change_orders_categories($category, $order);
 			$order++;
 		}
-
 	}
 
 
@@ -303,20 +302,6 @@ class Categories extends MY_Controller {
 	    //$config["num_links"] = round($choice);
 
 	    return $config;
-	}
-	
-
-
-	function is_logged_in()
-	{
-		if (!$this->ion_auth->logged_in())
-		{
-			//set message 
-			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_not_logged') ) );
-			
-			//redirect them to the login page
-			redirect('auth/login', 'refresh');
-		}
-	}		
+	}	
 
 }

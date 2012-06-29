@@ -1,5 +1,5 @@
 <?php
-$user = $this->ion_auth->user()->row();
+$user = $this->user;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -28,18 +28,14 @@ $user = $this->ion_auth->user()->row();
 
 		<div id="bheader">
 
-
 			<div id="btop">
 
-			  <h1><a href="#">Cleanity</a></h1>
+			  <h1><a href="#"><?=$this->config->item('site_title');?></a></h1>
 			  <p id="userbox"><?=lang('web_hello')?> <strong><?=$user->first_name?> <?=$user->last_name?></strong> &nbsp;| &nbsp;<a href="/auth/edit/<?=$user->id?>"><?=lang('web_my_account')?></a> &nbsp;| &nbsp;<a href="/logout"><?=lang('web_logout')?></a> <br>
-
-			  <small><?=lang('web_lastlogin')?>: <?=date('d-M-Y H:i:s', $user->last_login)?></small></p>
 
 			  <span class="clearFix">&nbsp;</span>
 
 			</div>
-
 
 			<ul id="bmenu">
 
@@ -91,7 +87,7 @@ $user = $this->ion_auth->user()->row();
 	        	</div>
 
 	            <div class="align-right">
-	            	<h2><a href="#">Cleanity</a></h2>
+	            	<h2><a href="#"><?=$this->config->item('site_title');?></a></h2>
 	            </div>
 
 	            <span class="clearFix"></span>

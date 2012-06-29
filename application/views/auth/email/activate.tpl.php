@@ -2,7 +2,7 @@
 <body>
 	<h1 style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:16px;'><?=lang('confirm_email_title')?></h1>
 
-	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'><?=lang('confirm_email_0')?> <?=$this->config->item('site_title', 'ion_auth')?></p>
+	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'><?=lang('confirm_email_0')?> <?=$this->config->item('site_title')?></p>
 
 	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'>
 		<?=lang('confirm_email_1')?>
@@ -31,7 +31,7 @@
 
 	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'>
 		<?=lang('confirm_email_thanks')?><br>
-		<?=lang('confirm_email_team')?> <?=$this->config->item('site_title', 'ion_auth')?>
+		<?=lang('confirm_email_team')?> <?=$this->config->item('site_title')?>
 	</p>
 
 </body>

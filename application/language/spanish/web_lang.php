@@ -83,6 +83,8 @@ $lang['web_login']					= 'Login';
 $lang['web_logout']					= 'Salir';
 $lang['web_lastlogin']				= 'Último login';
 $lang['web_not_logged']				= 'No tienes permisos para ver este contenido';
+$lang['web_not_do_this']			= 'No tienes permisos suficientes para realizar esta acción';
+$lang['web_login_correct']			= 'Sesión iniciada con éxito.';
 $lang['web_login_incorrect']		= 'El nombre de usuario o la contraseña introducidos no son correctos';
 $lang['web_user_deactivate']		= 'Desactivado correctamente';
 $lang['web_login_remb']				= '¿No puedes acceder a tu cuenta?';
@@ -123,5 +125,45 @@ $lang['web_mail_ko']				= "Error enviando el mail. Pruébelo más tarde.";
 
 $lang['web_merrors_not_blank']		= "- El campo es obligatorio.";
 
+
+
+// Account Creation
+$lang['account_creation_successful'] 	  	 = 'Cuenta creada con éxito';
+$lang['account_creation_unsuccessful'] 	 	 = 'No se ha podido crear la cuenta';
+$lang['account_creation_duplicate_email'] 	 = 'Email en uso o inválido';
+$lang['account_creation_duplicate_username'] = 'Nombre de usuario en uso o inválido';
+
+
+// Password
+$lang['password_change_successful'] 	 	 = 'Password cambiado con éxito. Se le ha enviado un correo con la nueva contraseña.';
+$lang['password_change_unsuccessful'] 	  	 = 'No se ha podido cambiar el password';
+$lang['forgot_password_successful'] 	 	 = 'Nuevo password enviado por email';
+$lang['forgot_password_unsuccessful'] 	 	 = 'No se ha podido crear un nuevo password';
+
+// Activation
+$lang['activate_successful'] 		  	 = 'Cuenta activada';
+$lang['activate_unsuccessful'] 		 	 = 'No se ha podido activar la cuenta';
+$lang['deactivate_successful'] 		  	 = 'Cuenta desactivada';
+$lang['deactivate_unsuccessful'] 	  	 = 'No se ha podido desactivar la cuenta';
+$lang['activation_email_successful'] 	  	 = 'Email de activación enviado';
+$lang['activation_email_unsuccessful']   	 = 'No se ha podido enviar el email de activación';
+
+// Login / Logout
+$lang['login_successful'] 		  	 = 'Sesión iniciada con éxito';
+$lang['login_unsuccessful'] 		  	 = 'No se ha podido iniciar sesión';
+$lang['logout_successful'] 		 	 = 'Sesión finalizada con éxito';
+
+// Account Changes
+$lang['update_successful'] 		 	 = 'Información de la cuenta actualizada con éxito';
+$lang['update_unsuccessful'] 		 	 = 'No se ha podido actualizar la información de la cuenta';
+$lang['delete_successful'] 		 	 = 'Usuario eliminado';
+$lang['delete_unsuccessful'] 		 	 = 'No se ha podido Eliminar el usuario';
+
+//remember_password
+$lang['remember_pass_successful'] 	  	 	= 'Se ha enviado un email para que pueda cambiar la contraseña';
+$lang['remember_pass_unsuccessful'] 	  	= 'No pudo enviarse el mail para el cambio de contraseña. Compruebe que el email es el correcto';
+
+//session
+$lang['session_not_correct'] 	  	 	= 'La sesión ha expirado. Vuelva a identificarse.';
 
 

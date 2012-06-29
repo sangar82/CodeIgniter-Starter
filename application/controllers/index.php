@@ -1,6 +1,6 @@
 <?php
 
-class Index extends CI_Controller
+class Index extends MY_Controller
 {
 	function __construct()
 	{

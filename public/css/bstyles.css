@@ -86,6 +86,7 @@ span.clearFix {
 ul#bmenu {
     float: left;
     width: 600px;
+    margin-top:18px;
 }
 
 ol, ul {

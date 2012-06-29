@@ -6,6 +6,7 @@
 
 <div class='clear'></div>
 
+
 <table class='ftable' cellpadding="5" cellspacing="5">
 	<thead>
 		<th><?=lang('web_name')?></th>
@@ -21,9 +22,9 @@
 			<td><?php echo $user->last_name;?></td>
 			<td><?php echo $user->email;?></td>
 			<td>
-				<?php foreach ($user->groups as $group):?>
-					<?php echo $group->name;?><br />
-                <?php endforeach?>
+				<?php foreach ($user->groups as $group): ?>
+					<?=$group->name."<br/>";?>
+				<?php endforeach ?>
 			</td>
 			<td><?php echo ($user->active) ? anchor("auth/deactivate/".$user->id, lang('web_active')) : anchor("auth/activate/". $user->id, lang('web_inactive'));?></td>
 			<td width="60"><a class='ledit' href='/auth/edit/<?=$user->id?>'><?=lang('web_edit')?></a></td>
