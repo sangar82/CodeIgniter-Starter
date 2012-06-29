@@ -97,7 +97,7 @@ $autoload['config'] = array('sangar_auth');
 |
 */
 
-$autoload['language'] = array('calendar', 'date', 'db', 'email', 'form_validation', 'ftp', 'imglib', 'number', 'profiler', 'unit_test', 'upload', 'web', 'ion_auth');
+$autoload['language'] = array('calendar', 'date', 'db', 'email', 'form_validation', 'ftp', 'imglib', 'number', 'profiler', 'unit_test', 'upload', 'web');
 
 
 /*
