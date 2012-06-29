@@ -1,40 +1,47 @@
-/*
- Navicat Premium Backup
+-- phpMyAdmin SQL Dump
+-- version 3.3.9.2
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 29-06-2012 a las 09:37:29
+-- Versión del servidor: 5.5.9
+-- Versión de PHP: 5.3.6
 
- Source Server         : MySql-Mamp
- Source Server Type    : MySQL
- Source Server Version : 50509
- Source Host           : localhost
- Source Database       : cistarter
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
- Target Server Type    : MySQL
- Target Server Version : 50509
- File Encoding         : utf-8
 
- Date: 02/15/2012 08:55:52 AM
-*/
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
-SET NAMES utf8;
-SET FOREIGN_KEY_CHECKS = 0;
+--
+-- Base de datos: `cistarter2`
+--
 
--- ----------------------------
---  Table structure for `categories`
--- ----------------------------
-DROP TABLE IF EXISTS `categories`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categories`
+--
+
 CREATE TABLE `categories` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
   `category_id` int(9) DEFAULT NULL,
+  `orden` smallint(4) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=79 ;
 
 
--- ----------------------------
---  Table structure for `ci_sessions`
--- ----------------------------
-DROP TABLE IF EXISTS `ci_sessions`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ci_sessions`
+--
+
 CREATE TABLE `ci_sessions` (
   `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `ip_address` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT '0',
@@ -45,29 +52,48 @@ CREATE TABLE `ci_sessions` (
   KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Volcar la base de datos para la tabla `ci_sessions`
+--
 
--- ----------------------------
---  Table structure for `groups`
--- ----------------------------
-DROP TABLE IF EXISTS `groups`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `groups`
+--
+
 CREATE TABLE `groups` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) COLLATE utf8_bin NOT NULL,
   `description` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
--- ----------------------------
---  Records of `groups`
--- ----------------------------
-BEGIN;
-INSERT INTO `groups` VALUES ('1', 'admin', 'Administrator'), ('2', 'members', 'General User');
-COMMIT;
+--
+-- Volcar la base de datos para la tabla `groups`
+--
 
--- ----------------------------
---  Table structure for `products`
--- ----------------------------
-DROP TABLE IF EXISTS `products`;
+INSERT INTO `groups` VALUES(1, 'admin', 'Administrator');
+INSERT INTO `groups` VALUES(2, 'members', 'General User');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `language_keys`
+--
+
+CREATE TABLE `language_keys` (
+  `key` varchar(255) NOT NULL,
+  `filename` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products`
+--
+
 CREATE TABLE `products` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
@@ -77,55 +103,55 @@ CREATE TABLE `products` (
   `image` varchar(256) NOT NULL,
   `category_id` int(9) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- ----------------------------
---  Table structure for `users`
--- ----------------------------
-DROP TABLE IF EXISTS `users`;
+--
+-- Volcar la base de datos para la tabla `products`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
 CREATE TABLE `users` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `ip_address` int(10) unsigned NOT NULL,
-  `username` varchar(15) COLLATE utf8_bin NOT NULL,
-  `password` varchar(40) COLLATE utf8_bin NOT NULL,
-  `salt` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `username` varchar(100) COLLATE utf8_bin NOT NULL,
+  `password` varchar(256) COLLATE utf8_bin NOT NULL,
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
-  `activation_code` varchar(40) COLLATE utf8_bin DEFAULT NULL,
-  `forgotten_password_code` varchar(40) COLLATE utf8_bin DEFAULT NULL,
-  `remember_code` varchar(40) COLLATE utf8_bin DEFAULT NULL,
-  `created_on` int(11) unsigned NOT NULL,
-  `last_login` int(11) unsigned DEFAULT NULL,
-  `active` tinyint(1) unsigned DEFAULT NULL,
   `first_name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `last_name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `company` varchar(100) COLLATE utf8_bin DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT NULL,
+  `activation_code` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `forgotten_password_code` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=31 ;
 
--- ----------------------------
---  Records of `users`
--- ----------------------------
-BEGIN;
-INSERT INTO `users` VALUES ('1', '2130706433', 'administrator', '59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4', '9462e8eee0', 'admin@admin.com', '', null, null, '1268889823', '1329250830', '1', 'Admin', 'istrator', 'ADMIN', '0');
-COMMIT;
+--
+-- Volcar la base de datos para la tabla `users`
+--
 
--- ----------------------------
---  Table structure for `users_groups`
--- ----------------------------
-DROP TABLE IF EXISTS `users_groups`;
+INSERT INTO `users` VALUES(1, 'admin@admin.com', 'e4eb73b0c2e10b9846960952caecef65276bdc1a9f448fdcde6198a6450ea14ab3ed5d6b8acfaf9337186279aa07e192ba290645c7d625003c3d942e3bca8d36', 'admin@admin.com', 'Administrador', 'Administrador', 1, NULL, NULL, '2012-06-21 12:03:56', '2012-06-29 09:37:10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users_groups`
+--
+
 CREATE TABLE `users_groups` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(8) unsigned NOT NULL,
   `group_id` mediumint(8) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
 
--- ----------------------------
---  Records of `users_groups`
--- ----------------------------
-BEGIN;
-INSERT INTO `users_groups` VALUES ('1', '1', '1');
-COMMIT;
+--
+-- Volcar la base de datos para la tabla `users_groups`
+--
 
-SET FOREIGN_KEY_CHECKS = 1;
+INSERT INTO `users_groups` VALUES(1, 1, 1);
