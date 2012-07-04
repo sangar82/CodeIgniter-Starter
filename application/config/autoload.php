@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'form_validation', 'sangar_auth');
+$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'sangar_auth');
 $autoload['sparks'] = array('php-activerecord/0.0.2');
 
 

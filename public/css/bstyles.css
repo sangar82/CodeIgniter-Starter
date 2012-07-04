@@ -85,7 +85,7 @@ span.clearFix {
 
 ul#bmenu {
     float: left;
-    width: 600px;
+    width: 980px;
     margin-top:18px;
 }
 
@@ -366,6 +366,7 @@ div#bfooter-bottom p a {
     font-size:15px;
 }
 
+
 .labelforminline{
     font-size:13px;
 }
@@ -506,5 +507,12 @@ p{
     cursor:hand;
 }
 
+
+/*Scaffolds*/
+.scaffold_textarea{
+    width:400px !important;
+    height:400px !important;
+}
+/*Scaffolds*/
 
 

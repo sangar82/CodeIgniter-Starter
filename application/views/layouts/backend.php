@@ -16,9 +16,11 @@ $user = $this->user;
 	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.17.custom.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/bstyles.css" type="text/css" media="screen" />
 	
-	<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
-	<script src="js/jquery-ui-1.8.17.custom.min.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="http://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
+	<script>$(function() {$('#examples').accordion({autoHeight: false,navigation: true, collapsible:true, active:false});});</script>
 	<script src="js/sortertables.js" type="text/javascript"></script>
+	<style>.ui-widget-content{font-size:12px;}</style>
 	
 </head>
 
@@ -31,7 +33,7 @@ $user = $this->user;
 			<div id="btop">
 
 			  <h1><a href="#"><?=$this->config->item('site_title');?></a></h1>
-			  <p id="userbox"><?=lang('web_hello')?> <strong><?=$user->first_name?> <?=$user->last_name?></strong> &nbsp;| &nbsp;<a href="/auth/edit/<?=$user->id?>"><?=lang('web_my_account')?></a> &nbsp;| &nbsp;<a href="/logout"><?=lang('web_logout')?></a> <br>
+			  <p id="userbox"><?=lang('web_hello')?> <strong><?=$user->first_name?> <?=$user->last_name?></strong> &nbsp;| &nbsp;<a href="/auth/edit/<?=$user->id?>"><?=lang('web_my_account')?></a> &nbsp;|&nbsp; <a href='/scaffolds/scaffolds/create'>Scaffolds</a> &nbsp;|&nbsp;<a href="/logout"><?=lang('web_logout')?></a> <br>
 
 			  <span class="clearFix">&nbsp;</span>
 
@@ -39,17 +41,7 @@ $user = $this->user;
 
 			<ul id="bmenu">
 
-				<?php  $mactive = ($this->uri->rsegment(1) == 'admin')  ? "class='selected'" : "" ?>
-				<li <?=$mactive?>><a href="/admin/" style="background-position: 0px 0px;"><?=lang('web_home')?></a></li>
-
-				<?php  $mactive = ($this->uri->rsegment(1) == 'auth')  ? "class='selected'" : "" ?>
-				<li <?=$mactive?>><a href="/auth/" style="background-position: 0px 0px;"><?=lang('web_users')?></a></li>
-
-				<?php  $mactive = ($this->uri->rsegment(1) == 'categories')  ? "class='selected'" : "" ?>
-				<li <?=$mactive?> ><a href="/categories/" class="top-level" style="background-position: 0px 0px;"><?=lang('web_categories')?><span>&nbsp;</span></a></li>
-
-				<?php  $mactive = ($this->uri->rsegment(1) == 'products')  ? "class='selected'" : "" ?>
-				<li <?=$mactive?>><a href="/products/" style="background-position: 0px 0px;"><?=lang('web_products')?></a></li>
+				<?php $this->load->view('partials/_menu');?>
 
 			</ul>
 

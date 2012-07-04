@@ -40,7 +40,6 @@
 $route['default_controller'] = "index/index";
 $route['404_override'] = '';
 
-
 $route['contact'] = "index/contact";
 
 //route para las categorias
@@ -55,10 +54,3 @@ $route['login'] = "auth/login";
 $route['logout'] = "auth/logout";
 $route['forgot_password'] = "auth/forgot_password";
 
-
-
-
-
-
-/* End of file routes.php */
-/* Location: ./application/config/routes.php */

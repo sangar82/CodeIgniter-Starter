@@ -71,10 +71,10 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-//$config['language']	= 'english';
-$config['language'] = "spanish";
-$config['languages'] = array("es" => "spanish", "en" => "english", "ca" => "catalan");
-$config['redirect_urls'] = false;
+$config['language'] 		= "spanish";
+$config['prefix_language']	= "es";
+$config['languages'] 		= array("es" => "spanish", "en" => "english", "ca" => "catalan");
+$config['redirect_urls'] 	= false;
 
 /*
 |--------------------------------------------------------------------------
