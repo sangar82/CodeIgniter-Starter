@@ -1,3 +1,4 @@
 .DS_Store
 application/config/config_server.php
 application/config/database_server.php
+public/uploads
