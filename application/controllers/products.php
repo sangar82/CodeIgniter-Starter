@@ -97,6 +97,10 @@ class Products extends MY_Controller {
 		$data['page']					=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('page', TRUE);
 		$data['parent_id']				=	( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('parent_id', TRUE);
 
+		//variables for check the upload
+		$upload_products_ok 		= FALSE;
+		$thumbnail_products_ok 		= FALSE;
+
 		//Rules for validation
 		$this->set_rules();
 
@@ -109,10 +113,7 @@ class Products extends MY_Controller {
 		}
 		else
 		{
-			//Validation OK!
-
-			//initializing the upload library
-			$this->load->library('upload', $this->set_upload_options());
+			$this->load->library('upload', $this->set_upload_options('products'));
 
 			//upload the image
 			if ( ! $this->upload->do_upload('image'))
@@ -124,13 +125,19 @@ class Products extends MY_Controller {
 				$this->load->view('layouts/backend', $layout);
 			}
 			else
+			{
+				$upload_products_ok = TRUE;
+			}
+
+			//create the thumbnail
+			if ($upload_products_ok)
 			{	
 				//create an array to send to image_lib library to create the thumbnail
 				$info_upload = $this->upload->data();
 
 				//Load and initializing the imagelib library to create the thumbnail
 				$this->load->library('image_lib');
-				$this->image_lib->initialize($this->set_thumbnail_options($info_upload));
+				$this->image_lib->initialize($this->set_thumbnail_options($info_upload, 'products'));
 				
 				//create the thumbnail
 				if ( ! $this->image_lib->resize())
@@ -143,36 +150,41 @@ class Products extends MY_Controller {
 				}
 				else
 				{
-					// build array for the model
-					$form_data = array(
-							       	'name' => set_value('name'),
-							       	'description' => set_value('description'),
-							       	'active' => set_value('active'),
-							       	'option' => set_value('option'),
-							       	'image' => set_value('image'),
-							       	'category_id' => set_value('category_id'),
-							       	'image' =>	$info_upload["file_name"]
-								);
-
-					// run insert model to write data to db
-					$product = Product::create($form_data);
-
-					if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
-					{
-						$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
-					}
-					
-					if ( $product->is_invalid() )
-					{
-						$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $product->errors->full_messages() ));
-					}
-
-					if ($this->input->post('parent_id'))
-						redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
-					else
-						redirect('products/'.$this->input->post('page', TRUE));
-
+					$thumbnail_products_ok = TRUE;
 				}
+			}
+
+			//save at BD
+			if ($upload_products_ok and $thumbnail_products_ok)
+			{
+				// build array for the model
+				$form_data = array(
+						       	'name' => set_value('name'),
+						       	'description' => set_value('description'),
+						       	'active' => set_value('active'),
+						       	'option' => set_value('option'),
+						       	'image' => set_value('image'),
+						       	'category_id' => set_value('category_id'),
+						       	'image' =>	$info_upload["file_name"]
+							);
+
+				// run insert model to write data to db
+				$product = Product::create($form_data);
+
+				if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
+				{
+					$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
+				}
+				
+				if ( $product->is_invalid() )
+				{
+					$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $product->errors->full_messages() ));
+				}
+
+				if ($this->input->post('parent_id'))
+					redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
+				else
+					redirect('products/'.$this->input->post('page', TRUE));
 			}	
 	  	} 
 	}
@@ -194,6 +206,9 @@ class Products extends MY_Controller {
 		$data['page']		=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('page', TRUE);
 		$data['parent_id']	=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
 
+		//variables for check the upload
+		$upload_products_ok 		= FALSE;
+		$thumbnail_products_ok 		= FALSE;
 
 		//redirect if it´s no correct
 		if (!$id){
@@ -206,8 +221,6 @@ class Products extends MY_Controller {
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
-
-
 			//search the item to show in edit form
 			$data['product'] = Product::find_by_id($id);
 			
@@ -218,40 +231,59 @@ class Products extends MY_Controller {
 		else
 		{
 
-			if ( isset($_FILES) )
-			{	
+			if ($_FILES['image']['name'] != '')
+			{
 				//initializing the upload library
-				$this->load->library('upload', $this->set_upload_options());
+				$this->load->library('upload', $this->set_upload_options('products'));
 
 				//upload the image
 				if ( ! $this->upload->do_upload('image'))
 				{
 					$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
+					$data['product'] = Product::find($this->input->post('id', TRUE));
 					
 					//load the view and the layout
 					$layout['body'] = $this->load->view('products/create', $data, TRUE);
 					$this->load->view('layouts/backend', $layout);
 				}
 				else
+				{
+					$upload_products_ok = TRUE;
+				}
+
+
+				if ($upload_products_ok)
 				{	
 					//create an array to send to image_lib library to create the thumbnail
 					$info_upload = $this->upload->data();
 
 					//Load and initializing the imagelib library to create the thumbnail
 					$this->load->library('image_lib');
-					$this->image_lib->initialize($this->set_thumbnail_options($info_upload));
+					$this->image_lib->initialize($this->set_thumbnail_options($info_upload, 'products'));
 					
 					//create the thumbnail
 					if ( ! $this->image_lib->resize())
 					{
 						$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
+						$data['product'] = Product::find($this->input->post('id', TRUE));
 
 						//load the view and the layout
 						$layout['body'] = $this->load->view('products/create', $data, TRUE);
 						$this->load->view('layouts/backend', $layout);
 					}
+					else
+					{
+						$thumbnail_products_ok = TRUE;
+					}
 				}
 			}
+
+
+			if ( !( ( $_FILES['image']['name'] != '' and $upload_products_ok and $thumbnail_products_ok) or $_FILES['image']['name'] == '' ) )
+			{
+				return FALSE;
+			}
+
 
 			// build array for the model
 			$form_data = array(
@@ -266,9 +298,12 @@ class Products extends MY_Controller {
 			
 			if ( isset( $info_upload["file_name"] ) )
 				$form_data['image']		=	$info_upload["file_name"];
-		
+
 			//find the item to update
 			$product = Product::find($this->input->post('id', TRUE));
+
+			//save the old image to delete
+			$old_image = $product->image;
 
 			// run insert model to write data to db
 			$product->update_attributes($form_data);
@@ -277,6 +312,16 @@ class Products extends MY_Controller {
 			if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
+
+				//delete the old images
+				if ($upload_products_ok)
+				{
+					if ( is_file(FCPATH.'public/uploads/products/img/'.$old_image) )
+						unlink(FCPATH.'public/uploads/products/img/'.$old_image);
+					
+					if ( is_file(FCPATH.'public/uploads/products/img/thumbs/'.$old_image) )	
+						unlink(FCPATH.'public/uploads/products/img/thumbs/'.$old_image);
+				}
 			}
 
 			if ( $product->is_invalid() )
@@ -321,11 +366,11 @@ class Products extends MY_Controller {
 		if ( $product->delete() == TRUE) 
 		{
 			//delete all the images
-			if ( is_file(FCPATH.'public/uploads/img/'.$image) )
-				unlink(FCPATH.'public/uploads/img/'.$image);
+			if ( is_file(FCPATH.'public/uploads/products/img/'.$image) )
+				unlink(FCPATH.'public/uploads/products/img/'.$image);
 			
-			if ( is_file(FCPATH.'public/uploads/img/thumbs/'.$image) )	
-				unlink(FCPATH.'public/uploads/img/thumbs/'.$image);
+			if ( is_file(FCPATH.'public/uploads/products/img/thumbs/'.$image) )	
+				unlink(FCPATH.'public/uploads/products/img/thumbs/'.$image);
 
 			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));
 
@@ -359,28 +404,34 @@ class Products extends MY_Controller {
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	}	
 
-	private function set_upload_options(){
-		
+	private function set_upload_options($controller)
+	{	
 		//upload an image options
 		$config = array();
-
-		$config['upload_path'] = FCPATH.'public/uploads/img/';
+		$config['upload_path'] = FCPATH.'public/uploads/'.$controller.'/img/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['encrypt_name']	= TRUE;
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
 
+		//create controller upload folder if not exists
+		if (!is_dir($config['upload_path']))
+		{
+			mkdir(FCPATH."public/uploads/$controller/");
+			mkdir($config['upload_path']);
+			mkdir($config['upload_path']."thumbs/");
+		}
+			
 		return $config;
-
 	}
 
 
-	private function set_thumbnail_options($info_upload){
-		
+	private function set_thumbnail_options($info_upload, $controller)
+	{	
 		$config = array();
 		$config['image_library'] = 'gd2';
-		$config['source_image'] = FCPATH.'public/uploads/img/'.$info_upload["file_name"];
-		$config['new_image'] = FCPATH.'public/uploads/img/thumbs/'.$info_upload["file_name"];
+		$config['source_image'] = FCPATH.'public/uploads/'.$controller.'/img/'.$info_upload["file_name"];
+		$config['new_image'] = FCPATH.'public/uploads/'.$controller.'/img/thumbs/'.$info_upload["file_name"];
 		$config['create_thumb'] = TRUE;
 		$config['maintain_ratio'] = FALSE;
 		$config['master_dim'] = 'width';

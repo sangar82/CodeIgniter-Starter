@@ -59,7 +59,7 @@ echo ($updType == 'create') ? form_open_multipart('products/create', $attributes
 	<label class='labelform' for="image"><?=lang( ($updType == 'edit')  ? "web_image_edit" : "web_image_create" )?> <span class="required">*</span></label>
 
 	<?php if ($updType == 'edit'): ?>
-		<p> <img src='/public/uploads/img/thumbs/<?=$product->image?>' /> </p>
+		<p> <img src='/public/uploads/products/img/thumbs/<?=$product->image?>' /> </p>
 	<?php endif ?>
 
 	<input id="image" type="file" name="image" />

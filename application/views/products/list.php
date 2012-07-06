@@ -25,7 +25,7 @@
 			<?php foreach ($products as $product): ?>
 				
 				<tr>
-					<td><img src='/public/uploads/img/thumbs/<?=$product->image?>' /></td>
+					<td><img src='/public/uploads/products/img/thumbs/<?=$product->image?>' /></td>
 					<td><?=$product->category->name?> <br /></td>
 					<td><?=$product->name?> <br /></td>
 					<td width="60"><a class='ledit' href='/products/edit/<?=$product->id?>/<?=($category_id != "") ? $category_id : "0" ?>/<?=$page?>'><?=lang('web_edit')?></a></td>
