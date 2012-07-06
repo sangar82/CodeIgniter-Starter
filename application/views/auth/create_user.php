@@ -46,7 +46,7 @@ echo ($updType == 'create') ? form_open_multipart('auth/create', $attributes) : 
       <?=form_hidden('id',$user->id) ?>
 <?php endif ?>
 
-<p><?php echo form_submit('submit', lang('web_add_user') );?></p>
+<p><?php echo form_submit('submit', lang('web_add_user') , "id='submit'");?></p>
 
 
 <?php echo form_close();?>

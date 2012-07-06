@@ -304,11 +304,50 @@ class Sangar_scaffolds
 		        			}
 
 		        		break;
+
+		        		case 'checkbox':
+
+		        			$sql_table .= $index." INT(1) ";
+
+					        if ($value['required'])
+					         $sql_table .= "NOT NULL, ";
+					        else 
+					          $sql_table .= ", ";
+
+		        		break;
+
+		        		case 'select':
+		        		case 'radio':
+
+				        	$sql_table .= $index."  varchar(32)  DEFAULT '' ";
+				        			            
+							if ($value['required'])
+								$sql_table .= "NOT NULL, ";
+							else 
+								$sql_table .= ", ";
+		        		break;
+
+		        		case 'selectbd':
+
+				        	$sql_table .= $index."  INT(9) ";
+				        			            
+							if ($value['required'])
+								$sql_table .= "NOT NULL, ";
+							else 
+								$sql_table .= ", ";
+		        		break;
+
+		        		case 'datepicker':
+
+		        			$sql_table .= $index."  date, ";
+
+		        		break;
+
 		        	}
 		        }
 
-				$sql_table .= "created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ";
-				$sql_table .= "updated TIMESTAMP NOT NULL";
+				$sql_table .= "created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ";
+				$sql_table .= "updated_at TIMESTAMP NOT NULL";
 				$sql_table .= ") ENGINE=InnoDB  DEFAULT CHARSET=utf8;";
 
 				break;
@@ -388,7 +427,20 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 		\$data['updType']	= 	'create';
 		\$data['".$this->model_name."']		= 	getTableColumns('".$this->controller_name."', true);
 		\$data['page']		=	( \$this->uri->segment(3) )  ? \$this->uri->segment(3) : \$this->input->post('page', TRUE);
+
+		";
+
+	  	foreach ($this->arrayjson as $index => $value )
+    	{
+      		switch ($value['type'])
+      		{
+        		case 'selectbd':
+        			$data .= "\$data['array_".strtolower($value['options']['model'])."']	= 	".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' ));";
+        		break;
+        	}
+        }
 		
+        $data .= "
 
 		//Rules for validation
 		\$this->set_rules();
@@ -412,7 +464,7 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 		      		switch ($value['type'])
 		      		{
 		        		case 'text':
-		        		case 'textarea';
+		        		case 'textarea':
 
 		        			if ( $value['multilanguage'] == "TRUE")
 		        			{
@@ -426,6 +478,17 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 		        			{
 		        				$data .= $this->sl.$this->tabx4."'".$index."' => set_value('".$index."'), ";
 		        			}
+
+		        		break;
+
+		        		case 'checkbox':
+		        		case 'select':
+		        		case 'selectbd':
+		        		case 'radio':
+		        		case 'datepicker':
+
+
+		        			$data .= $this->sl.$this->tabx4."'".$index."' => set_value('".$index."'), ";
 
 		        		break;
 		        	}
@@ -469,6 +532,20 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
 			redirect('".$this->controller_name."/');
 		}
+
+		";
+
+	  	foreach ($this->arrayjson as $index => $value )
+    	{
+      		switch ($value['type'])
+      		{
+        		case 'selectbd':
+        			$data .= "\$data['array_".strtolower($value['options']['model'])."']	= 	".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' ));";
+        		break;
+        	}
+        }
+		
+        $data .= "
 
 		//Rules for validation
 		\$this->set_rules(\$id);
@@ -514,6 +591,17 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 					        			{
 					        				$data .= $this->sl.$this->tabx7."'".$index."' => set_value('".$index."'), ";
 					        			}
+
+					        		break;
+
+
+					        		case 'checkbox':
+					        		case 'select':
+					        		case 'selectbd':
+					        		case 'radio':
+					        		case 'datepicker':
+
+					        			$data .= $this->sl.$this->tabx7."'".$index."' => set_value('".$index."'), ";
 
 					        		break;
 					        	}
@@ -664,6 +752,17 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
         			}
 
         		break;
+
+        		case 'checkbox':
+        		case 'select':
+        		case 'selectbd':
+        		case 'radio':
+        		case 'datepicker':
+
+        	    	$data .= $this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."xss_clean');".$this->sl;
+        			$data .= $this->tabx5;	
+
+        		break;
         	}
         }
 
@@ -762,6 +861,20 @@ class ".$this->model_name_for_calls." extends ActiveRecord\Model {
         			}
 
         		break;
+
+        		case 'checkbox':
+        		case 'select':
+        		case 'selectbd':
+        		case 'radio':
+        		case 'datepicker':
+
+        			if ($value['required'] == "TRUE")
+        			{
+	        			$data .= $this->sl.$this->tabx2."array('".$index."'), ";	        			
+	        			$there_are_requireds = TRUE;
+        			}        		
+
+        		break;
         	}
         }
 
@@ -802,7 +915,29 @@ class ".$this->model_name_for_calls." extends ActiveRecord\Model {
 
 	private function create_view_create()
 	{
-		$data = "
+
+		$data = "";
+		
+		foreach ($this->arrayjson as $index => $value )
+    	{
+      		switch ($value['type'])
+      		{
+        		case 'datepicker':
+
+$data .= "
+<script src=\"js/datepicker/jquery.ui.datepicker-<?=\$this->config->item('prefix_language')?>.js\" type=\"text/javascript\"></script>
+<script>
+	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['<?=\$this->config->item('prefix_language')?>']);
+		$('.datepicker').datepicker({dateFormat: 'dd-mm-yy'});
+	});
+</script>
+";
+        		break;
+        	}
+        }
+
+		$data .= "
 <div id='content-top'>
     <h2><?=lang((\$updType == 'create') ? \"web_add\" : \"web_edit\")?></h2>
     <a href='/".$this->controller_name."/<?=\$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
@@ -827,7 +962,7 @@ foreach ($this->arrayjson as $index => $value )
 				{
 $data .="
 <p>
-	<label class='labelform' for='".$index."_".$prefix."'>".ucfirst($index)." ($prefix) <span class='required'>*</span></label>
+	<label class='labelform' for='".$index."_".$prefix."'>".ucfirst($index)." ($prefix) ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
 	<input id='".$index."_".$prefix."' type='text' name='".$index."_".$prefix."' maxlength='".$value['maxlength']."' value=\"<?php echo set_value('".$index."_".$prefix."', (isset(\$".$this->model_name."->".$index."_".$prefix.")) ? \$".$this->model_name."->".$index."_".$prefix." : ''); ?>\"  />
 	<?php echo form_error('".$index."_".$prefix."'); ?>
 </p>
@@ -838,7 +973,7 @@ $data .="
 			{
 $data .="
 <p>
-	<label class='labelform' for='".$index."'>".ucfirst($index)." <span class='required'>*</span></label>
+	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
 	<input id='".$index."' type='text' name='".$index."' maxlength='".$value['maxlength']."' value=\"<?php echo set_value('".$index."', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : ''); ?>\"  />
 	<?php echo form_error('".$index."'); ?>
 </p>
@@ -855,7 +990,7 @@ $data .="
 				{
 $data .="
 <p>
-	<label class='labelform' for='".$index."_".$prefix."'>".ucfirst($index)." ($prefix) <span class='required'>*</span></label>
+	<label class='labelform' for='".$index."_".$prefix."'>".ucfirst($index)." ($prefix) ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
 	<textarea id=\"".$index."_".$prefix."\"  name=\"".$index."_".$prefix."\"  /><?php echo set_value('".$index."_".$prefix."', (isset(\$".$this->model_name."->".$index."_".$prefix.")) ? \$".$this->model_name."->".$index."_".$prefix." : ''); ?></textarea>
 	<?php echo form_error('".$index."_".$prefix."'); ?>
 </p>
@@ -866,7 +1001,7 @@ $data .="
 			{
 $data .="
 <p>
-	<label class='labelform' for='".$index."'>".ucfirst($index)." <span class='required'>*</span></label>
+	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
 	<textarea id=\"".$index."\"  name=\"".$index."\"  /><?php echo set_value('".$index."', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : ''); ?></textarea>
 	<?php echo form_error('".$index."'); ?>
 </p>
@@ -874,13 +1009,92 @@ $data .="
 			}
 
 		break;
+
+		case 'checkbox':
+$data .= "
+<p>
+	<input id='".$index."' ".(($value['checked'] == "TRUE") ?  ' checked '  :  '')."type='checkbox' name='".$index."' value='1' <?=preset_checkbox('".$index."', '1', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : ''  )?> />&nbsp;<label class='labelforminline' for='".$index."'>".$value['label']." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
+	<?php echo form_error('".$index."'); ?>
+</p>
+";
+
+		break;
+
+		case 'select':
+$data .="
+<p>
+	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
+
+	<select name='".$index."' id='".$index."'>
+		<option value=''><?=lang('web_choose_option')?></option>";
+
+		foreach($value['options'] as $index2=>$value2)
+		{
+				$data .= $this->sl.$this->tab."<option value='".$value2['value']."' <?= preset_select('".$index."', '".$value2['value']."', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : ''  ) ?>>".$value2['text']."</option>";
+		}
+		
+
+$data .="		
+	</select>
+	<?php echo form_error('".$index."'); ?>
+</p>
+";
+		break;
+
+
+		case 'selectbd':
+$data .="
+<p>
+	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
+	<select name='".$index."' id='".$index."' size='".$value['size']."'>
+		<option value=''><?=lang('web_choose_option')?></option>
+		<?php foreach (\$array_".strtolower($value['options']['model'])." as \$item): ?>
+			<option value=\"<?=\$item->".$value['options']['field_value'].";?>\" <?= preset_select('".$index."', \$item->".$value['options']['field_value'].", (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : ''  ) ?>><?=\$item->".$value['options']['field_text'].";?></option>
+		<?php endforeach ?>
+		";		
+
+$data .="		
+	</select>
+	<?php echo form_error('".$index."'); ?>
+</p>
+";
+		break;
+
+		case 'radio':
+$data .= "
+<p>
+	<label class='labelform'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>";
+
+	$c = 0;
+	foreach($value['options'] as $index2 => $value2)
+	{
+		$data .= $this->sl.$this->tab."<input type='radio' name='".$index."' id='".$index."_$c' value='".$value2['value']."' <?=preset_radio('".$index."', '".$value2['value']."', (\$".$this->model_name."->".$index." != '') ? \$".$this->model_name."->".$index." : '".$value['checked']."'  );?> > <label class='labelforminline' for='".$index."_$c'> ".$value2['label']." </label>";
+		$c++;
+	}
+
+$data .= "
+	<?php echo form_error('".$index."'); ?>
+</p>
+";
+
+		break;
+
+		case 'datepicker':
+$data .="
+<p>
+	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
+	<input id='".$index."' type='text' name='".$index."' maxlength='' class='datepicker' value=\"<?php echo set_value('".$index."', (\$".$this->model_name."->".$index." != '') ? \$".$this->model_name."->".$index."->format('d-m-Y') : ''); ?>\"  />
+	<?php echo form_error('".$index."'); ?>
+</p>
+";
+		break;
 	}
 }
 
 
 $data .= "
 <p>
-    <?php echo form_submit( 'submit', (\$updType == 'edit') ? lang('web_edit') : lang('web_add'), ((\$updType == 'create') ? \"class='bcreateform'\" : \"class='beditform'\")); ?>
+    <?php echo form_submit( 'submit', (\$updType == 'edit') ? lang('web_edit') : lang('web_add'), ((\$updType == 'create') ? \"id='submit' class='bcreateform'\" : \"id='submit' class='beditform'\")); ?>
 </p>
 
 <?=form_hidden('page',set_value('page', \$page)) ?>

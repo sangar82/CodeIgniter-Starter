@@ -503,9 +503,31 @@ p{
     overflow: hidden;
     position: relative;
     text-indent: -99999px;
-    top: 3px;
+    top: 0px;
     cursor:hand;
 }
+
+/* Block UI*/
+.ajaxloader_img{
+    height:32px;
+    width:32px;
+    float:left;
+}
+.ajaxloader_text{
+    background: url('/public/img/admin/ajax-loader.gif') no-repeat 45px;
+    height:132px;
+    float:left;
+    font-family:arial;
+    font-size:16px;
+    font-weight:bold;
+    color:#435160;
+    height:32px;
+    line-height:32px;
+    padding:20px;
+    padding-left:100px;
+    text-align:center;  
+}
+/* Block UI*/
 
 
 /*Scaffolds*/

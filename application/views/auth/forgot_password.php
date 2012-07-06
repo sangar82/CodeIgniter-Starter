@@ -11,6 +11,6 @@
     </label>
       
       <br><br>
-      <p><?php echo form_submit('submit', 'Submit');?></p>
+      <p><?php echo form_submit('submit', 'Submit', "id='submit'");?></p>
       
 <?php echo form_close();?>

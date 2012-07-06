@@ -18,6 +18,7 @@ $lang['web_edit_success'] 			= 'Editado correctamente';
 $lang['web_edit_failed'] 			= 'Error editando. Vuelva a intentarlo';
 $lang['web_delete_success'] 		= 'Eliminado correctamente';
 $lang['web_delete_failed'] 			= 'Error eliminando. Vuelva a intentarlo';
+$lang['web_wait']		 			= 'Espere un momento, por favor';
 
 $lang['web_no_elements'] 			= 'Aún no existe ningún registro en la base de datos.';
 $lang['web_object_not_exist'] 		= 'El elemento seleccionado no existe en la base de datos.';

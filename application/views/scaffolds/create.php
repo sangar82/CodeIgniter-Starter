@@ -90,11 +90,108 @@
   "minlength"		: "0",
   "maxlength"		: "500",			
   "required"		: "FALSE",
-  "multilanguage"	: "FALSE",
-  "ckeditor"		: "FALSE"
+  "multilanguage"	: "FALSE"
 }
 </pre>
 </div>	
+
+<h3><a href="#">Checkbox</a></h3>
+<div>
+<pre>
+"public" :
+{
+  "type"		: "checkbox",
+  "required"	: "FALSE",
+  "checked"	: "FALSE",
+  "label"		: "Is public?"		
+}
+</pre>
+</div>
+
+<h3><a href="#">Select</a></h3>
+<div>
+<pre>
+"language" :
+{
+  "type"				:	"select",
+  "size"				:	"1", 
+  "required"			:	"FALSE",
+  "option_choose_one"	:	"TRUE",
+  "with_translations"		:	"FALSE",
+  "options" : 
+  {
+    "0" : 
+    {
+      "text"		: "Spanish",                                        
+      "selected"	: "TRUE",
+      "value"	: "spanish"
+    }, 
+    "1" : 
+    {
+      "text"		: "English",                                        
+      "selected"	: "FALSE",
+      "value"	: "english"
+    }
+  }
+}
+</pre>
+</div>	
+
+
+<h3><a href="#">Select 1:N</a></h3>
+<div>
+<pre>
+"category_id" : 
+{                                        
+  "type"       	: "selectbd",
+  "size"       	: "1", 
+  "required"   	: "TRUE",
+  "options"		: 
+  {
+    "model" 		: "Category",
+    "field_value"		: "id",
+    "field_text"		: "name",
+    "order"			: "name ASC"
+  }
+} 
+</pre>
+</div>
+
+<h3><a href="#">Radio Buttons</a></h3>
+<div>
+<pre>
+"gender" : 
+{
+  "type"       	: "radio",
+  "required"  	: "FALSE",
+  "checked"	: "male",
+  "options"    	: 
+  {
+    "0" : 
+    {
+      "label"      	: "Male",                                      
+      "value"      	: "male"
+    }, 
+    "1" : 
+    {
+      "label"      	: "Female",
+      "value"      	: "female"
+    } 
+  }
+} 
+</pre>
+</div>
+
+<h3><a href="#">Datepicker</a></h3>
+<div>
+<pre>
+"day" : 
+{
+  "type"		: "datepicker",
+  "required"	: "FALSE"
+}
+</pre>
+</div>
 
 </div>
 

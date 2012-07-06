@@ -18,6 +18,7 @@ $lang['web_edit_success'] 			= 'Editat correctamente';
 $lang['web_edit_failed'] 			= 'Error editant. Torni a provar-ho';
 $lang['web_delete_success'] 		= 'Eliminat correctament';
 $lang['web_delete_failed'] 			= 'Error eliminant. Torni a provar-ho';
+$lang['web_wait']		 			= 'Esperi un moment, si us plau';
 
 $lang['web_no_elements'] 			= 'Encara no hi ha cap registre a la base de dades.';
 $lang['web_object_not_exist'] 		= "L'element seleccionat no existeix a la base de dades.";

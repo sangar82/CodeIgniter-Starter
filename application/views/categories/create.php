@@ -17,7 +17,7 @@ echo ($updType == 'create') ? form_open('categories/create', $attributes) : form
 </p>
 
 <p>
-    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_category_edit') : lang('web_category_create'), (($updType == 'create') ? "class='bcreateform'" : "class='beditform'") ); ?>
+    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_category_edit') : lang('web_category_create'), (($updType == 'create') ? "id='submit' class='bcreateform'" : "id='submit' class='beditform'") ); ?>
 </p>
 	
 	<?=form_hidden('parent_id',$parent_id) ?>	

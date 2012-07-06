@@ -53,4 +53,3 @@ $route['products/(:num)/(:num)'] = "products/index/$1/$2";
 $route['login'] = "auth/login";
 $route['logout'] = "auth/logout";
 $route['forgot_password'] = "auth/forgot_password";
-

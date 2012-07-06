@@ -84,7 +84,7 @@ echo ($updType == 'create') ? form_open_multipart('products/create', $attributes
 </p>
 
 <p>
-    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_edit_product') : lang('web_add_product'), (($updType == 'create') ? "class='bcreateform'" : "class='beditform'")); ?>
+    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_edit_product') : lang('web_add_product'), (($updType == 'create') ? "id='submit' class='bcreateform'" : "id='submit' class='beditform'")); ?>
 </p>
 
 <?=form_hidden('page',set_value('page', $page)) ?>

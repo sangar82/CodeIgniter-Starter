@@ -6,3 +6,6 @@
 
 <?php  $mactive = ($this->uri->rsegment(1) == 'categories')  ? "class='selected'" : "" ?>
 <li <?=$mactive?> ><a href="/categories/" class="top-level" style="background-position: 0px 0px;"><?=lang('web_categories')?><span>&nbsp;</span></a></li>
+
+<?php  $mactive = ($this->uri->rsegment(1) == 'products')  ? "class='selected'" : "" ?>
+<li <?=$mactive?> ><a href="/products/" class="top-level" style="background-position: 0px 0px;"><?=lang('web_products')?><span>&nbsp;</span></a></li>

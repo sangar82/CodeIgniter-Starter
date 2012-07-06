@@ -12,15 +12,44 @@ $user = $this->user;
 	<meta http-equiv='content-language' content='es' />
 
 	<base href="<?php echo $this->config->item('base_url') ?>/public/" />
-	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.17.custom.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/bstyles.css" type="text/css" media="screen" />
 	
+	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/bstyles.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.21.custom.css" type="text/css" media="screen" />
+
 	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-	<script src="http://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
-	<script>$(function() {$('#examples').accordion({autoHeight: false,navigation: true, collapsible:true, active:false});});</script>
+	<script src="js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
+	<script src="js/jquery.blockUI.js" type="text/javascript"></script>
 	<script src="js/sortertables.js" type="text/javascript"></script>
-	<style>.ui-widget-content{font-size:12px;}</style>
+
+	<script>
+		$(function() {$('#examples').accordion({autoHeight: false,navigation: true, collapsible:true, active:false});});
+	</script>
+
+
+	<script>
+	
+		loadImage = new Image();
+		loadImage.src = "<?php echo $this->config->item('base_url') ?>/public/img/admin/ajax-loader.gif";
+					
+		$(document).ready(function() { 
+
+		    $('#submit').click(function() { 
+
+			$.blockUI({ 
+				message: "<div class=ajaxloader_text><?=lang('web_wait')?></div>",
+				timeout: 120000
+			}); 	
+		    
+		    }); 
+		});
+
+	</script> 
+
+	<style>
+		.ui-widget-content{font-size:12px;}
+		.ui-state-highlight{height:100%;}
+	</style>
 	
 </head>
 

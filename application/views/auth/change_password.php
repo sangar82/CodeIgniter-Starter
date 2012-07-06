@@ -17,6 +17,6 @@
       </p>
       
       <?php echo form_input($user_id);?>
-      <p><?php echo form_submit('submit', 'Change');?></p>
+      <p><?php echo form_submit('submit', 'Change', "id='submit'");?></p>
       
 <?php echo form_close();?>
