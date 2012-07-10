@@ -65,7 +65,8 @@ $autoload['sparks'] = array('php-activerecord/0.0.2');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'language', 'form', 'tablecolumns', 'myform', 'transurl');
+//$autoload['helper'] = array('url', 'language', 'form', 'tablecolumns', 'myform', 'transurl');
+$autoload['helper'] = array('url', 'language', 'form', 'myform', 'transurl');
 
 
 /*

@@ -92,14 +92,13 @@ class Products extends MY_Controller {
 		//create control variables
 		$data['title'] 					= 	"Crear producto";
 		$data['updType'] 				= 	'create';
-		$data['product'] 				= 	getTableColumns('products', true);
+		//$data['product'] 				= 	getTableColumns('products', true);
 		$data['product']->category_id 	= 	$category_id;
 		$data['page']					=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('page', TRUE);
 		$data['parent_id']				=	( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('parent_id', TRUE);
 
-		//variables for check the upload
-		$upload_products_ok 		= FALSE;
-		$thumbnail_products_ok 		= FALSE;
+		//auxiliar variables for the upload
+		$form_data_aux	= array();
 
 		//Rules for validation
 		$this->set_rules();
@@ -113,79 +112,82 @@ class Products extends MY_Controller {
 		}
 		else
 		{
-			$this->load->library('upload', $this->set_upload_options('products'));
-
-			//upload the image
-			if ( ! $this->upload->do_upload('image'))
+			foreach ($_FILES as $index => $value)
 			{
-				$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
-				
-				//load the view and the layout
-				$layout['body'] = $this->load->view('products/create', $data, TRUE);
-				$this->load->view('layouts/backend', $layout);
+				if ($value['name'] != '')
+				{
+					$this->load->library('upload');
+					$this->upload->initialize($this->set_upload_options('products'));
+
+					//upload the image
+					if ( ! $this->upload->do_upload($index))
+					{
+						$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
+						
+						//load the view and the layout
+						$layout['body'] = $this->load->view('products/create', $data, TRUE);
+						$this->load->view('layouts/backend', $layout);
+
+						return FALSE;
+					}
+					else
+					{
+						//create an array to send to image_lib library to create the thumbnail
+						$info_upload = $this->upload->data();
+
+						//Save the name an array to save on BD before
+						$form_data_aux[$index]		=	$info_upload["file_name"];
+
+						//Load and initializing the imagelib library to create the thumbnail
+						$this->load->library('image_lib');
+						$this->image_lib->initialize($this->set_thumbnail_options($info_upload, 'products'));
+						
+						//create the thumbnail
+						if ( ! $this->image_lib->resize())
+						{
+							$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
+
+							//load the view and the layout
+							$layout['body'] = $this->load->view('products/create', $data, TRUE);
+							$this->load->view('layouts/backend', $layout);
+
+							return FALSE;
+						}
+					}
+				}
 			}
+
+			// build array for the model
+			$form_data = array(
+					       	'name' => set_value('name'),
+					       	'description' => set_value('description'),
+					       	'active' => set_value('active'),
+					       	'option' => set_value('option'),
+					       	'image' => set_value('image'),
+					       	'category_id' => set_value('category_id')
+						);
+
+			//add the aux form data to the form data array to save
+			$form_data = array_merge($form_data, $form_data_aux);
+
+			// run insert model to write data to db
+			$product = Product::create($form_data);
+
+			if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
+			{
+				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
+			}
+			
+			if ( $product->is_invalid() )
+			{
+				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $product->errors->full_messages() ));
+			}
+
+			if ($this->input->post('parent_id'))
+				redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
 			else
-			{
-				$upload_products_ok = TRUE;
-			}
-
-			//create the thumbnail
-			if ($upload_products_ok)
-			{	
-				//create an array to send to image_lib library to create the thumbnail
-				$info_upload = $this->upload->data();
-
-				//Load and initializing the imagelib library to create the thumbnail
-				$this->load->library('image_lib');
-				$this->image_lib->initialize($this->set_thumbnail_options($info_upload, 'products'));
-				
-				//create the thumbnail
-				if ( ! $this->image_lib->resize())
-				{
-					$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
-
-					//load the view and the layout
-					$layout['body'] = $this->load->view('products/create', $data, TRUE);
-					$this->load->view('layouts/backend', $layout);
-				}
-				else
-				{
-					$thumbnail_products_ok = TRUE;
-				}
-			}
-
-			//save at BD
-			if ($upload_products_ok and $thumbnail_products_ok)
-			{
-				// build array for the model
-				$form_data = array(
-						       	'name' => set_value('name'),
-						       	'description' => set_value('description'),
-						       	'active' => set_value('active'),
-						       	'option' => set_value('option'),
-						       	'image' => set_value('image'),
-						       	'category_id' => set_value('category_id'),
-						       	'image' =>	$info_upload["file_name"]
-							);
-
-				// run insert model to write data to db
-				$product = Product::create($form_data);
-
-				if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
-				{
-					$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_create_success') ));
-				}
-				
-				if ( $product->is_invalid() )
-				{
-					$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $product->errors->full_messages() ));
-				}
-
-				if ($this->input->post('parent_id'))
-					redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
-				else
-					redirect('products/'.$this->input->post('page', TRUE));
-			}	
+				redirect('products/'.$this->input->post('page', TRUE));
+		
 	  	} 
 	}
 
@@ -207,8 +209,8 @@ class Products extends MY_Controller {
 		$data['parent_id']	=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
 
 		//variables for check the upload
-		$upload_products_ok 		= FALSE;
-		$thumbnail_products_ok 		= FALSE;
+		$form_data_aux			= array();
+		$files_to_delete 		= array();
 
 		//redirect if it´s no correct
 		if (!$id){
@@ -231,59 +233,56 @@ class Products extends MY_Controller {
 		else
 		{
 
-			if ($_FILES['image']['name'] != '')
+			$data['product'] = Product::find($this->input->post('id', TRUE));
+
+			foreach ($_FILES as $index => $value)
 			{
-				//initializing the upload library
-				$this->load->library('upload', $this->set_upload_options('products'));
-
-				//upload the image
-				if ( ! $this->upload->do_upload('image'))
+				if ($value['name'] != '')
 				{
-					$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
-					$data['product'] = Product::find($this->input->post('id', TRUE));
-					
-					//load the view and the layout
-					$layout['body'] = $this->load->view('products/create', $data, TRUE);
-					$this->load->view('layouts/backend', $layout);
-				}
-				else
-				{
-					$upload_products_ok = TRUE;
-				}
+					//initializing the upload library
+					$this->load->library('upload');
+					$this->upload->initialize($this->set_upload_options('products'));
 
-
-				if ($upload_products_ok)
-				{	
-					//create an array to send to image_lib library to create the thumbnail
-					$info_upload = $this->upload->data();
-
-					//Load and initializing the imagelib library to create the thumbnail
-					$this->load->library('image_lib');
-					$this->image_lib->initialize($this->set_thumbnail_options($info_upload, 'products'));
-					
-					//create the thumbnail
-					if ( ! $this->image_lib->resize())
+					//upload the image
+					if ( ! $this->upload->do_upload($index))
 					{
-						$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
-						$data['product'] = Product::find($this->input->post('id', TRUE));
-
+						$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
+						
 						//load the view and the layout
 						$layout['body'] = $this->load->view('products/create', $data, TRUE);
 						$this->load->view('layouts/backend', $layout);
+
+						return FALSE;
 					}
 					else
 					{
-						$thumbnail_products_ok = TRUE;
+						//create an array to send to image_lib library to create the thumbnail
+						$info_upload = $this->upload->data();
+
+						//Save the name an array to save on BD before
+						$form_data_aux[$index]		=	$info_upload["file_name"];
+
+						//Save the name of old files to delete
+						array_push($files_to_delete, $data['product']->$index);
+
+						//Load and initializing the imagelib library to create the thumbnail
+						$this->load->library('image_lib');
+						$this->image_lib->initialize($this->set_thumbnail_options($info_upload, 'products'));
+						
+						//create the thumbnail
+						if ( ! $this->image_lib->resize())
+						{
+							$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
+
+							//load the view and the layout
+							$layout['body'] = $this->load->view('products/create', $data, TRUE);
+							$this->load->view('layouts/backend', $layout);
+
+							return FALSE;
+						}
 					}
 				}
-			}
-
-
-			if ( !( ( $_FILES['image']['name'] != '' and $upload_products_ok and $thumbnail_products_ok) or $_FILES['image']['name'] == '' ) )
-			{
-				return FALSE;
-			}
-
+			}		
 
 			// build array for the model
 			$form_data = array(
@@ -296,8 +295,8 @@ class Products extends MY_Controller {
 						);
 
 			
-			if ( isset( $info_upload["file_name"] ) )
-				$form_data['image']		=	$info_upload["file_name"];
+			//add the aux form data to the form data array to save
+			$form_data = array_merge($form_data_aux, $form_data);
 
 			//find the item to update
 			$product = Product::find($this->input->post('id', TRUE));
@@ -308,19 +307,18 @@ class Products extends MY_Controller {
 			// run insert model to write data to db
 			$product->update_attributes($form_data);
 
-
 			if ( $product->is_valid() ) // the information has therefore been successfully saved in the db
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
 
 				//delete the old images
-				if ($upload_products_ok)
+				foreach ($files_to_delete as $index)
 				{
-					if ( is_file(FCPATH.'public/uploads/products/img/'.$old_image) )
-						unlink(FCPATH.'public/uploads/products/img/'.$old_image);
+					if ( is_file(FCPATH.'public/uploads/products/img/'.$index) )
+						unlink(FCPATH.'public/uploads/products/img/'.$index);
 					
-					if ( is_file(FCPATH.'public/uploads/products/img/thumbs/'.$old_image) )	
-						unlink(FCPATH.'public/uploads/products/img/thumbs/'.$old_image);
+					if ( is_file(FCPATH.'public/uploads/products/img/thumbs/'.$index) )	
+						unlink(FCPATH.'public/uploads/products/img/thumbs/'.$index);
 				}
 			}
 
@@ -396,11 +394,11 @@ class Products extends MY_Controller {
      */
 	private function set_rules()
 	{
-		$this->form_validation->set_rules('name', 'lang:web_name', 'required|trim|xss_clean|min_length[2]|max_length[100]');			
+		$this->form_validation->set_rules('name', 'lang:web_name', 'required|trim|xss_clean|min_length[2]|max_length[100]');						
 		$this->form_validation->set_rules('description', 'lang:web_description', 'required|trim|xss_clean|min_length[2]|max_length[500]');			
 		$this->form_validation->set_rules('category_id', 'lang:web_category', 'is_numeric|required|trim|xss_clean');			
 		$this->form_validation->set_rules('active', 'lang:web_category', 'is_numeric');			
-		$this->form_validation->set_rules('option', 'lang:web_options', 'is_numeric|required|trim|xss_clean');				
+		$this->form_validation->set_rules('option', 'lang:web_options', 'is_numeric|required|trim|xss_clean');			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	}	
 

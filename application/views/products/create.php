@@ -63,6 +63,7 @@ echo ($updType == 'create') ? form_open_multipart('products/create', $attributes
 	<?php endif ?>
 
 	<input id="image" type="file" name="image" />
+
 	<br/><?php echo form_error('image'); ?>
 	<?php  echo ( isset($upload_error)) ?  $upload_error  : ""; ?>
 </p>

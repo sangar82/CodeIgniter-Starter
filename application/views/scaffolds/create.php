@@ -193,6 +193,35 @@
 </pre>
 </div>
 
+
+<h3><a href="#">Image</a></h3>
+<div>
+<pre>
+"user_image" : 
+{
+  "type"                 : "image",
+  "required"           : "FALSE",
+  "multilanguage"   : "FALSE",
+  "upload"  : 
+  {
+    "allowed_types"  : "gif|jpg|png",                                      
+    "encrypt_name"  : "TRUE",
+    "max_width"       : "2000",
+    "max_height"      : "1500"
+  },
+  "thumbnail" :
+  {
+   "maintain_ratio"   :  "FALSE",
+   "master_dim"       : "width", 
+   "width"                : "100", 
+   "height"               : "100"
+  }
+} 
+</pre>
+</div>
+
+
+
 </div>
 
 <div class='clear'></div>
