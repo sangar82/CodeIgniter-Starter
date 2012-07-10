@@ -252,15 +252,23 @@ class Sangar_scaffolds
 				{
 					foreach ($this->languages as $prefix=>$language)
 					{
+						if ( isset ($value['thumbnail']) )
+							if ($value['thumbnail'])
+								array_push($this->array_thumbnails_uploads, $index."_".$prefix);
+
 				
-						if ($value['required'] === TRUE)
-							array_push($array_required_fields_uploads, $index."_".$prefix);							
+						if ($value['required'] === 'TRUE')
+							array_push($this->array_required_fields_uploads, $index."_".$prefix);							
 					}
 				}
 				else
 				{
-					if ($value['required'] === TRUE)
-						array_push($array_required_fields_uploads, $index);
+					if ( isset ($value['thumbnail']) )
+						if ($value['thumbnail'])
+							array_push($this->array_thumbnails_uploads, $index);
+
+					if ($value['required'] === 'TRUE')
+						array_push($this->array_required_fields_uploads, $index);
 				}
 			}
 		}
@@ -313,6 +321,7 @@ class Sangar_scaffolds
 		      		{
 		        		case 'text':
 		        		case 'image':
+		        		case 'file':
 
 		        			if ( $value['multilanguage'] == "TRUE")
 		        			{
@@ -977,6 +986,9 @@ $data .= "
 						array_push(\$files_to_delete, \$data['".$this->model_name."']->\$index);
 
 						//Initializing the imagelib library to create the thumbnail
+
+						if (in_array(\$index, \$array_thumbnails))
+						{
 ";
 			foreach ($this->arrayjson as $index => $value )
 	    	{
@@ -1020,20 +1032,21 @@ $data .="
 	      	}
 
 $data .= "						
-						//create the thumbnail
-						if ( ! \$this->image_lib->resize())
-						{
-							\$data['upload_error'][\$index] = \$this->image_lib->display_errors(\"<span class='error'>\", \"</span>\");
+							//create the thumbnail
+							if ( ! \$this->image_lib->resize())
+							{
+								\$data['upload_error'][\$index] = \$this->image_lib->display_errors(\"<span class='error'>\", \"</span>\");
 
-							//load the view and the layout
-							\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-							\$this->load->view('layouts/backend', \$layout);
+								//load the view and the layout
+								\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
+								\$this->load->view('layouts/backend', \$layout);
 
-							return FALSE;
+								return FALSE;
+							}
 						}
 					}
 				}
-				
+
 			}		
 ";
 
@@ -1096,16 +1109,35 @@ $data .= "
 			// run insert model to write data to db
 			if ( \$".$this->model_name."->is_valid()) // the information has therefore been successfully saved in the db
 			{
+";
+			if ($this->there_is_an_image or $this->there_is_a_file)
+			{
+$data .= "				
 				//delete the old images
 				foreach (\$files_to_delete as \$index)
-				{
+				{";
+					if ($this->there_is_an_image)
+					{
+$data .= "
 					if ( is_file(FCPATH.'public/uploads/".$this->controller_name."/img/'.\$index) )
 						unlink(FCPATH.'public/uploads/".$this->controller_name."/img/'.\$index);
 					
 					if ( is_file(FCPATH.'public/uploads/".$this->controller_name."/img/thumbs/'.\$index) )	
-						unlink(FCPATH.'public/uploads/".$this->controller_name."/img/thumbs/'.\$index);
-				}
+						unlink(FCPATH.'public/uploads/".$this->controller_name."/img/thumbs/'.\$index);";
+					}
 
+					if ($this->there_is_a_file)
+					{
+$data .= "
+					if ( is_file(FCPATH.'public/uploads/".$this->controller_name."/files/'.\$index) )	
+						unlink(FCPATH.'public/uploads/".$this->controller_name."/files/'.\$index);";
+					}
+$data .= "
+				}
+";
+					
+			}
+$data .= "
 				\$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
 				redirect(\"".$this->controller_name."/\$page/\");
 			}
@@ -1157,6 +1189,7 @@ $data .= "
       		switch ($value['type'])
       		{
         		case 'image':
+        		case 'file':
 
         		    if ( $value['multilanguage'] == "TRUE")
         			{
@@ -1184,20 +1217,34 @@ $data .= "
 			\$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));";	
 
 
- 		if ($this->there_is_an_image or $this->there_is_a_file)
- 		{
-$data .= "
+			if ($this->there_is_an_image or $this->there_is_a_file)
+			{
+$data .= "		
 
 			//delete the old images
 			foreach (\$files_to_delete as \$index)
-			{
+			{";
+				if ($this->there_is_an_image)
+				{
+$data .= "
 				if ( is_file(FCPATH.'public/uploads/".$this->controller_name."/img/'.\$index) )
 					unlink(FCPATH.'public/uploads/".$this->controller_name."/img/'.\$index);
 				
 				if ( is_file(FCPATH.'public/uploads/".$this->controller_name."/img/thumbs/'.\$index) )	
-					unlink(FCPATH.'public/uploads/".$this->controller_name."/img/thumbs/'.\$index);
-			}";
-        }
+					unlink(FCPATH.'public/uploads/".$this->controller_name."/img/thumbs/'.\$index);";
+				}
+
+				if ($this->there_is_a_file)
+				{
+$data .= "
+				if ( is_file(FCPATH.'public/uploads/".$this->controller_name."/files/'.\$index) )	
+					unlink(FCPATH.'public/uploads/".$this->controller_name."/files/'.\$index);";
+				}
+$data .= "
+			}
+";
+					
+			}
 
 
 		$data .="
@@ -1377,11 +1424,11 @@ $data .= "
 $data .= "
 		if (\$field == '$index')
 		{
-			\$config['upload_path'] = FCPATH.'public/uploads/'.\$controller.'/img/';
-			\$config['allowed_types'] = '".$value['upload']['allowed_types']."';
+			\$config['upload_path'] 	= FCPATH.'public/uploads/'.\$controller.'/img/';
+			\$config['allowed_types'] 	= '".$value['upload']['allowed_types']."';
 			\$config['encrypt_name']	= ".$value['upload']['encrypt_name'].";
-			\$config['max_width']  = '".$value['upload']['max_width']."';
-			\$config['max_height']  = '".$value['upload']['max_height']."';
+			\$config['max_width']  		= '".$value['upload']['max_width']."';
+			\$config['max_height']  	= '".$value['upload']['max_height']."';
 		}
 
 ";
@@ -1392,11 +1439,10 @@ $data .= "
 $data .= "
 		if (\$field == '$index')
 		{
-			\$config['upload_path'] = FCPATH.'public/uploads/'.\$controller.'/files/';
-			\$config['allowed_types'] = '".$value['upload']['allowed_types']."';
-			\$config['encrypt_name']	= ".$value['upload']['encrypt_name'].";
-			\$config['max_width']  = '".$value['upload']['max_width']."';
-			\$config['max_height']  = '".$value['upload']['max_height']."';
+			\$config['upload_path'] 		= FCPATH.'public/uploads/'.\$controller.'/files/';
+			\$config['allowed_types'] 	= '".$value['upload']['allowed_types']."';
+			\$config['max_size'] 		= '".$value['upload']['max_size']."';
+			\$config['encrypt_name']		= ".$value['upload']['encrypt_name'].";
 		}
 
 ";
@@ -1785,6 +1831,49 @@ $data .= "
 			}
 
 		break;
+
+		case 'file':
+
+			if ( $value['multilanguage'] == "TRUE")
+			{
+				foreach ($this->languages as $prefix=>$language)
+				{
+$data .= "
+<p>
+	<label class='labelform' for='".$index."_".$prefix."'><?=lang( (\$updType == 'edit')  ? \"web_file_edit\" : \"web_file_create\" )?> [".$index." ($prefix)] ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
+
+	<input id='".$index."_".$prefix."' type='file' name='".$index."_".$prefix."' />
+
+	<?php if (\$updType == 'edit'): ?>
+		<p> <a href='/public/uploads/".$this->controller_name."/files/<?=\$".$this->model_name."->".$index."_".$prefix."?>' />Download actual file ".$index." (".$prefix.")</a> </p>
+	<?php endif ?>
+
+	<br/><?php echo form_error('".$index."_".$prefix."'); ?>
+	<?php  echo ( isset(\$upload_error['".$index."_".$prefix."'])) ?  \$upload_error['".$index."_".$prefix."']  : \"\"; ?>
+</p>
+";
+				}
+
+			}
+			else
+			{
+$data .= "
+<p>
+	<label class='labelform' for='".$index."'><?=lang( (\$updType == 'edit')  ? \"web_file_edit\" : \"web_file_create\" )?> (".$index.") ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
+
+	<input id='".$index."' type='file' name='".$index."' />
+
+	<?php if (\$updType == 'edit'): ?>
+	<a href='/public/uploads/".$this->controller_name."/files/<?=\$".$this->model_name."->".$index."?>' />Download actual file (".$index.")</a>
+	<?php endif ?>
+
+	<br/><?php echo form_error('".$index."'); ?>
+	<?php  echo ( isset(\$upload_error['".$index."'])) ?  \$upload_error['".$index."']  : \"\"; ?>
+</p>
+";
+			}
+
+		break;
 	}
 }
 
@@ -1862,6 +1951,7 @@ $data .= "
 					case 'text':
 					case 'textarea':
 					case 'image':
+					case 'file':
 
 			$data .="
 			<th>".ucfirst($index)."</th>";
@@ -1909,6 +1999,25 @@ $data .= "
 		        			else
 		        			{
 		        				$data .= $this->tabx5."<td><img src='/public/uploads/".$this->controller_name."/img/thumbs/<?=\$".$this->model_name."->".$index."?>' border='0' /></td>".$this->sl;
+		        			}
+
+			        		break;
+
+
+			        		case 'file':
+
+		        			if ( $value['multilanguage'] == "TRUE")
+		        			{
+		        				$data .= $this->tabx5."<td>";
+		        				foreach ($this->languages as $prefix=>$language)
+								{
+		        					$data .= $this->tabx6."<a href='/public/uploads/".$this->controller_name."/files/<?=\$".$this->model_name."->".$index."_".$prefix."?>'/>Download ".$index." (".$prefix.")</a></br></br>".$this->sl;	
+		        				}
+		        				$data .= $this->tabx5."</td>";
+		        			}
+		        			else
+		        			{
+		        				$data .= $this->tabx5."<td><a href='/public/uploads/".$this->controller_name."/files/<?=\$".$this->model_name."->".$index."?>' />Download file (".$index.")</a></td>".$this->sl;
 		        			}
 
 			        		break;

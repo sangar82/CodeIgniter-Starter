@@ -372,12 +372,20 @@ div#bfooter-bottom p a {
 }
 
 
-.tform input[type='text'], .tform input[type='file']{
+.tform input[type='text']{
     width:400px;
     padding:2px 2px;
     font-size:12px;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
+
+.tform input[type='file']{
+    width:300px;
+    padding:2px 2px;
+    font-size:12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
 
 .tform input[type='radio']{
     margin-bottom:8px;

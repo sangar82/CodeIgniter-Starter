@@ -220,6 +220,26 @@
 </pre>
 </div>
 
+<h3><a href="#">File</a></h3>
+<div>
+<pre>
+"file" : 
+{
+  "type"                 : "file",
+  "required"           : "FALSE",
+  "multilanguage"   : "FALSE",
+  "upload"  : 
+  {
+    "allowed_types"  : "pdf",                                      
+    "encrypt_name"  : "TRUE",
+    "max_size"      : "2048"
+  }
+} 
+</pre>
+</div>
+
+
+
 
 
 </div>
