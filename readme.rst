@@ -20,7 +20,7 @@ Custom Codeigniter with preinstalled features:
 - Toast Unit test (Sangar Auth test, categories test, products test)
 - Ignited Scaffolding: a new way to do a scoffolding.
 
-Ready to work!
+Under development: the first full operative version in a few weeks.
 
 
 *******************
@@ -34,17 +34,29 @@ Server Requirements
 Installation
 ************
 
-Download and copy to your document root folder
+The installation is the same as Codeigniter.
+
+Please see the `installation instruccions of Codeigniter
+ <http://codeigniter.com/user_guide/installation/index.html>`_
 
 Create the database with the mysql_dump.sql file
 
-Edit the config files:
+Edit the files with your preferences (domain, languages, database, authentification):
 
 - config.php
 - database.php
 - sangar_auth.php
 
-Create a virtualhost for to access via www.yourdomain.com (the same that you wrote in config.php)
+Create a virtualhost with the the same domain that you write in config.php.
+If you want more languages, create more ServerAlias
+
+	<VirtualHost *:80>
+	ServerName www.mydomain.com
+	ServerAlias en.mydomain.com
+	ServerAlias es.mydomain.com
+	ServerAlias ca.mydomain.com
+	DocumentRoot /www/mydomain.com
+	</VirtualHost>
 
 Enjoy!!
 
@@ -82,7 +94,7 @@ For use in your views use the helper transurl_helper.php
 Example
 ::
 
-	<?=lang_anchor('users', 'edit', 1)?>
+	<?=lang_anchor('users', 'edit', '1')?>
 
 (It takes the actual language and creates an anchor based on the local URL with translations of method name and controller name)
 
