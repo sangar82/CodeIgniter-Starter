@@ -36,8 +36,7 @@ Installation
 
 The installation is the same as Codeigniter.
 
-Please see the `installation instruccions of Codeigniter
- <http://codeigniter.com/user_guide/installation/index.html>`_
+Please see the installation instruccions of Codeigniter <http://codeigniter.com/user_guide/installation/index.html>
 
 Create the database with the mysql_dump.sql file
 
@@ -51,11 +50,17 @@ Create a virtualhost with the the same domain that you write in config.php.
 If you want more languages, create more ServerAlias
 
 	<VirtualHost *:80>
-	ServerName www.mydomain.com
-	ServerAlias en.mydomain.com
-	ServerAlias es.mydomain.com
-	ServerAlias ca.mydomain.com
-	DocumentRoot /www/mydomain.com
+
+		ServerName www.mydomain.com
+
+		ServerAlias en.mydomain.com
+
+		ServerAlias es.mydomain.com
+
+		ServerAlias ca.mydomain.com
+
+		DocumentRoot /www/mydomain.com
+	
 	</VirtualHost>
 
 Enjoy!!
