@@ -33,7 +33,7 @@ function saveOrderClick() {
       $.ajax({
 
        type: "POST",
-       url: "/categories/update_order_categories",
+       url: "/admin/categories/update_order_categories",
        data: "categories="+stringcat,
        success: function(msg){
 	 		   

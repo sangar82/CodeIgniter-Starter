@@ -4,17 +4,17 @@
     <?php if ($updType == 'create'): ?>
 
 	    <?php if ($parent_id != "0"): ?>
-	    	<a href='/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+	    	<a href='/admin/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
 	    <?php else: ?>
-	    	 <a href='/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
+	    	 <a href='/admin/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
 	    <?php endif ?>
 
     <?php else: ?>
 
  	    <?php if ($parent_id != "0"): ?>
-    		<a href='/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+    		<a href='/admin/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
 	    <?php else: ?>
-	    	 <a href='/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
+	    	 <a href='/admin/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
 	    <?php endif ?>
     	
     <?php endif ?>
@@ -28,7 +28,7 @@
 <?php 
 
 $attributes = array('class' => 'tform', 'id' => '');
-echo ($updType == 'create') ? form_open_multipart('products/create', $attributes) : form_open_multipart('products/edit', $attributes); 
+echo ($updType == 'create') ? form_open_multipart('admin/products/create', $attributes) : form_open_multipart('admin/products/edit', $attributes); 
 ?>
 
 <p>

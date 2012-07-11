@@ -1,12 +1,12 @@
 <div id="content-top">
     <h2><?=lang('web_list_deactivate_user')?></h2>
-    <a href='/auth/' class='bcreate'><?=lang('web_back_to_list')?></a>
+    <a href='/admin/users/' class='bcreate'><?=lang('web_back_to_list')?></a>
     <span class="clearFix">&nbsp;</span>
 </div>
 
 <p><?=lang('web_list_deuser_conf')?> '<?php echo $user->username; ?>'</p>
 	
-<?php echo form_open("auth/deactivate/".$user->id);?>
+<?php echo form_open("users/deactivate/".$user->id);?>
 	
   <p>
 

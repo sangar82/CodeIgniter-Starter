@@ -8,7 +8,7 @@
 
     <h2><?=lang('web_login_access')?></h2>
 
-    <?php echo form_open("auth/login");?>
+    <?php echo form_open("admin/users/login");?>
 
     <label>
       <strong class="email-label"><?=lang('web_email')?></strong>

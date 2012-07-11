@@ -473,7 +473,7 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 		\$this->pagination->initialize(\$config);
 
 		//control of number page
-		\$page = (\$this->uri->segment(2)) ? \$this->uri->segment(2) : 1;
+		\$page = (\$this->uri->segment(3)) ? \$this->uri->segment(3) : 1;
 
 		//find all the categories with paginate and save it in array to past to the view
 		\$data['".$this->controller_name."'] = ".$this->model_name_for_calls."::paginate_all(\$config['per_page'], \$page);
@@ -497,7 +497,7 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 		//create control variables
 		\$data['title']		= 	'Crear ".$this->controller_name."';
 		\$data['updType']	= 	'create';
-		\$data['page']		=	( \$this->uri->segment(3) )  ? \$this->uri->segment(3) : \$this->input->post('page', TRUE);
+		\$data['page']		=	( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('page', TRUE);
 		\$form_data_aux 	= 	array();
 		";
 
@@ -794,7 +794,7 @@ $data .= "
 				\$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => \$".$this->model_name."->errors->full_messages() ));
 			}
 
-			redirect('".$this->controller_name."/');
+			redirect('/admin/".$this->controller_name."/');
 		
 	  	} 
 	}
@@ -803,11 +803,11 @@ $data .= "
 	function edit(\$id = FALSE, \$page = 1) 
 	{
 		//get the \$id and sanitize
-		\$id = ( \$this->uri->segment(3) )  ? \$this->uri->segment(3) : \$this->input->post('id', TRUE);
+		\$id = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('id', TRUE);
 		\$id = ( \$id != 0 ) ? filter_var(\$id, FILTER_VALIDATE_INT) : NULL;
 
 		//get the \$page and sanitize
-		\$page = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('page', TRUE);
+		\$page = ( \$this->uri->segment(5) )  ? \$this->uri->segment(5) : \$this->input->post('page', TRUE);
 		\$page = ( \$page != 0 ) ? filter_var(\$page, FILTER_VALIDATE_INT) : NULL;
 
 		//redirect if it´s no correct
@@ -1139,13 +1139,13 @@ $data .= "
 			}
 $data .= "
 				\$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
-				redirect(\"".$this->controller_name."/\$page/\");
+				redirect(\"/admin/".$this->controller_name."/\$page/\");
 			}
 
 			if (\$".$this->model_name."->is_invalid())
 			{
 				\$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => \$".$this->model_name."->errors->full_messages() ) );
-				redirect(\"".$this->controller_name."/\$page/\");
+				redirect(\"/admin/".$this->controller_name."/\$page/\");
 			}	
 	  	} 
 	}
@@ -1254,7 +1254,7 @@ $data .= "
 			\$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_delete_failed') ) );
 		}	
 
-		redirect('".$this->controller_name."');
+		redirect('/admin/".$this->controller_name."');
 	}
 
 
@@ -1525,7 +1525,7 @@ $data .= "
 }";
 
 
-		if ( $this->save_file($this->controller_name, "controllers/", trim( $data ) ) === TRUE )
+		if ( $this->save_file($this->controller_name, "controllers/admin/", trim( $data ) ) === TRUE )
 			return TRUE;
 		else
 			return FALSE;
@@ -1707,13 +1707,13 @@ $data .= "
 		$data .= "
 <div id='content-top'>
     <h2><?=lang((\$updType == 'create') ? \"web_add\" : \"web_edit\")?></h2>
-    <a href='/".$this->controller_name."/<?=\$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+    <a href='/admin/".$this->controller_name."/<?=\$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
     <span class='clearFix'>&nbsp;</span>
 </div>
 
 <?php 
 \$attributes = array('class' => 'tform', 'id' => '');
-echo (\$updType == 'create') ? form_open_multipart('".$this->controller_name."/create', \$attributes) : form_open_multipart('".$this->controller_name."/edit', \$attributes); 
+echo (\$updType == 'create') ? form_open_multipart('/admin/".$this->controller_name."/create', \$attributes) : form_open_multipart('/admin/".$this->controller_name."/edit', \$attributes); 
 ?>
 ";
 
@@ -1998,7 +1998,7 @@ $data .= "
 <div id='content-top'>
     <h2>Listado de ".$this->controller_name."</h2>
    
-    <a href='/".$this->controller_name."/create/<?=\$page?>' class='bcreate'>Crear ".$this->model_name."</a>
+    <a href='/admin/".$this->controller_name."/create/<?=\$page?>' class='bcreate'>Crear ".$this->model_name."</a>
   
     <span class='clearFix'>&nbsp;</span>
 </div>
@@ -2091,8 +2091,8 @@ $data .= "
 			        	}
 			        }
 
-				$data .= $this->tabx5."<td width='60'><a class='ledit' href='/".$this->controller_name."/edit/<?=\$".$this->model_name."->id?>/<?=\$page?>'><?=lang('web_edit')?></a></td>
-					<td width='60'><a class='ldelete' onClick=\"return confirm('<?=lang('web_confirm_delete')?>')\" href='/".$this->controller_name."/delete/<?=\$".$this->model_name."->id?>/<?=\$page?>'><?=lang('web_delete')?></a></td>
+				$data .= $this->tabx5."<td width='60'><a class='ledit' href='/admin/".$this->controller_name."/edit/<?=\$".$this->model_name."->id?>/<?=\$page?>'><?=lang('web_edit')?></a></td>
+					<td width='60'><a class='ldelete' onClick=\"return confirm('<?=lang('web_confirm_delete')?>')\" href='/admin/".$this->controller_name."/delete/<?=\$".$this->model_name."->id?>/<?=\$page?>'><?=lang('web_delete')?></a></td>
 				</tr>
 				
 			<?php endforeach ?>
@@ -2126,7 +2126,7 @@ $data .= "
 	{
 		$data = $this->sl.$this->sl;
 		$data .="//routes para ".$this->controller_name.$this->sl;
-		$data .= "\$route['".$this->controller_name."/(:num)'] = '".$this->controller_name."/index/$1';";
+		$data .= "\$route['admin/".$this->controller_name."/(:num)'] = 'admin/".$this->controller_name."/index/$1';";
 
 		if ( $this->save_file('routes', "config/", $data, 'a' ) === TRUE )
 			return TRUE;
@@ -2141,7 +2141,7 @@ $data .= "
 	{
 		$data = $this->sl.$this->sl;
 		$data .= "<?php  \$mactive = (\$this->uri->rsegment(1) == '".$this->controller_name."')  ? \"class='selected'\" : \"\" ?>".$this->sl;
-		$data .= "<li <?=\$mactive?>><a href=\"/".$this->controller_name."/\" style=\"background-position: 0px 0px;\">".ucfirst($this->controller_name)."</a></li>";
+		$data .= "<li <?=\$mactive?>><a href=\"/admin/".$this->controller_name."/\" style=\"background-position: 0px 0px;\">".ucfirst($this->controller_name)."</a></li>";
 
 		if ( $this->save_file('_menu', "views/partials/", $data, 'a' ) === TRUE )
 			return TRUE;

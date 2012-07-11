@@ -64,7 +64,7 @@ class Scaffolds extends MY_Controller
 			{	
 				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => 'Scaffold creado correctamente' ));
 
-				redirect("/".$this->input->post('controller_name', TRUE));
+				redirect("/admin/".$this->input->post('controller_name', TRUE));
 			}
 			else
 			{

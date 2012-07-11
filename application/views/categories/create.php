@@ -1,13 +1,13 @@
 <div id="content-top">
     <h2><?=lang(($updType == 'create') ? "web_add_category" : "web_edit_category")?></h2>
-    <a href='/categories/<?=$parent_id?>' class='bforward'><?=lang('web_back_to_list')?></a>
+    <a href='/admin/categories/<?=$parent_id?>' class='bforward'><?=lang('web_back_to_list')?></a>
     <span class="clearFix">&nbsp;</span>
 </div>
 
 
 <?php 
 $attributes = array('class' => 'tform', 'id' => '');
-echo ($updType == 'create') ? form_open('categories/create', $attributes) : form_open('categories/edit', $attributes); 
+echo ($updType == 'create') ? form_open('/admin/categories/create', $attributes) : form_open('/admin/categories/edit', $attributes); 
 ?>
 
 <p>

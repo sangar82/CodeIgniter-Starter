@@ -25,7 +25,7 @@ class Products extends MY_Controller {
 		$this->pagination->initialize($config);
 
 		//control of number page
-		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
 		$data['parent_category'] = "";
 
 		//find all the categories with paginate and save it in array to past to the view
@@ -58,7 +58,7 @@ class Products extends MY_Controller {
 		$this->pagination->initialize($config);
 
 		//control of number page
-		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
+		$page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 1;
 
 		//find all the categories with paginate and save it in array to past to the view
 		$data["products"] 			= 	Product::paginate($category_id, $config["per_page"], $page);
@@ -94,8 +94,8 @@ class Products extends MY_Controller {
 		$data['updType'] 				= 	'create';
 		//$data['product'] 				= 	getTableColumns('products', true);
 		$data['product']->category_id 	= 	$category_id;
-		$data['page']					=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('page', TRUE);
-		$data['parent_id']				=	( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('parent_id', TRUE);
+		$data['page']					=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('page', TRUE);
+		$data['parent_id']				=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
 
 		//auxiliar variables for the upload
 		$form_data_aux	= array();
@@ -184,9 +184,9 @@ class Products extends MY_Controller {
 			}
 
 			if ($this->input->post('parent_id'))
-				redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
+				redirect('admin/products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
 			else
-				redirect('products/'.$this->input->post('page', TRUE));
+				redirect('admin/products/'.$this->input->post('page', TRUE));
 		
 	  	} 
 	}
@@ -195,7 +195,7 @@ class Products extends MY_Controller {
 	function edit($id = FALSE) 
 	{
 		//get the $id and sanitize
-		$id = ( $this->uri->segment(3) )  ? $this->uri->segment(3) : $this->input->post('id', TRUE);
+		$id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('id', TRUE);
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
 
 		//search the categories and send to the view
@@ -205,8 +205,8 @@ class Products extends MY_Controller {
 		//create control variables
 		$data['title'] 		= 	"Editar producto";
 		$data['updType'] 	= 	'edit';
-		$data['page']		=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('page', TRUE);
-		$data['parent_id']	=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
+		$data['page']		=	( $this->uri->segment(6) )  ? $this->uri->segment(6) : $this->input->post('page', TRUE);
+		$data['parent_id']	=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('parent_id', TRUE);
 
 		//variables for check the upload
 		$form_data_aux			= array();
@@ -328,9 +328,9 @@ class Products extends MY_Controller {
 			}	
 
 			if ($this->input->post('parent_id'))
-				redirect('products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
+				redirect('admin/products/product_list/'.$this->input->post('category_id', TRUE).'/'.$this->input->post('page', TRUE));
 			else
-				redirect('products/'.$this->input->post('page', TRUE));
+				redirect('admin/products/'.$this->input->post('page', TRUE));
 	  	} 
 	}
 
@@ -345,7 +345,7 @@ class Products extends MY_Controller {
 		//redirect if it´s no correct
 		if (!$id){
 			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
-			redirect('products/');
+			redirect('admin/products/');
 		}
 		
 		//search the item to delete
@@ -357,7 +357,7 @@ class Products extends MY_Controller {
 		else
 		{
 			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
-			redirect('products/');
+			redirect('admin/products/');
 		}
 
 		//delete the item
@@ -373,14 +373,14 @@ class Products extends MY_Controller {
 			$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_delete_success') ));
 
 			if ($category_id != 0)
-				redirect('products/product_list/'.$category_id.'/'.$page);
+				redirect('admin/products/product_list/'.$category_id.'/'.$page);
 			else				
-				redirect('products/'. $page);
+				redirect('admin/products/'. $page);
 		}
 		else
 		{
 			$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_delete_failed') ) );
-			redirect('products/');
+			redirect('admin/products/');
 			
 		}	
 
@@ -461,9 +461,9 @@ class Products extends MY_Controller {
         $config["per_page"] = 5;
 
         if ($method == 'index')
-        	$config["uri_segment"] = 2;
+        	$config["uri_segment"] = 3;
         else
-        	$config["uri_segment"] = 4;
+        	$config["uri_segment"] = 5;
 
 
 

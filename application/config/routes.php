@@ -37,19 +37,21 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['default_controller'] = "index/index";
+$route['default_controller'] 	= "index/index";
 $route['404_override'] = '';
 
-$route['contact'] = "index/contact";
+$route['contact'] 				= "index/contact";
+
+$route['login'] 				= "auth/login";
+$route['logout'] 				= "auth/logout";
+$route['forgot_password'] 		= "auth/forgot_password";
+
+$route['admin'] 				= "admin/admin/index";
+
 
 //route para las categorias
-$route['categories/(:num)'] = "categories/index/$1";
+$route['admin/categories/(:num)'] 		= "admin/categories/index/$1";
 
 //route para los productos
-$route['products/(:num)'] = "products/index/$1";
-$route['products/(:num)/(:num)'] = "products/index/$1/$2";
-
-//route para el logout
-$route['login'] = "auth/login";
-$route['logout'] = "auth/logout";
-$route['forgot_password'] = "auth/forgot_password";
+$route['admin/products/(:num)'] 		= "admin/products/index/$1";
+$route['admin/products/(:num)/(:num)'] 	= "admin/products/index/$1/$2";

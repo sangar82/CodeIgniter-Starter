@@ -2,7 +2,7 @@
 
 <p class='par'><?=lang('web_login_forgot_p')?></p>
 
-<?php echo form_open("auth/forgot_password");?>
+<?php echo form_open("admin/users/forgot_password");?>
 
     <label>
       <strong class="email-label"><?=lang('web_email')?></strong><br>
