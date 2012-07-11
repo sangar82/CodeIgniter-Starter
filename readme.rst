@@ -39,9 +39,9 @@ Download and copy to your document root folder
 Create the database with the mysql_dump.sql file
 
 Edit the config files:
-- config.php
-- database.php
-- sangar_auth.php
+#config.php
+#database.php
+#sangar_auth.php
 
 Create a virtualhost for to access via www.yourdomain.com (the same that you wrote in config.php)
 
@@ -53,8 +53,8 @@ Backend user and password
 ************
 
 The default user to access to the private zone is:
-user: 		admin@admin.com
-password: 	password
+	user: 		admin@admin.com
+	password: 	password
 
 
 ************
@@ -68,7 +68,12 @@ If you want to translate controllers names and controllers method names edit the
 and 
 
 	/application/language/method_translations.php. 
-	
 
-For use in your views use the helper transurl_helper.php (Creates an anchor based on the local URL with translations of method name and controller name)
+
+For use in your views use the helper transurl_helper.php
+
+	::<?=lang_anchor('auth', 'create', '3')?>
+
+
+(Creates an anchor based on the local URL with translations of method name and controller name)
 
