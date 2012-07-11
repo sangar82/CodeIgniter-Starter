@@ -39,6 +39,7 @@ Download and copy to your document root folder
 Create the database with the mysql_dump.sql file
 
 Edit the config files:
+
 - config.php
 - database.php
 - sangar_auth.php
@@ -54,8 +55,9 @@ Backend user and password
 
 The default user to access to the private zone is:
 
-	user: 		admin@admin.com
-	password: 	password
+    user: 		admin@admin.com
+
+    password: 	password
 
 
 ************
@@ -75,8 +77,12 @@ For use in your views use the helper transurl_helper.php
 
 ::
 
-	<?=lang_anchor( controller_name, method_name, params)?>
+	<?=lang_anchor(controller_name, method_name, params)?>
 
+Example
+::
 
-(Creates an anchor based on the local URL with translations of method name and controller name)
+	<?=lang_anchor('users', 'edit', 1)?>
+
+(It takes the actual language and creates an anchor based on the local URL with translations of method name and controller name)
 
