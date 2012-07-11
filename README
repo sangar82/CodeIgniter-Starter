@@ -14,6 +14,7 @@ Custom Codeigniter with preinstalled features:
 - Folder for public content (images, js, uploads, ...)
 - Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
 - Toast Unit test (Sangar Auth test, categories test, products test)
+- Ignited Scaffolding: a new way to do a scoffolding.
 
 Ready to work!
 

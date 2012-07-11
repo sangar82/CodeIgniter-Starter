@@ -1330,12 +1330,18 @@ $data .= "
         			{
         				foreach ($this->languages as $prefix=>$language)
         				{
-							$data .= $this->tabx2."\$this->form_validation->set_rules('".$index."_".$prefix."', '".ucfirst($index)." ($prefix)', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|xss_clean|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
+        					if ( $value['ckeditor'] == "TRUE")
+								$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('".$index."_".$prefix."', '".ucfirst($index)." ($prefix)', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
+							else
+								$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('".$index."_".$prefix."', '".ucfirst($index)." ($prefix)', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|xss_clean|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
         				}
         			}
         			else
         			{
-        				$data .= $this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|xss_clean|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
+        				if ( $value['ckeditor'] == "TRUE")
+        					$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
+        				else
+        					$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|xss_clean|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
         				$data .= $this->tabx5;
         			}
 
@@ -1347,7 +1353,7 @@ $data .= "
         		case 'radio':
         		case 'datepicker':
 
-        	    	$data .= $this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."xss_clean');".$this->sl;
+        	    	$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."xss_clean');".$this->sl;
         			$data .= $this->tabx5;	
 
         		break;
@@ -1429,6 +1435,7 @@ $data .= "
 			\$config['encrypt_name']	= ".$value['upload']['encrypt_name'].";
 			\$config['max_width']  		= '".$value['upload']['max_width']."';
 			\$config['max_height']  	= '".$value['upload']['max_height']."';
+			\$config['max_size'] 		= '".$value['upload']['max_size']."';
 		}
 
 ";
@@ -1634,6 +1641,66 @@ $data .= "
 </script>
 ";
         		break;
+
+        		case 'textarea':
+				if ($value['ckeditor'] == "TRUE")
+				{
+					if ($value['multilanguage'] == "TRUE")
+					{
+$data .= "
+<script type='text/javascript'>
+
+	$(document).ready(function(){
+
+";
+						foreach ($this->languages as $prefix=>$language)
+						{
+							$data.="CKEDITOR.replace( '".$index."_".$prefix."', {filebrowserUploadUrl : \"/admin/ckeditor/\"});";
+						}
+$data .= "
+		$('#submit').click(function() {
+";
+
+						foreach ($this->languages as $prefix=>$language)
+						{
+							$data .="CKEDITOR.instances.".$index."_".$prefix.".updateElement();";
+						}
+			
+$data.="
+			return true;
+
+		});
+
+	});
+
+</script>
+";	
+					}
+					else
+					{
+$data .= "
+<script type='text/javascript'>
+
+	$(document).ready(function(){
+
+		CKEDITOR.replace( '".$index."', {filebrowserUploadUrl : \"/admin/ckeditor/\"});
+
+		$('#submit').click(function() {
+
+			CKEDITOR.instances.".$index.".updateElement();
+
+			return true;
+
+		});
+
+	});
+
+</script>
+";							
+					}
+				}
+        		break;
+
         	}
         }
 
@@ -1691,7 +1758,7 @@ $data .="
 $data .="
 <p>
 	<label class='labelform' for='".$index."_".$prefix."'>".ucfirst($index)." ($prefix) ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
-	<textarea id=\"".$index."_".$prefix."\"  name=\"".$index."_".$prefix."\"  /><?php echo set_value('".$index."_".$prefix."', (isset(\$".$this->model_name."->".$index."_".$prefix.")) ? \$".$this->model_name."->".$index."_".$prefix." : ''); ?></textarea>
+	<textarea id=\"".$index."_".$prefix."\"  name=\"".$index."_".$prefix."\"  /><?php echo set_value('".$index."_".$prefix."', (isset(\$".$this->model_name."->".$index."_".$prefix.")) ? htmlspecialchars_decode(\$".$this->model_name."->".$index."_".$prefix.") : ''); ?></textarea>
 	<?php echo form_error('".$index."_".$prefix."'); ?>
 </p>
 ";
@@ -1702,7 +1769,7 @@ $data .="
 $data .="
 <p>
 	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
-	<textarea id=\"".$index."\"  name=\"".$index."\"  /><?php echo set_value('".$index."', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : ''); ?></textarea>
+	<textarea id=\"".$index."\"  name=\"".$index."\"  /><?php echo set_value('".$index."', (isset(\$".$this->model_name."->".$index.")) ? htmlspecialchars_decode(\$".$this->model_name."->".$index.") : ''); ?></textarea>
 	<?php echo form_error('".$index."'); ?>
 </p>
 ";
@@ -1783,7 +1850,7 @@ $data .= "
 $data .="
 <p>
 	<label class='labelform' for='".$index."'>".ucfirst($index)." ".(($value['required'] == "TRUE") ? "<span class='required'>*</span>" : "") ."</label>
-	<input id='".$index."' type='text' name='".$index."' maxlength='' class='datepicker' value=\"<?php echo set_value('".$index."', (\$".$this->model_name."->".$index." != '') ? \$".$this->model_name."->".$index."->format('d-m-Y') : ''); ?>\"  />
+	<input id='".$index."' type='text' name='".$index."' maxlength='' class='datepicker' value=\"<?php echo set_value('".$index."', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index."->format('d-m-Y') : ''); ?>\"  />
 	<?php echo form_error('".$index."'); ?>
 </p>
 ";

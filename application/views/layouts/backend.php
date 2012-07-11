@@ -21,6 +21,7 @@ $user = $this->user;
 	<script src="js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
 	<script src="js/jquery.blockUI.js" type="text/javascript"></script>
 	<script src="js/sortertables.js" type="text/javascript"></script>
+	<script src="js/ckeditor/ckeditor.js" type="text/javascript"></script>
 
 	<script>
 		$(function() {$('#examples').accordion({autoHeight: false,navigation: true, collapsible:true, active:false});});

@@ -90,7 +90,8 @@
   "minlength"		: "0",
   "maxlength"		: "500",			
   "required"		: "FALSE",
-  "multilanguage"	: "FALSE"
+  "multilanguage"       : "FALSE",
+  "ckeditor"	        : "FALSE"
 }
 </pre>
 </div>	
@@ -207,7 +208,8 @@
     "allowed_types"  : "gif|jpg|png",                                      
     "encrypt_name"  : "TRUE",
     "max_width"       : "2000",
-    "max_height"      : "1500"
+    "max_height"      : "1500",
+    "max_size"          : "2048"
   },
   "thumbnail" :
   {
@@ -232,7 +234,7 @@
   {
     "allowed_types"  : "pdf",                                      
     "encrypt_name"  : "TRUE",
-    "max_size"      : "2048"
+    "max_size"         : "2048"
   }
 } 
 </pre>
