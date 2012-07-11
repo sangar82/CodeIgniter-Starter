@@ -42,9 +42,9 @@ $route['404_override'] = '';
 
 $route['contact'] 				= "index/contact";
 
-$route['login'] 				= "auth/login";
-$route['logout'] 				= "auth/logout";
-$route['forgot_password'] 		= "auth/forgot_password";
+$route['login'] 				= "admin/users/login";
+$route['logout'] 				= "admin/users/logout";
+$route['forgot_password'] 		= "admin/users/forgot_password";
 
 $route['admin'] 				= "admin/admin/index";
 

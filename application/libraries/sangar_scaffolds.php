@@ -1835,7 +1835,7 @@ $data .= "
 	$c = 0;
 	foreach($value['options'] as $index2 => $value2)
 	{
-		$data .= $this->sl.$this->tab."<input type='radio' name='".$index."' id='".$index."_$c' value='".$value2['value']."' <?=preset_radio('".$index."', '".$value2['value']."', (\$".$this->model_name."->".$index." != '') ? \$".$this->model_name."->".$index." : '".$value['checked']."'  );?> > <label class='labelforminline' for='".$index."_$c'> ".$value2['label']." </label>";
+		$data .= $this->sl.$this->tab."<input type='radio' name='".$index."' id='".$index."_$c' value='".$value2['value']."' <?=preset_radio('".$index."', '".$value2['value']."', (isset(\$".$this->model_name."->".$index.")) ? \$".$this->model_name."->".$index." : '".$value['checked']."'  );?> > <label class='labelforminline' for='".$index."_$c'> ".$value2['label']." </label>";
 		$c++;
 	}
 
