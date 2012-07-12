@@ -16,13 +16,6 @@ class Scaffolds extends MY_Controller
 		$this->load->language('sangar_scaffolds');
 	}
 
-
-	function index()
-	{
-		echo "hola";
-	}
-
-
 	function create()
 	{
 
