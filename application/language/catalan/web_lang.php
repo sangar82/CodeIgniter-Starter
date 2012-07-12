@@ -24,6 +24,9 @@ $lang['web_wait']		 			= 'Esperi un moment, si us plau';
 $lang['web_no_elements'] 			= 'Encara no hi ha cap registre a la base de dades.';
 $lang['web_object_not_exist'] 		= "L'element seleccionat no existeix a la base de dades.";
 $lang['web_back_to_list']	 		= 'Tornar al llistat';
+$lang['web_list_of']	 			= 'Llistat de :name';
+$lang['web_create_t']		 		= 'Crear :name';
+$lang['web_edit_t']		 			= 'Editar :name';
 
 $lang['web_yes']	 				= 'Sí';
 $lang['web_no']	 					= 'No';

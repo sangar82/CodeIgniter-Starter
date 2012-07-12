@@ -24,6 +24,9 @@ $lang['web_wait']		 			= 'Wait a moment, please';
 $lang['web_no_elements'] 			= 'Although there is no record in the database.';
 $lang['web_object_not_exist'] 		= "The selected item doesn´t exist in the database.";
 $lang['web_back_to_list']	 		= 'Back to list';
+$lang['web_list_of']	 			= ':name List';
+$lang['web_create_t']		 		= 'Create :name';
+$lang['web_edit_t']		 			= 'Edit :name';
 
 $lang['web_yes']	 				= 'Yes';
 $lang['web_no']	 					= 'No';

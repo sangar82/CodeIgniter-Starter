@@ -24,6 +24,10 @@ $lang['web_wait']		 			= 'Espere un momento, por favor';
 $lang['web_no_elements'] 			= 'Aún no existe ningún registro en la base de datos.';
 $lang['web_object_not_exist'] 		= 'El elemento seleccionado no existe en la base de datos.';
 $lang['web_back_to_list']	 		= 'Volver al listado';
+$lang['web_list_of']	 			= 'Listado de :name';
+$lang['web_create_t']	 			= 'Crear :name';
+$lang['web_edit_t']	 				= 'Editar :name';
+
 
 $lang['web_yes']	 				= 'Sí';
 $lang['web_no']	 					= 'No';

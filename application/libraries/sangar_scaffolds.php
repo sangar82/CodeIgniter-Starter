@@ -1706,7 +1706,7 @@ $data .= "
 
 		$data .= "
 <div id='content-top'>
-    <h2><?=lang((\$updType == 'create') ? \"web_add\" : \"web_edit\")?></h2>
+    <h2><?=(\$updType == 'create') ? lang('web_create_t', array(':name' => '$this->model_name')) : lang('web_edit_t', array(':name' => '$this->model_name'));?></h2>
     <a href='/admin/".$this->controller_name."/<?=\$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
     <span class='clearFix'>&nbsp;</span>
 </div>
@@ -1996,9 +1996,9 @@ foreach ($this->arrayjson as $index => $value )
 
 $data .= "
 <div id='content-top'>
-    <h2>Listado de ".$this->controller_name."</h2>
+    <h2><?=lang('web_list_of', array(':name' => '".ucfirst($this->controller_name)."'))?></h2>
    
-    <a href='/admin/".$this->controller_name."/create/<?=\$page?>' class='bcreate'>Crear ".$this->model_name."</a>
+    <a href='/admin/".$this->controller_name."/create/<?=\$page?>' class='bcreate'><?=lang('web_create_t', array(':name' => 'patatas'))?></a>
   
     <span class='clearFix'>&nbsp;</span>
 </div>

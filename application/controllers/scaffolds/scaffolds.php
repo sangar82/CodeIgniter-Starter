@@ -56,7 +56,7 @@ class Scaffolds extends MY_Controller
 
 			if ($result === TRUE)
 			{	
-				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => 'Scaffold creado correctamente' ));
+				$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('scaffolds_ok') ));
 
 				redirect("/admin/".$this->input->post('controller_name', TRUE));
 			}
@@ -76,7 +76,7 @@ class Scaffolds extends MY_Controller
 		//validate form input
 		$this->form_validation->set_rules('controller_name', 'Controller Name', 'required|xss_clean');
 		$this->form_validation->set_rules('model_name', 'Controller Name', 'required|xss_clean');
-		$this->form_validation->set_rules('scaffold_code', 'scaffold_code', 'required|xss_clean');
+		$this->form_validation->set_rules('scaffold_code', 'Scaffold Code', 'required|xss_clean');
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	}	
 
