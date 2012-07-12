@@ -14,6 +14,11 @@ $lang['scaffolds_create_view_create'] 	= 	"Crear vista 'crear'";
 $lang['scaffolds_create_view_list'] 	= 	"Crear vista 'lista'";
 
 $lang['scaffolds_ok'] 					=	"Scaffold creado correctamente";
+$lang['scaffolds_error_json'] 			=	"Error creando el JSON.";
+$lang['scaffolds_error_del_bd'] 		=	"Error borrando la tabla en la base de datos:.";
+$lang['scaffolds_error_bd'] 			=	"Error creando la tabla en la base de datos:.";
+$lang['scaffolds_error_file'] 			=	"Error creando el archivo:";
+$lang['scaffolds_error_modify'] 		=	"Error modificando el archivo:";
 
 
 

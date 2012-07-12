@@ -14,6 +14,11 @@ $lang['scaffolds_create_view_create'] 	= 	"Crear vista 'crear'";
 $lang['scaffolds_create_view_list'] 	= 	"Crear vista 'llista'";
 
 $lang['scaffolds_ok'] 					=	"Scaffold creat correctament";
+$lang['scaffolds_error_json'] 			=	"Error creant el JSON.";
+$lang['scaffolds_error_del_bd'] 		=	"Error borrant la taula a la base de dades:.";
+$lang['scaffolds_error_bd'] 			=	"Error creant la taula a la base de dades:.";
+$lang['scaffolds_error_file'] 			=	"Error creant l'arxiu:";
+$lang['scaffolds_error_modify'] 		=	"Error modificant l'arxiu:";
 
 
 

@@ -14,11 +14,11 @@ $lang['scaffolds_create_view_create'] 	= 	"Create view 'create'";
 $lang['scaffolds_create_view_list'] 	= 	"Create view 'list'";
 
 $lang['scaffolds_ok'] 					=	"Scaffold succesfully.";
-$lang['scaffolds_error_json'] 			=	"Error creando el JSON.";
-$lang['scaffolds_error_del_bd'] 		=	"Error borrando la tabla en la base de datos:.";
-$lang['scaffolds_error_bd'] 			=	"Error creando la tabla en la base de datos:.";
-$lang['scaffolds_error_file'] 			=	"Error creando el archivo:";
-$lang['scaffolds_error_modify'] 		=	"Error modificando el archivo:";
+$lang['scaffolds_error_json'] 			=	"Error creating the JSON.";
+$lang['scaffolds_error_del_bd'] 		=	"Error deleting the BD table:.";
+$lang['scaffolds_error_bd'] 			=	"Error creating the BD table:.";
+$lang['scaffolds_error_file'] 			=	"Error creating the file:";
+$lang['scaffolds_error_modify'] 		=	"Error modifying the file:";
 
 
 
