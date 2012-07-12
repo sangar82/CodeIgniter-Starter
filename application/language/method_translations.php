@@ -38,7 +38,7 @@ $mn_trans = array(
 
 		"english"	=>	array(		
 			
-						"auth"			=>		array(		
+						"users"			=>		array(		
 															"create"			=>		'create',
 															"edit"				=>		'edit',
 															"delete"			=>		'delete'),															

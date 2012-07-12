@@ -5,17 +5,17 @@ $cn_trans = array(
         "spanish"       =>      array(      
                         "productos"         =>      'products',
                         "categorias"        =>      'categories',
-                        "usuarios"          =>      'auth'),
+                        "usuarios"          =>      'users'),
                                 
                                 
         "catalan"       =>      array(      
                         "productes"         =>      'products',
                         "categories"        =>      'categories',
-                        "usuaris"           =>      'auth'),
+                        "usuaris"           =>      'users'),
 
 
         "english"       =>      array(      
                         "products"          =>      'products',
                         "categories"        =>      'categories',
-                        "auth"              =>      'auth')
+                        "users"             =>      'users')
 );

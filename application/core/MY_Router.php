@@ -161,7 +161,7 @@ class MY_Router extends CI_Router {
 			if (count($segments) > 0)
 			{
 				// Does the requested controller exist in the sub-folder?
-				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
+				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$real_name_class.'.php'))
 				{	
 					if ( ! empty($this->routes['404_override']))
 					{
