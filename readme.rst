@@ -1,33 +1,48 @@
 ###################
-Codeigniter Starter 2.1
+Codeigniter Starter 
 ###################
 
 Custom Codeigniter with preinstalled features:
 
 - Sparks installed (http://getsparks.org/)
-- Sangar Auth  (Ion-Auth modified with works with PHP-activerecord) and ready to work (all views translateds and CRUD users)
-- Php-ActiveRecord installed (https://github.com/kla/php-activerecord) (examples of validations, relations, callbacks) Version Nightly build May 2012
-- Subdomains for languages
-- Controllers & Methods names with translations
-- Backend Template
-- Example: Categories as a tree of categories (with order via ajax)
-- Example of code (CRUD users, CRUD categories, CRUD products with upload and thumbnail)
-- Translation on 3 languages (english, spanish, catalan)
+- Sangar Auth Library. (Ion-Auth modified for me working under PHP-activerecord)
+- Sangar Scaffolding Library. A new way to do scaffolding!
+- Php-ActiveRecord installed (https://github.com/kla/php-activerecord) Version Nightly build May 2012
+- Toast Unit test 
+- Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
+
+- Backend & Full Access Control (login, logout, remember password, and protected access to the backend)
 - Basic layout (frontend, backend)
+- Backend Template
+
 - System Messages implemented as partials in layouts
 - Folder for public content (images, js, uploads, ...)
-- Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
-- Toast Unit test (Sangar Auth test, categories test, products test)
-- Ignited Scaffolding: a new way to do a scoffolding.
+
+- Subdomains for languages
+- Translation on 3 languages (english, spanish, catalan)
+- Methods for translate controllers and methods names 
+
+- CRUD Users implemented.  
+- Example: CRUD Categories. Categories as a tree of categories (with order via ajax)
+- Example: CRUD Products with upload an image and make a thumbnail
+- Examples of testing (SangarAuth Test, users test, categories test, products test).
+
 
 Under development: the first full operative version in a few weeks.
+
+
+*******************
+Codeigniter Version
+*******************
+
+The Codeigniter Version is 2.1.2 
 
 
 *******************
 Server Requirements
 *******************
 
--  PHP version 5.3.5 or newer.
+PHP version 5.3.5 or newer.
 
 
 ************
