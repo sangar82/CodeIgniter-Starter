@@ -9,7 +9,7 @@ $user = $this->user;
   	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='expires' content='1200' />
-	<meta http-equiv='content-language' content='es' />
+	<meta http-equiv='content-language' content='<?php echo $this->config->item('prefix_language') ?>' />
 	<base href="<?php echo $this->config->item('base_url') ?>/public/" />
 	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/fstyles.css?<?php echo time();?>" type="text/css" media="screen" />
@@ -21,9 +21,17 @@ $user = $this->user;
 	<div id='fcontainer'>
 
 		<div id="fheader_right">
-			<a href='http://www.ci.com'>Es</a> |
-			<a href='http://ca.ci.com'>Ca</a> |
-			<a href='http://en.ci.com'>En</a> 
+
+			<?php foreach ($this->config->item('languages') as $key => $value): ?>
+
+				<?php if ($value == $this->config->item('language_default')): ?>
+					<a href='http://www.<?=$this->config->item('base_domain')?>'><?=ucfirst($this->config->item('prefix_language_default'))?></a>&nbsp;
+				<?php else: ?>
+					<a href='http://<?=$key?>.<?=$this->config->item('base_domain')?>'><?=ucfirst($key)?></a>&nbsp;
+				<?php endif ?>
+				
+			<?php endforeach ?>
+
 		</div>
 
 
