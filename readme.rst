@@ -11,16 +11,20 @@ Custom Codeigniter with preinstalled features:
 - Toast Unit test 
 - Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
 
+
 - Backend & Full Access Control (login, logout, remember password, and protected access to the backend)
 - Basic layout (frontend, backend)
 - Backend Template
 
+
 - System Messages implemented as partials in layouts
 - Folder for public content (images, js, uploads, ...)
+
 
 - Subdomains for languages
 - Translation on 3 languages (english, spanish, catalan)
 - Methods for translate controllers and methods names 
+
 
 - CRUD Users implemented.  
 - Example: CRUD Categories. Categories as a tree of categories (with order via ajax)
