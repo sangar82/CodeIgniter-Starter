@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-06-2012 a las 09:37:29
+-- Tiempo de generación: 12-07-2012 a las 13:05:59
 -- Versión del servidor: 5.5.9
 -- Versión de PHP: 5.3.6
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `cistarter2`
+-- Base de datos: `cistarter`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=79 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 
 -- --------------------------------------------------------
@@ -44,7 +44,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `ci_sessions` (
   `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
-  `ip_address` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `ip_address` varchar(45) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `user_agent` varchar(120) COLLATE utf8_bin NOT NULL,
   `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
   `user_data` text COLLATE utf8_bin NOT NULL,
@@ -52,9 +52,6 @@ CREATE TABLE `ci_sessions` (
   KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Volcar la base de datos para la tabla `ci_sessions`
---
 
 -- --------------------------------------------------------
 
@@ -103,11 +100,7 @@ CREATE TABLE `products` (
   `image` varchar(256) NOT NULL,
   `category_id` int(9) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Volcar la base de datos para la tabla `products`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 
 -- --------------------------------------------------------
@@ -135,7 +128,7 @@ CREATE TABLE `users` (
 -- Volcar la base de datos para la tabla `users`
 --
 
-INSERT INTO `users` VALUES(1, 'admin@admin.com', 'e4eb73b0c2e10b9846960952caecef65276bdc1a9f448fdcde6198a6450ea14ab3ed5d6b8acfaf9337186279aa07e192ba290645c7d625003c3d942e3bca8d36', 'admin@admin.com', 'Administrador', 'Administrador', 1, NULL, NULL, '2012-06-21 12:03:56', '2012-06-29 09:37:10');
+INSERT INTO `users` VALUES(1, 'admin@admin.com', 'e4eb73b0c2e10b9846960952caecef65276bdc1a9f448fdcde6198a6450ea14ab3ed5d6b8acfaf9337186279aa07e192ba290645c7d625003c3d942e3bca8d36', 'admin@admin.com', 'Administrador', 'Administrador', 1, NULL, NULL, '2012-06-21 12:03:56', '2012-07-11 12:26:30');
 
 -- --------------------------------------------------------
 
