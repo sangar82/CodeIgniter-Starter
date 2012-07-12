@@ -6,3 +6,9 @@ public/uploads
 application/.DS_Store
 
 public/uploads/.DS_Store
+
+application/config/config_local.php
+
+application/config/database_local.php
+
+application/config/sangar_auth_local.php
