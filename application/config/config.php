@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';  				//example: http://www.yourdomain.com
-$config['base_domain'] = '';			//example: yourdomain.com
+$config['base_url']	= 'http://www.ci.com';  //example: http://www.yourdomain.com
+$config['base_domain'] = 'ci.com';			//example: yourdomain.com
 
 
 /*
@@ -72,13 +72,12 @@ $config['url_suffix'] = '';
 |
 */
 
-$config['language'] 			= "english";
-$config['prefix_language']		= "en";
+$config['language'] 			= "spanish";
+$config['prefix_language']		= "es";
+$config['languages'] 			= array("es" => "spanish", "en" => "english", "ca" => "catalan");
 
-$config['languages'] 			= array("en" => "english", "es" => "spanish");
-
-$config['language_default'] 		= "english";
-$config['prefix_language_default'] 	= "en";
+$config['language_default'] 		= "spanish";
+$config['prefix_language_default'] 	= "es";
 
 $config['redirect_urls'] 	= false;
 
@@ -276,8 +275,8 @@ $config['sess_time_to_update']	= 300;
 | 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
 */
-$config['cookie_prefix']	= "";		 //example: yourdomain
-$config['cookie_domain']	= "";  		 //example: yourdomain.com
+$config['cookie_prefix']	= "ci";		 //example: yourdomain
+$config['cookie_domain']	= "ci.com";  //example: yourdomain.com
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 

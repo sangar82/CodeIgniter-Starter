@@ -25,7 +25,7 @@
 	/**
 	 * Admin Email, admin@example.com
 	 */
-	$config['admin_email']		   = "youremail@domain.com";
+	$config['admin_email']		   = "sangar1982@gmail.com";
 	
 	/**
 	 * Default group, use name
