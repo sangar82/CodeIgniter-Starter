@@ -87,45 +87,9 @@ $user = $this->user;
 		
 			<?=$body?>
 
-			
-
-		</div>
-
-
-
-	</div>
-
-
-
-	<div id="bfooter-wrap">
-
-		<div id="bfooter">
-
-	        <div id="bfooter-top">
-
-	        	<div class="align-left">
-		            <h4>Dashboard</h4>
-		            <p><a href="#">Dasboard Sub 1</a> | <a href="#">Dasboard Sub 2</a> | <a href="#">Dasboard Sub 3</a></p>
-	        	</div>
-
-	            <div class="align-right">
-	            	<h2><a href="#"><?=$this->config->item('site_title');?></a></h2>
-	            </div>
-
-	            <span class="clearFix"></span>
-	            
-	        </div><!-- end of div#footer-top -->
-	        
-	        <div id="bfooter-bottom">
-	        	<p>&copy; 2009 Cleanity. Theme by Onur Oztaskiran of <a href="http://www.monofactor.com">Monofactor</a>, 
-	            via <a href="http://themeforest.net">Themeforest</a></p>
-    		</div>
-
 		</div>
 
 	</div>
-
-
 	
 </body>
 

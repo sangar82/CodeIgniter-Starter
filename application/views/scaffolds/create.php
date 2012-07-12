@@ -2,6 +2,7 @@
     <h2>Scaffolds</h2>
     <span class='clearFix'>&nbsp;</span>
 </div>
+<p></p>
 
 <div style='width:600px;float:left;margin-left:30px;'>
 
@@ -12,7 +13,7 @@
 
 
 	<p>
-		<label class='labelform' for="description">Controller Name (Plural) <span class="required">*</span></label>
+		<label class='labelform' for="description"><?=lang('scaffolds_cont_name')?> <span class="required">*</span></label>
 
 		<input id="controller_name" type="text" name="controller_name" maxlength="256" value="<?php echo set_value('controller_name'); ?>"  />
 		
@@ -21,7 +22,7 @@
 	</p>
 
 	<p>
-		<label class='labelform' for="description">Model Name (Singular) <span class="required">*</span></label>
+		<label class='labelform' for="description"><?=lang('scaffolds_mod_name')?> <span class="required">*</span></label>
 
 		<input id="model_name" type="text" name="model_name" maxlength="256" value="<?php echo set_value('model_name'); ?>"  />
 		
@@ -31,7 +32,7 @@
 
 
 	<p>
-		<label class='labelform' for="description">Scaffold code <span class="required">*</span></label>
+		<label class='labelform' for="description">Scaffold code <span class="required">*</span><br><?=lang('scaffolds_code_info')?></label>
 
 		<textarea id="scaffold_code"  name="scaffold_code"  rows='80' class='scaffold_textarea' /><?php echo set_value('scaffold_code', ''); ?></textarea>
 
@@ -40,18 +41,18 @@
 	</p>
 
 	<p>
-		Opciones:<br><br>
-		<input type='checkbox' name='scaffold_delete_bd' id='scaffold_delete_bd' value="<?php echo set_value('scaffold_delete_bd', '1'); ?>" /> <label class='labelforminline' for="scaffold_delete_bd">Borrar tabla en la BD si existe</label><br/>
-		<input type='checkbox' name='scaffold_bd' id='scaffold_bd' value='<?php echo set_value('scaffold_bd' , '1'); ?>' /> <label class='labelforminline' for="scaffold_bd">Crear tabla en la BD</label><br/>
-		<input type='checkbox' name='scaffold_routes' id='scaffold_routes' value='<?php echo set_value('scaffold_routes' , '1'); ?>' /> <label class='labelforminline' for="scaffold_routes">Modificar archivo de rutas (config/routes.php)</label><br/>
-		<input type='checkbox' name='scaffold_menu' id='scaffold_menu' value='<?php echo set_value('scaffold_menu', '1'); ?>' /> <label class='labelforminline' for="scaffold_menu">Modificar menú (views/partials/_menu.php)</label>
+		<?=lang('web_options')?>:<br><br>
+		<input type='checkbox' checked name='scaffold_delete_bd' id='scaffold_delete_bd' value="<?php echo set_value('scaffold_delete_bd', '1'); ?>" /> <label class='labelforminline' for="scaffold_delete_bd"><?=lang('scaffolds_delete_bd')?></label><br/>
+		<input type='checkbox' checked name='scaffold_bd' id='scaffold_bd' value='<?php echo set_value('scaffold_bd' , '1'); ?>' /> <label class='labelforminline' for="scaffold_bd"><?=lang('scaffolds_create_bd')?></label><br/>
+		<input type='checkbox' checked name='scaffold_routes' id='scaffold_routes' value='<?php echo set_value('scaffold_routes' , '1'); ?>' /> <label class='labelforminline' for="scaffold_routes"><?=lang('scaffolds_modify_routes')?></label><br/>
+		<input type='checkbox' checked name='scaffold_menu' id='scaffold_menu' value='<?php echo set_value('scaffold_menu', '1'); ?>' /> <label class='labelforminline' for="scaffold_menu"><?=lang('scaffolds_modify_menu')?></label>
 
 		<br/><br/>
 
-		<input type='checkbox' checked name='create_controller' id='create_controller' value='<?php echo set_value('create_controller', '1'); ?>' /> <label class='labelforminline' for="create_controller">Crear controlador</label><br/>
-		<input type='checkbox' checked name='create_model' id='create_model' value='<?php echo set_value('create_model', '1'); ?>' /> <label class='labelforminline' for="create_model">Crear modelo</label><br/>
-		<input type='checkbox' checked name='create_view_create' id='create_view_create' value='<?php echo set_value('create_view_create', '1'); ?>' /> <label class='labelforminline' for="create_view_create">Crear vista 'crear'</label><br/>
-		<input type='checkbox' checked name='create_view_list' id='create_view_list' value='<?php echo set_value('create_view_list', '1'); ?>' /> <label class='labelforminline' for="create_view_list">Crear vista 'lista'</label>
+		<input type='checkbox' checked name='create_controller' id='create_controller' value='<?php echo set_value('create_controller', '1'); ?>' /> <label class='labelforminline' for="create_controller"><?=lang('scaffolds_create_controller')?></label><br/>
+		<input type='checkbox' checked name='create_model' id='create_model' value='<?php echo set_value('create_model', '1'); ?>' /> <label class='labelforminline' for="create_model"><?=lang('scaffolds_create_model')?></label><br/>
+		<input type='checkbox' checked name='create_view_create' id='create_view_create' value='<?php echo set_value('create_view_create', '1'); ?>' /> <label class='labelforminline' for="create_view_create"><?=lang('scaffolds_create_view_create')?></label><br/>
+		<input type='checkbox' checked name='create_view_list' id='create_view_list' value='<?php echo set_value('create_view_list', '1'); ?>' /> <label class='labelforminline' for="create_view_list"><?=lang('scaffolds_create_view_list')?></label>
 	</p>
 
 	<p>

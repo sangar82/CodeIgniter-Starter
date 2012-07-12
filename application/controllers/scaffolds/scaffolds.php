@@ -13,6 +13,7 @@ class Scaffolds extends MY_Controller
 		parent::__construct();
 
 		$this->load->library('sangar_scaffolds');
+		$this->load->language('sangar_scaffolds');
 	}
 
 

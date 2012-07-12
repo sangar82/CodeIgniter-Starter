@@ -46,7 +46,9 @@ echo ($updType == 'create') ? form_open_multipart('admin/users/create', $attribu
       <?=form_hidden('id',$user->id) ?>
 <?php endif ?>
 
-<p><?php echo form_submit('submit', lang('web_add_user') , "id='submit'");?></p>
+<p>
+    <?php echo form_submit( 'submit', ($updType == 'edit') ? lang('web_edit_user') : lang('web_add_user'), (($updType == 'create') ? "id='submit' class='bcreateform'" : "id='submit' class='beditform'")); ?>
+</p>
 
 
 <?php echo form_close();?>

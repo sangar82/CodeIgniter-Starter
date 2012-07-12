@@ -25,11 +25,6 @@ if ($category_id){
 <div class='clear'></div>
 
 
-
-
-
-
-
 <?php if ($categories): ?>
 
 	<table id='tcategories' class='ftable' cellpadding="5" cellspacing="5">
@@ -47,7 +42,7 @@ if ($category_id){
 				<tr id='<?=$category->id?>'>
 					<td valign='middle'><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></td>
 					<td width='150'><a href='/admin/categories/<?=$category->id?>'><?=$category->name?></a> (<?= ($category->categories) ?  count($category->categories) :  "0" ?>)</td>
-					<td width='370'><a href='/admin/products/product_list/<?=$category->id?>/1'>Listado de productos</a> (<?= ($category->products) ?  count($category->products) :  "0" ?>)</td>
+					<td width='370'><a href='/admin/products/product_list/<?=$category->id?>/1'><?=lang('web_list_product')?></a> (<?= ($category->products) ?  count($category->products) :  "0" ?>)</td>
 					<td width="60"><a class='ledit' href='/admin/categories/edit/<?=$category->id?>/<?=($category->category) ? $category->category->id : "" ?>'><?=lang('web_edit')?></a></td>
 					<td width="60"><a class='ldelete' onClick="return confirm('<?=lang('web_confirm_delete')?>')" href='/admin/categories/delete/<?=$category->id?>'><?=lang('web_delete')?></a></td>
 				</tr>

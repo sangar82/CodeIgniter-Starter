@@ -1,5 +1,5 @@
 <div id="content-top">
-    <h2>Listado de productos</h2>
+    <h2><?=lang('web_list_product')?></h2>
     <a href='/admin/products/create/<?= ($category_id != "")  ? $category_id : "0"?>/<?=$page?>' class='bcreate'>Crear producto</a>
     <?php if (isset($control)): ?>
     	<a href='/admin/categories/<?=$parent_category?>' class='bforward bforwardmargin'><?=lang('web_category_back')?></a>	

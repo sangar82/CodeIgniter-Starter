@@ -71,8 +71,8 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language'] 		= "spanish";
-$config['prefix_language']	= "es";
+$config['language'] 		= "english";
+$config['prefix_language']	= "en";
 $config['languages'] 		= array("es" => "spanish", "en" => "english", "ca" => "catalan");
 $config['redirect_urls'] 	= false;
 

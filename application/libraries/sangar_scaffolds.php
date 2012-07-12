@@ -280,7 +280,7 @@ class Sangar_scaffolds
 		}
 		else
 		{
-			$this->errors = 'Error creando el JSON';
+			$this->errors = lang('scaffolds_error_json');
 			return FALSE;
 		}
 
@@ -297,7 +297,7 @@ class Sangar_scaffolds
 			return TRUE;
 		else
 		{
-			$this->errors = "Error creando la tabla en la base de datos:<br>$sql_table";
+			$this->errors = lang('scaffolds_error_del_bd')."<br> <pre>$sql_table</pre>";
 			return FALSE;
 		}
 	}
@@ -433,7 +433,7 @@ class Sangar_scaffolds
 			return TRUE;
 		else
 		{
-			$this->errors = "Error creando la tabla en la base de datos:<br>$sql_table";
+			$this->errors = lang('scaffolds_error_bd')."<br>$sql_table";
 			return FALSE;
 		}
 	}
@@ -1965,7 +1965,7 @@ $data .= "
 			return TRUE;
 		else
 		{
-			$this->errors = "Error creando el archivo view/".$this->controller_name."/create.php";
+			$this->errors = lang('scaffolds_error_file')." view/".$this->controller_name."/create.php";
 			return FALSE;
 		}
 	}
@@ -2116,7 +2116,7 @@ $data .= "
 			return TRUE;
 		else
 		{
-			$this->errors = "Error creando el archivo view/".$this->controller_name."/list.php";
+			$this->errors = lang('scaffolds_error_file')." view/".$this->controller_name."/list.php";
 			return FALSE;		
 		}
 	}
@@ -2132,7 +2132,7 @@ $data .= "
 			return TRUE;
 		else
 		{
-			$this->errors = "Error modificando  el archivo config/routes.php";
+			$this->errors = lang('scaffolds_error_modify')." config/routes.php";
 			return FALSE;
 		}
 	}
@@ -2147,7 +2147,7 @@ $data .= "
 			return TRUE;
 		else
 		{
-			$this->errors = "Error modificando  el archivo config/routes.php";
+			$this->errors = lang('scaffolds_error_modify')." config/routes.php";
 			return FALSE;
 		}
 	}
@@ -2180,7 +2180,7 @@ $data .= "
 			return TRUE;
 		else
 		{
-			$this->errors = "Error creando el archivo ".APPPATH.$path.$filename.".php";
+			$this->errors = lang('scaffolds_error_file')." ".APPPATH.$path.$filename.".php";
 			return FALSE;
 		}
 	}

@@ -1,5 +1,5 @@
 <div id="content-top">
-    <h2><?=($updType == 'create') ? "Crear Producto" : "Editar producto"?></h2>
+    <h2><?=($updType == 'create') ? lang('web_add_product') : lang('web_edit_product')?></h2>
     
     <?php if ($updType == 'create'): ?>
 
@@ -47,7 +47,7 @@ echo ($updType == 'create') ? form_open_multipart('admin/products/create', $attr
 	<label class='labelform' for='category_id'><?=lang('web_category')?> <span class="required">*</span></label>
 
 	<select name='category_id' id='category_id'>
-		<option value='-'><?=lang('web_choose_option')?></option>
+		<option value=''><?=lang('web_choose_option')?></option>
 		<?php foreach ($categories as $category): ?>
 			<option value='<?=$category->id?>' <?= preset_select('category_id', $category->id, (isset($product->category_id)) ? $product->category_id : ''  ) ?>><?=$category->name?></option>
 		<?php endforeach ?>
@@ -70,16 +70,16 @@ echo ($updType == 'create') ? form_open_multipart('admin/products/create', $attr
 
 <p>
 	<label class='labelform'><?=lang('web_active')?></label>
-	<input id="active" type="checkbox" name="active" value='1' <?=preset_checkbox('active', '1', (isset($product->active)) ? $product->active : ''  )?> /><label class='labelforminline' for='active'> ¿Está activo en la web? </label>
+	<input id="active" type="checkbox" name="active" value='1' <?=preset_checkbox('active', '1', (isset($product->active)) ? $product->active : ''  )?> /><label class='labelforminline' for='active'> <?=lang('web_is_active')?> </label>
 	<?php echo form_error('active'); ?>
 </p>
 
 <p>
 	<label class='labelform'><?=lang('web_choose_option')?> <span class="required">*</span></label>
 
-	<?= form_radio('option', '1', TRUE, preset_radio('option', '1', (isset($product->option)) ? $product->option : ''  )); ?><label class='labelforminline' for='option1'> Opción 1 </label>
-	<?=form_radio('option', '2', FALSE, preset_radio('option', '2', (isset($product->option)) ? $product->option : ''  )); ?><label class='labelforminline' for='option1'> Opción 2 </label>
-	<?=form_radio('option', '3', FALSE, preset_radio('option', '3', (isset($product->option)) ? $product->option : ''  )); ?><label class='labelforminline' for='option1'> Opción 3 </label>
+	<?= form_radio('option', '1', TRUE, preset_radio('option', '1', (isset($product->option)) ? $product->option : ''  )); ?><label class='labelforminline' for='option1'> <?=lang('web_option')?> 1 </label>
+	<?=form_radio('option', '2', FALSE, preset_radio('option', '2', (isset($product->option)) ? $product->option : ''  )); ?><label class='labelforminline' for='option1'> <?=lang('web_option')?> 2 </label>
+	<?=form_radio('option', '3', FALSE, preset_radio('option', '3', (isset($product->option)) ? $product->option : ''  )); ?><label class='labelforminline' for='option1'> <?=lang('web_option')?> 3 </label>
 
 	<?php echo form_error('option'); ?>
 </p>

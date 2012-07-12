@@ -4,6 +4,7 @@ $lang['web_add'] 					= 'Create';
 $lang['web_edit'] 					= 'Edit';
 $lang['web_delete'] 				= 'Delete';
 $lang['web_options'] 				= 'Options';
+$lang['web_option'] 				= 'Option';
 $lang['web_confirm_delete'] 		= 'Are you sure to delete this record?';
 
 $lang['web_private_zone'] 			= 'Management Portal';
@@ -42,6 +43,7 @@ $lang['web_product'] 				= 'Product';
 $lang['web_products'] 				= 'Products';
 $lang['web_add_product'] 			= 'Create product';
 $lang['web_edit_product'] 			= 'Edit product';
+$lang['web_list_product'] 			= 'Product list';
 
 $lang['web_user'] 					= 'User';
 $lang['web_users'] 					= 'Users';
@@ -54,14 +56,18 @@ $lang['web_list_deuser_conf']		= 'Are you sure to disable the user?';
 
 $lang['web_active']					= 'Active';
 $lang['web_inactive']				= 'Inactive';
+$lang['web_is_active']				= 'Is it active?';
 $lang['web_name']					= 'Name';
 $lang['web_lastname']				= 'Lastname';
 $lang['web_email']					= 'Email';
 $lang['web_password']				= 'Password';
 $lang['web_password_confirm']		= 'Repeat the password';
-$lang['web_description']			= 'Descripction';
+$lang['web_description']			= 'Description';
+$lang['web_active']					= 'Active';
 $lang['web_image_create']			= 'Add a image';
 $lang['web_image_edit']				= 'Edit the image';
+$lang['web_file_create']			= 'Add a file';
+$lang['web_file_edit']				= 'Edit the file';
 $lang['web_choose_option']			= 'Choose an option';
 $lang['web_image']					= 'Image';
 $lang['web_groups']					= 'Group';
@@ -75,7 +81,7 @@ $lang['web_home_lang']				= 'The actual language is';
 $lang['web_home_lang_trans']		= 'Translated URL example:';
 $lang['web_first']					= 'First';
 $lang['web_last']					= 'Last';
-$lang['web_my_account']				= 'my account';
+$lang['web_my_account']				= 'My account';
 
 
 $lang['web_hello']					= 'Hello';
@@ -83,6 +89,8 @@ $lang['web_login']					= 'Login';
 $lang['web_logout']					= 'Logout';
 $lang['web_lastlogin']				= 'Last login';
 $lang['web_not_logged']				= 'You are not authorized to view this content';
+$lang['web_not_do_this']			= 'You are not authorized to do this action';
+$lang['web_login_correct']			= 'Login successfully';
 $lang['web_login_incorrect']		= "The user name or password entered isn't correct";
 $lang['web_user_deactivate']		= 'Successfully deactivated';
 $lang['web_login_remb']				= 'Can not access your account?';
@@ -120,6 +128,41 @@ $lang['npass_p3']					= "Remember you can change your password from the link 'My
 
 $lang['web_mail_ok']				= "Mail sent. Shortly we will contact you.";
 $lang['web_mail_ko']				= "Error sending mail. Try later.";
+
+
+// Account Creation
+$lang['account_creation_successful'] 	  	 		= 'Account Successfully Created';
+$lang['account_creation_unsuccessful'] 	 			= 'Unable to Create Account';
+$lang['account_creation_duplicate_email'] 	 	 	= 'Email Already Used or Invalid';
+$lang['account_creation_duplicate_username'] 	 	= 'Username Already Used or Invalid';
+
+// Password
+$lang['password_change_successful'] 	 	 		= 'Password Successfully Changed';
+$lang['password_change_unsuccessful'] 	  	 		= 'Unable to Change Password';
+$lang['forgot_password_successful'] 	 	 		= 'Password Reset Email Sent';
+$lang['forgot_password_unsuccessful'] 	 	 		= 'Unable to Reset Password';
+
+// Activation
+$lang['activate_successful'] 		  	 			= 'Account Activated';
+$lang['activate_unsuccessful'] 		 	 			= 'Unable to Activate Account';
+$lang['deactivate_successful'] 		  	 			= 'Account De-Activated';
+$lang['deactivate_unsuccessful'] 	  	 			= 'Unable to De-Activate Account';
+$lang['activation_email_successful'] 	  	 		= 'Activation Email Sent';
+$lang['activation_email_unsuccessful']   	 		= 'Unable to Send Activation Email';
+
+// Login / Logout
+$lang['login_successful'] 		  	 				= 'Logged In Successfully';
+$lang['login_unsuccessful'] 		  	 			= 'In-Correct Login';
+$lang['logout_successful'] 		 	 				= 'Logged Out Successfully';
+  
+// Account Changes
+$lang['update_successful'] 		 	 				= 'Account Information Successfully Updated';
+$lang['update_unsuccessful'] 		 	 			= 'Unable to Update Account Information';
+$lang['delete_successful'] 		 	 				= 'User Deleted';
+$lang['delete_unsuccessful'] 		 	 			= 'Unable to Delete User';
+
+//session
+$lang['session_not_correct'] 	  	 				= 'The session is expired. Login again.';
 
 
 

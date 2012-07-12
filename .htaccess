@@ -2,10 +2,6 @@ RewriteEngine on
 
 AddDefaultCharset UTF-8
 
-RewriteCond %{HTTP_HOST} ^ci.com$
-RewriteRule ^(.*)$ http://www.ci.com/$1 [R=301,L]
-
-#RewriteCond $1 !^(index\.php|images|table-images|js|robots\.txt|css|captcha)
 RewriteCond $1 !^(index\.php|images|img|javascript|fonts|content|uploads|images|styles.css|layout.html|public|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]
 

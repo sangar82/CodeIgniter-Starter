@@ -396,7 +396,7 @@ class Products extends MY_Controller {
 	{
 		$this->form_validation->set_rules('name', 'lang:web_name', 'required|trim|xss_clean|min_length[2]|max_length[100]');						
 		$this->form_validation->set_rules('description', 'lang:web_description', 'required|trim|xss_clean|min_length[2]|max_length[500]');			
-		$this->form_validation->set_rules('category_id', 'lang:web_category', 'is_numeric|required|trim|xss_clean');			
+		$this->form_validation->set_rules('category_id', 'lang:web_category', 'required|trim|xss_clean');			
 		$this->form_validation->set_rules('active', 'lang:web_category', 'is_numeric');			
 		$this->form_validation->set_rules('option', 'lang:web_options', 'is_numeric|required|trim|xss_clean');			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');

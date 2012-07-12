@@ -43,7 +43,6 @@ class Sangar_auth
 		$this->ci->load->library('session');
 		$this->ci->load->library('encrypt');
 		$this->ci->load->helper('cookie');
-		$this->ci->lang->load('ion_auth');
 		$this->ci->load->helper('string');
 	}
 
