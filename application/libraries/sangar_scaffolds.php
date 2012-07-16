@@ -1478,7 +1478,7 @@ $data .= "
 	{
 		\$config = array();
 
-		\$config['base_url'] = site_url() . 'admin/".$this->controller_name."".(($this->there_is_a_relational_field) ? "/'.\$$this->relational_field" : "").";
+		\$config['base_url'] = site_url() . 'admin/".$this->controller_name."".(($this->there_is_a_relational_field) ? "/'.\$$this->relational_field" : "'").";
 
 		\$config['use_page_numbers'] = TRUE;
 
