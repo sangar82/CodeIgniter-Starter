@@ -45,7 +45,7 @@ class Users extends MY_Controller
 			{ //if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_login_incorrect') ));
-				redirect('users/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else

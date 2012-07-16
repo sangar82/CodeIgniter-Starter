@@ -543,6 +543,12 @@ p{
     width:400px !important;
     height:400px !important;
 }
+
+.forminfo{
+    color:#444;
+    font-size:13px;
+    font-style: italic;
+}
 /*Scaffolds*/
 
 
