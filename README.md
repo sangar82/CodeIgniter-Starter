@@ -9,30 +9,18 @@ Custom Codeigniter with preinstalled features:
 - Php-ActiveRecord installed (https://github.com/kla/php-activerecord) Version Nightly build May 2012
 - Toast Unit test 
 - Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
-
-
 - Backend & Full Access Control (login, logout, remember password, and protected access to the backend)
 - Basic layout (frontend, backend)
 - Backend Template
-
-
 - System Messages implemented as partials in layouts
 - Folder for public content (images, js, uploads, ...)
-
-
 - Subdomains for languages
 - Translation on 3 languages (english, spanish, catalan)
 - Methods for translate controllers and methods names 
-
-
 - CRUD Users implemented.  
 - Example: CRUD Categories. Categories as a tree of categories (with order via ajax)
 - Example: CRUD Products with upload an image and make a thumbnail
 - Examples of testing (SangarAuth Test, users test, categories test, products test).
-
-
-Under development: the first full operative version in a few weeks.
-
 
 
 ##Codeigniter Version
@@ -43,7 +31,7 @@ The Codeigniter Version is 2.1.2
 ##Server Requirements
 
 PHP version 5.3.5 or newer.
-
+At this moment, Scaffolding works only with MySql
 
 
 ##Installation
@@ -90,6 +78,16 @@ The default user to access to the private zone is:
     password: 	password
 
 
+##How create a new scaffold
+
+Login into the private zone, and search the link 'Scaffolds' on the top of the page
+
+- Write the Controller name you want produce.
+- Write the Model name you want produce.
+- Copy the code blocks of elements you need and paste to scaffold code textarea. Each code block must be separated by commas. The scaffold code is a JSON without the first '{' and the last '}'
+- Choose the options you want
+- Scaffold!
+
 
 ##Translate controllers name and controllers method names
 
@@ -113,5 +111,5 @@ Example
 
 	<?=lang_anchor('users', 'edit', '1')?>
 
-(It takes the actual language and creates an anchor based on the local URL with translations of method name and controller name)
+(It produces a link in the actual language, with the controller and method names translated)
 
