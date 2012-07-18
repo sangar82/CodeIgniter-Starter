@@ -1,15 +1,8 @@
 html, body{
-	margin: 0px;
-	padding: 0px;
+    margin:0;
+    padding:0;
 }
 
-html{
-	
-}
-
-body, html {
-    
-}
 
 body{
     background: url("/public/img/admin/bg-body.gif") repeat-x scroll 0 0 #E8E8DD;
@@ -17,7 +10,7 @@ body{
     font-size:9pt;
 }
 
-div#bcontainer {
+#bcontainer{
     height: auto !important;
     margin: 0 auto;
     position: relative;
@@ -542,6 +535,12 @@ p{
 .scaffold_textarea{
     width:400px !important;
     height:400px !important;
+}
+
+.forminfo{
+    color:#444;
+    font-size:13px;
+    font-style: italic;
 }
 /*Scaffolds*/
 

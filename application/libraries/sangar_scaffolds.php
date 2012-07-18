@@ -41,6 +41,11 @@ class Sangar_scaffolds
 	public $array_thumbnails_uploads;
 	public $array_required_fields_uploads;
 
+	public $there_is_a_relational_field;
+	public $relational_field;
+	public $relational_controller;
+	public $relational_model;
+
 
 	public function __construct()
 	{
@@ -173,6 +178,19 @@ class Sangar_scaffolds
 			}
 		}
 
+
+		if ($this->there_is_a_relational_field)
+		{
+			
+			$result = $this->add_relational_link_to_list();
+
+			if ($result === FALSE)
+			{
+				return $this->errors;
+			}
+
+		}
+
 		return TRUE;
 	}
 
@@ -200,6 +218,12 @@ class Sangar_scaffolds
 
 		$this->there_is_an_image 					= FALSE;
 		$this->there_is_a_file						= FALSE;
+
+		$this->there_is_a_relational_field			= FALSE;
+		$this->relational_field 					= FALSE;
+		$this->relational_controller 				= FALSE;
+		$this->relational_model		 				= FALSE;
+
 		$this->array_thumbnails_uploads				= array();
 		$this->array_required_fields_uploads		= array();
 
@@ -270,6 +294,14 @@ class Sangar_scaffolds
 					if ($value['required'] === 'TRUE')
 						array_push($this->array_required_fields_uploads, $index);
 				}
+			}
+
+			if ($value['type'] == 'hidden')
+			{
+				$this->there_is_a_relational_field	=	TRUE;
+				$this->relational_field				=	$index;
+				$this->relational_controller		=   $value['controller'];
+				$this->relational_model				= 	$value['model'];
 			}
 		}
 
@@ -415,6 +447,12 @@ class Sangar_scaffolds
 
 		        		break;
 
+		        		case 'hidden':
+
+		        			$sql_table .= $index."  INT(9) NOT NULL, ";
+
+		        		break;
+
 		        	}
 		        }
 
@@ -465,18 +503,41 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 	{	
 		//set the title of the page 
 		\$layout['title'] = 'Listado de ".$this->controller_name."';
+";
+
+if ($this->there_is_a_relational_field)
+{
+$data .= "
+		//control of number page
+		\$data['".$this->relational_field."'] = (\$this->uri->segment(3)) ? \$this->uri->segment(3) : '';
+
+		//redirect if it´s no correct
+		if (!\$data['".$this->relational_field."']){
+			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
+			redirect('/admin/".$this->relational_controller."/');
+		}
 
 		//set the pagination configuration array and initialize the pagination
-		\$config = \$this->set_paginate_options('index');
+		\$config = \$this->set_paginate_options(\$data['".$this->relational_field."']);
+";
+}
+else
+{
+$data .= "
+		//set the pagination configuration array and initialize the pagination
+		\$config = \$this->set_paginate_options();
+";
+}
 
+$data.="
 		//Initialize the pagination class
 		\$this->pagination->initialize(\$config);
 
 		//control of number page
-		\$page = (\$this->uri->segment(3)) ? \$this->uri->segment(3) : 1;
+		\$page = (\$this->uri->segment(".(($this->there_is_a_relational_field) ? '4' : '3').")) ? \$this->uri->segment(".(($this->there_is_a_relational_field) ? '4' : '3').") : 1;
 
 		//find all the categories with paginate and save it in array to past to the view
-		\$data['".$this->controller_name."'] = ".$this->model_name_for_calls."::paginate_all(\$config['per_page'], \$page);
+		\$data['".$this->controller_name."'] = ".$this->model_name_for_calls."::paginate_all(\$config['per_page'], \$page".( ($this->there_is_a_relational_field)  ? ", \$data['$this->relational_field']" : "" ).");
 
 		//create paginate´s links
 		\$data['links'] = \$this->pagination->create_links();
@@ -497,7 +558,6 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 		//create control variables
 		\$data['title']		= 	'Crear ".$this->controller_name."';
 		\$data['updType']	= 	'create';
-		\$data['page']		=	( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('page', TRUE);
 		\$form_data_aux 	= 	array();
 		";
 
@@ -509,6 +569,16 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
         			$data .= "\$data['array_".strtolower($value['options']['model'])."']	= 	".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' ));";
         		break;
         	}
+        }
+
+        if ($this->there_is_a_relational_field)
+        {
+			$data .= "\$data['".$index."'] = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('".$index."', TRUE);";
+        	$data .= $this->sl.$this->tabx2."\$data['page'] = ( \$this->uri->segment(5) )  ? \$this->uri->segment(5) : \$this->input->post('page', TRUE);";
+        }
+        else
+        {
+			$data .= "\$data['page'] = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('page', TRUE);";
         }
 		
         $data .= "
@@ -762,6 +832,7 @@ $data .= "
 		        		case 'selectbd':
 		        		case 'radio':
 		        		case 'datepicker':
+		        		case 'hidden':
 
 
 		        			$data .= $this->sl.$this->tabx4."'".$index."' => set_value('".$index."'), ";
@@ -794,7 +865,7 @@ $data .= "
 				\$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => \$".$this->model_name."->errors->full_messages() ));
 			}
 
-			redirect('/admin/".$this->controller_name."/');
+			".(($this->there_is_a_relational_field)  ? "redirect(\"/admin/".$this->controller_name."/\".\$this->input->post('".$this->relational_field."', TRUE));" : "redirect('/admin/".$this->controller_name."/');")."
 		
 	  	} 
 	}
@@ -802,6 +873,32 @@ $data .= "
 
 	function edit(\$id = FALSE, \$page = 1) 
 	{
+";
+if ($this->there_is_a_relational_field)
+{
+$data .= "
+		//get the \$id and sanitize
+		\$id = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('id', TRUE);
+		\$id = ( \$id != 0 ) ? filter_var(\$id, FILTER_VALIDATE_INT) : NULL;
+
+		//get the relation and sanitize
+		\$data['".$this->relational_field."'] = (\$this->uri->segment(5)) ? \$this->uri->segment(5) : \$this->input->post('".$this->relational_field."', TRUE);
+		\$data['".$this->relational_field."'] = ( \$data['".$this->relational_field."'] != 0 ) ? filter_var(\$data['".$this->relational_field."'], FILTER_VALIDATE_INT) : NULL;
+
+		//get the \$page and sanitize
+		\$page = ( \$this->uri->segment(6) )  ? \$this->uri->segment(6) : \$this->input->post('page', TRUE);
+		\$page = ( \$page != 0 ) ? filter_var(\$page, FILTER_VALIDATE_INT) : NULL;
+
+		//redirect if it´s no correct
+		if (!\$id or !\$data['".$this->relational_field."']){
+			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
+			redirect(\"admin/".$this->controller_name."/\".\$data['".$this->relational_field."']);
+		}
+";
+}
+else
+{
+$data .= "
 		//get the \$id and sanitize
 		\$id = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('id', TRUE);
 		\$id = ( \$id != 0 ) ? filter_var(\$id, FILTER_VALIDATE_INT) : NULL;
@@ -812,10 +909,14 @@ $data .= "
 
 		//redirect if it´s no correct
 		if (!\$id){
-			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
-			redirect('".$this->controller_name."/');
+			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
+			redirect('admin/".$this->controller_name."/');
 		}
+";
+}
 
+
+$data .= "
 		//variables for check the upload
 		\$form_data_aux			= array();
 		\$files_to_delete 		= array();
@@ -1087,6 +1188,7 @@ $data .= "
 					        		case 'selectbd':
 					        		case 'radio':
 					        		case 'datepicker':
+					        		case 'hidden':
 
 					        			$data .= $this->sl.$this->tabx7."'".$index."' => set_value('".$index."'), ";
 
@@ -1139,13 +1241,13 @@ $data .= "
 			}
 $data .= "
 				\$this->session->set_flashdata('message', array( 'type' => 'success', 'text' => lang('web_edit_success') ));
-				redirect(\"/admin/".$this->controller_name."/\$page/\");
+				redirect(\"/admin/".$this->controller_name."/".(($this->there_is_a_relational_field) ? "\".\$this->input->post('".$this->relational_field."', TRUE).\"/\"" : "\"").".\$page);
 			}
 
 			if (\$".$this->model_name."->is_invalid())
 			{
 				\$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => \$".$this->model_name."->errors->full_messages() ) );
-				redirect(\"/admin/".$this->controller_name."/\$page/\");
+				redirect(\"/admin/".$this->controller_name."/".(($this->there_is_a_relational_field) ? "\".\$this->input->post('".$this->relational_field."', TRUE).\"/\"" : "\"").".\$page);
 			}	
 	  	} 
 	}
@@ -1160,7 +1262,7 @@ $data .= "
 
 		//redirect if it´s no correct
 		if (!\$id){
-			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
+			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
 			
 			redirect('".$this->controller_name."');
 		}
@@ -1172,7 +1274,7 @@ $data .= "
 		}
 		else
 		{
-			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
+			\$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exist') ) );
 			
 			redirect('".$this->controller_name."');		
 		}
@@ -1254,7 +1356,7 @@ $data .= "
 			\$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => lang('web_delete_failed') ) );
 		}	
 
-		redirect('/admin/".$this->controller_name."');
+		redirect(\"/admin/".$this->controller_name."/\"".( ($this->there_is_a_relational_field) ? ".\$".$this->model_name."->".$this->relational_field."" : "" ).");
 	}
 
 
@@ -1357,6 +1459,14 @@ $data .= "
         			$data .= $this->tabx5;	
 
         		break;
+
+
+        		case 'hidden':
+
+        	    	$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', 'requires|trim|is_numeric|xss_clean');".$this->sl;
+        			$data .= $this->tabx5;	
+
+        		break;
         	}
         }
 
@@ -1364,19 +1474,31 @@ $data .= "
 		$data .= $this->sl.$this->tab."}		
 
 	
-	private function set_paginate_options()
+	private function set_paginate_options(".(($this->there_is_a_relational_field) ? "\$$this->relational_field" : "").")
 	{
 		\$config = array();
 
-		\$config['base_url'] = site_url() . '".$this->controller_name."';
-
-	    \$config['total_rows'] = ".ucfirst($this->model_name)."::count();
+		\$config['base_url'] = site_url() . 'admin/".$this->controller_name."".(($this->there_is_a_relational_field) ? "/'.\$$this->relational_field" : "'").";
 
 		\$config['use_page_numbers'] = TRUE;
 
 	    \$config['per_page'] = 10;
+";
 
-	    \$config['uri_segment'] = 2;
+if ($this->there_is_a_relational_field)
+$data .= "
+		\$config['total_rows'] = ".ucfirst($this->model_name)."::count(array('conditions' => array('".$this->relational_field." = ?', \$".$this->relational_field.")));
+
+		\$config['uri_segment'] = 4;";
+
+else
+$data .= "
+		\$config['total_rows'] = ".ucfirst($this->model_name)."::count();
+
+		\$config['uri_segment'] = 3;";
+
+
+$data .= "
 
 	    \$config['first_link'] = \"<< \".lang('web_first');
 	    \$config['first_tag_open'] = \"<span class='pag'>\";
@@ -1575,11 +1697,19 @@ class ".$this->model_name_for_calls." extends ActiveRecord\Model {
         		case 'radio':
         		case 'datepicker':
 
+
         			if ($value['required'] == "TRUE")
         			{
 	        			$data .= $this->sl.$this->tabx2."array('".$index."'), ";	        			
 	        			$there_are_requireds = TRUE;
         			}        		
+
+        		break;
+
+        		case 'hidden':
+
+	        			$data .= $this->sl.$this->tabx2."array('".$index."'), ";	        			
+	        			$there_are_requireds = TRUE;
 
         		break;
         	}
@@ -1592,11 +1722,11 @@ class ".$this->model_name_for_calls." extends ActiveRecord\Model {
     );
 
 
-	static function paginate_all(\$limit, \$page)
+	static function paginate_all(\$limit, \$page".( ($this->there_is_a_relational_field)  ? ", \$$this->relational_field" : "" ).")
 	{
 		\$offset = \$limit * ( \$page - 1) ;
 
-		\$result = ".$this->model_name_for_calls."::find('all', array('limit' => \$limit, 'offset' => \$offset, 'order' => 'id DESC' ) );
+		\$result = ".$this->model_name_for_calls."::find('all', array(".( ($this->there_is_a_relational_field)  ? "'conditions' => '$this->relational_field = '.\$$this->relational_field.'', " : "" )."'limit' => \$limit, 'offset' => \$offset, 'order' => 'id DESC' ) );
 
 		if (\$result)
 		{
@@ -1707,7 +1837,7 @@ $data .= "
 		$data .= "
 <div id='content-top'>
     <h2><?=(\$updType == 'create') ? lang('web_create_t', array(':name' => '$this->model_name')) : lang('web_edit_t', array(':name' => '$this->model_name'));?></h2>
-    <a href='/admin/".$this->controller_name."/<?=\$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+    <a href='/admin/".$this->controller_name."/".(($this->there_is_a_relational_field) ? "<?=\$$this->relational_field?>/" : "")."<?=\$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
     <span class='clearFix'>&nbsp;</span>
 </div>
 
@@ -1941,6 +2071,14 @@ $data .= "
 			}
 
 		break;
+
+		case 'hidden':
+
+$data .= "
+	<input id='".$index."' type='hidden' name='".$index."' value='<?=\$".$index."?>'/>
+";			
+
+		break;
 	}
 }
 
@@ -1998,7 +2136,7 @@ $data .= "
 <div id='content-top'>
     <h2><?=lang('web_list_of', array(':name' => '".ucfirst($this->controller_name)."'))?></h2>
    
-    <a href='/admin/".$this->controller_name."/create/<?=\$page?>' class='bcreate'><?=lang('web_create_t', array(':name' => 'patatas'))?></a>
+    <a href='/admin/".$this->controller_name."/create/".(($this->there_is_a_relational_field) ? "<?=\$$this->relational_field?>/" : "")."<?=\$page?>' class='bcreate'><?=lang('web_create_t', array(':name' => '".$this->model_name."'))?></a>
   
     <span class='clearFix'>&nbsp;</span>
 </div>
@@ -2091,7 +2229,7 @@ $data .= "
 			        	}
 			        }
 
-				$data .= $this->tabx5."<td width='60'><a class='ledit' href='/admin/".$this->controller_name."/edit/<?=\$".$this->model_name."->id?>/<?=\$page?>'><?=lang('web_edit')?></a></td>
+				$data .= $this->tabx5."<td width='60'><a class='ledit' href='/admin/".$this->controller_name."/edit/<?=\$".$this->model_name."->id?>/".(($this->there_is_a_relational_field)  ? "<?=\$$this->model_name->".$this->relational_field."?>/" : "")."<?=\$page?>'><?=lang('web_edit')?></a></td>
 					<td width='60'><a class='ldelete' onClick=\"return confirm('<?=lang('web_confirm_delete')?>')\" href='/admin/".$this->controller_name."/delete/<?=\$".$this->model_name."->id?>/<?=\$page?>'><?=lang('web_delete')?></a></td>
 				</tr>
 				
@@ -2128,6 +2266,11 @@ $data .= "
 		$data .="//routes para ".$this->controller_name.$this->sl;
 		$data .= "\$route['admin/".$this->controller_name."/(:num)'] = 'admin/".$this->controller_name."/index/$1';";
 
+		if ($this->there_is_a_relational_field)
+		{
+			$data .= $this->sl."\$route['admin/".$this->controller_name."/(:num)/(:num)'] = 'admin/".$this->controller_name."/index/$1/$2';";
+		}
+
 		if ( $this->save_file('routes', "config/", $data, 'a' ) === TRUE )
 			return TRUE;
 		else
@@ -2137,8 +2280,14 @@ $data .= "
 		}
 	}
 
+
 	private function modify_menu()
 	{
+		//No modificamos menu si es relacion
+		if ($this->there_is_a_relational_field)
+			return TRUE;
+
+
 		$data = $this->sl.$this->sl;
 		$data .= "<?php  \$mactive = (\$this->uri->rsegment(1) == '".$this->controller_name."')  ? \"class='selected'\" : \"\" ?>".$this->sl;
 		$data .= "<li <?=\$mactive?>><a href=\"/admin/".$this->controller_name."/\" style=\"background-position: 0px 0px;\">".ucfirst($this->controller_name)."</a></li>";
@@ -2151,6 +2300,46 @@ $data .= "
 			return FALSE;
 		}
 	}
+
+
+	private function add_relational_link_to_list()
+	{
+		$file = file(APPPATH."views/".$this->relational_controller."/list.php" );
+
+		/*
+		$tds = array_keys( $file, '<td' );
+		$pos_to_insert = $tds[count($tds)-1];
+		*/
+		$pos = count($file)-1;
+		$tds_found = 0;
+		while( $pos > 0 and $tds_found < 2 )
+		{
+			if( strpos($file[$pos],'<td') !== FALSE )
+			{
+				$tds_found++;
+			}
+			$pos--;
+		}
+
+		for( $i=count($file);$i>$pos;$i--)
+		{
+			$file[$i] = $file[($i-1)];
+		}
+
+		$file[$pos+1] = $this->tabx5."<td><a href=\"/admin/".$this->controller_name."/<?=\$".$this->relational_model."->id?>\">".ucfirst($this->controller_name)." (<?= ".$this->model_name_for_calls."::count(array('conditions' => array('".$this->relational_field." = ?', \$".$this->relational_model."->id)) )?>) </a></td>".$this->sl;
+
+		$result = file_put_contents(APPPATH."views/".$this->relational_controller."/list.php" , $file );
+
+
+		if ( $result )
+			return TRUE;
+		else
+		{
+			$this->errors = "Error modificando lista";
+			return FALSE;
+		}
+	}
+
 
 	private function create_folder_if_no_exists($path)
 	{

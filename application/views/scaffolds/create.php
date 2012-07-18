@@ -32,11 +32,13 @@
 
 
 	<p>
-		<label class='labelform' for="description">Scaffold code <span class="required">*</span><br><?=lang('scaffolds_code_info')?></label>
+		<label class='labelform' for="description">Scaffold code <span class="required">*</span><br></label>
 
 		<textarea id="scaffold_code"  name="scaffold_code"  rows='80' class='scaffold_textarea' /><?php echo set_value('scaffold_code', ''); ?></textarea>
 
 		<br><?php echo form_error('scaffold_code'); ?>
+
+    <span class='forminfo'><?=lang('scaffolds_code_info')?></span>
 
 	</p>
 
@@ -242,6 +244,17 @@
 </div>
 
 
+<h3><a href="#">Hidden Relational</a></h3>
+<div>
+<pre>
+"category_id" : 
+{
+  "type"           : "hidden",
+  "controller"    : "name_controller",
+  "model"         : "name_model"
+} 
+</pre>
+</div>
 
 
 
