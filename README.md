@@ -1,6 +1,5 @@
-###################
-Codeigniter Starter 
-###################
+
+#Codeigniter Starter 
 
 Custom Codeigniter with preinstalled features:
 
@@ -35,23 +34,19 @@ Custom Codeigniter with preinstalled features:
 Under development: the first full operative version in a few weeks.
 
 
-*******************
-Codeigniter Version
-*******************
+
+##Codeigniter Version
 
 The Codeigniter Version is 2.1.2 
 
 
-*******************
-Server Requirements
-*******************
+##Server Requirements
 
 PHP version 5.3.5 or newer.
 
 
-************
-Installation
-************
+
+##Installation
 
 The installation is the same as Codeigniter.
 
@@ -85,9 +80,8 @@ If you want more languages, create more ServerAlias
 Enjoy!!
 
 
-************
-Backend user and password
-************
+
+##Backend user and password
 
 The default user to access to the private zone is:
 
@@ -96,9 +90,8 @@ The default user to access to the private zone is:
     password: 	password
 
 
-************
-Translate controllers name and controllers method names
-************
+
+##Translate controllers name and controllers method names
 
 If you want to translate controllers names and controllers method names edit the file 
 
