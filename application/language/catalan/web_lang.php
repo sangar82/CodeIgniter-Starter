@@ -6,6 +6,8 @@ $lang['web_delete'] 				= 'Eliminar';
 $lang['web_options'] 				= 'Opcions';
 $lang['web_option'] 				= 'Opció';
 $lang['web_confirm_delete'] 		= "¿Estàs segur d'esborrar aquest registre?";
+$lang['web_confirm_deactivate'] 	= 'Estàs segur de desactivar aquest usuari?';
+$lang['web_confirm_active'] 		= "Estàs segur d'activar aquest usuari?";
 
 $lang['web_private_zone'] 			= "Portal d'administració";
 $lang['web_private_zone_p1'] 		= "Benvingut al portal d'administració.";
@@ -55,6 +57,7 @@ $lang['web_edit_user']	 			= 'Editar usuaris';
 $lang['web_list_user']	 			= "Llistat d'usuaris";
 $lang['web_list_deactivate_user']	= 'Desactivar usuari';
 $lang['web_list_deuser_conf']		= "¿Estàs segur de desactivar l'usuari?";
+$lang['ggroups']					= 'Gestió de grups';
 
 
 $lang['web_active']					= 'Actiu';

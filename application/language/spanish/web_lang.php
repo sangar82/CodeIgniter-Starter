@@ -6,6 +6,8 @@ $lang['web_delete'] 				= 'Eliminar';
 $lang['web_options'] 				= 'Opciones';
 $lang['web_option'] 				= 'Opción';
 $lang['web_confirm_delete'] 		= '¿Estás seguro de borrar este registro?';
+$lang['web_confirm_deactivate'] 	= '¿Estás seguro de desactivar este usuario?';
+$lang['web_confirm_active'] 		= '¿Estás seguro de activar este usuario?';
 
 $lang['web_private_zone'] 			= 'Portal de administración';
 $lang['web_private_zone_p1'] 		= 'Bienvenido al portal de administración.';
@@ -56,6 +58,7 @@ $lang['web_edit_user']	 			= 'Editar usuario';
 $lang['web_list_user']	 			= 'Listado de usuarios';
 $lang['web_list_deactivate_user']	= 'Desactivar usuario';
 $lang['web_list_deuser_conf']		= '¿Estás seguro de desactivar el usuario?';
+$lang['ggroups']					= 'Gestión de grupos';
 
 
 $lang['web_active']					= 'Activo';

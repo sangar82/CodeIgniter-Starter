@@ -6,6 +6,8 @@ $lang['web_delete'] 				= 'Delete';
 $lang['web_options'] 				= 'Options';
 $lang['web_option'] 				= 'Option';
 $lang['web_confirm_delete'] 		= 'Are you sure to delete this record?';
+$lang['web_confirm_deactivate'] 	= 'Are you sure to deactivate this user?';
+$lang['web_confirm_active'] 		= "Are you sure to activate this user?";
 
 $lang['web_private_zone'] 			= 'Management Portal';
 $lang['web_private_zone_p1'] 		= 'Welcome to Admin Panel';
@@ -55,6 +57,7 @@ $lang['web_edit_user']	 			= 'Edit user';
 $lang['web_list_user']	 			= 'User list';
 $lang['web_list_deactivate_user']	= 'Disable user';
 $lang['web_list_deuser_conf']		= 'Are you sure to disable the user?';
+$lang['ggroups']					= 'Group Management';
 
 
 $lang['web_active']					= 'Active';
