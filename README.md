@@ -80,13 +80,38 @@ The default user to access to the private zone is:
 
 ##How create a new scaffold
 
-Login into the private zone, and search the link 'Scaffolds' on the top of the page
+Sangar Scaffolds creates the files for CRUD operations for you!
+
+It creates the tables on the database, the controllers, the models and the views.
+
+It also modifies the routes.php file.
+
+You can create forms with the followings elements:
+
+- name
+- textarea
+- radiobuttons
+- checkboxes
+- select
+- select 1:N (populate the form select with a existent Model)
+- upload images (with thumbnail creation and uploads rules)
+- upload files (with uploads rules)
+- hidden relational (It's a special element. Only one hidden relational by scaffolding is allowed. It will produce a form with relation 1:N linked with his parent form automatically)
+
+Each element has validation rules and the possibility to do it multilanguage.
+
+Create also a paginated list view.
+
+
+To create a new scaffold, login into the private zone, and search the link 'Scaffolds' on the top of the page
 
 - Write the Controller name you want produce.
 - Write the Model name you want produce.
 - Copy the code blocks of elements you need and paste to scaffold code textarea. Each code block must be separated by commas. The scaffold code is a JSON without the first '{' and the last '}'
 - Choose the options you want
 - Scaffold!
+
+
 
 
 ##Translate controllers name and controllers method names
@@ -100,14 +125,11 @@ and
 	/application/language/method_translations.php. 
 
 
-For use in your views use the helper transurl_helper.php
-
-::
+For use in your views use the helper transurl_helper.php:
 
 	<?=lang_anchor(controller_name, method_name, params)?>
 
-Example
-::
+Example:
 
 	<?=lang_anchor('users', 'edit', '1')?>
 
