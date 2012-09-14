@@ -153,6 +153,7 @@ class MY_Router extends CI_Router {
 		// Is the controller in a sub-folder?
 		if (is_dir(APPPATH.'controllers/'.$segments[0]))
 		{
+			$real_name_class = $this->get_class_name_controller_from_translation($segments[1]);
 
 			// Set the directory and remove it from the segment array
 			$this->set_directory($segments[0]);
