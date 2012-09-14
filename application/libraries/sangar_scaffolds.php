@@ -1363,7 +1363,8 @@ $data .= "
 	private function set_rules(\$id = NULL)
 	{
 		//Creamos los parametros de la funcion del constructor.
-		// More validations: http://codeigniter.com/user_guide/libraries/form_validation.html";
+		// More validations: http://codeigniter.com/user_guide/libraries/form_validation.html
+";
     	foreach ($this->arrayjson as $index => $value )
     	{
       		switch ($value['type'])

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  	$(function() {
+  $(function() {
 
 		$( "#tcategories tbody" ).sortable({
 
@@ -36,7 +36,6 @@ function saveOrderClick() {
        url: "/admin/categories/update_order_categories",
        data: "categories="+stringcat,
        success: function(msg){
-	 		   
        }
       });
      

@@ -1,6 +1,7 @@
 <div id="content-top">
     <h2><?=lang('web_list_user')?></h2>
     <a href='/admin/users/create/' class='bcreate'><?=lang('web_add_user')?></a>
+    <a href='/admin/groups/' class='bcreate bforwardmargin'><?=lang('ggroups')?></a>	
     <span class="clearFix">&nbsp;</span>
 </div>
 
@@ -26,7 +27,7 @@
 					<?=$group->name."<br/>";?>
 				<?php endforeach ?>
 			</td>
-			<td><?php echo ($user->active) ? anchor("admin/users/deactivate/".$user->id, lang('web_active')) : anchor("admin/users/activate/". $user->id, lang('web_inactive'));?></td>
+			<td><?php echo ($user->active) ? "<a onClick=\"return confirm('".lang('web_confirm_deactivate')."')\" href='/admin/users/deactivate/".$user->id."'>".lang('web_active')."</a>" : "<a onClick=\"return confirm('".lang('web_confirm_active')."')\" href='/admin/users/activate/".$user->id."'>".lang('web_inactive')."</a>"?></td>
 			<td width="60"><a class='ledit' href='/admin/users/edit/<?=$user->id?>/'><?=lang('web_edit')?></a></td>
 			<td width="60"><a class='ldelete' onClick="return confirm('<?=lang('web_confirm_delete')?>')" href='/admin/users/delete/<?=$user->id?>/'><?=lang('web_delete')?></a></td>
 		</tr>

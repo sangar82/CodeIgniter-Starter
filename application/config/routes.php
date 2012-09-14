@@ -48,10 +48,12 @@ $route['forgot_password'] 		= "admin/users/forgot_password";
 
 $route['admin'] 				= "admin/admin/index";
 
-
 //route para las categorias
 $route['admin/categories/(:num)'] 		= "admin/categories/index/$1";
 
 //route para los productos
 $route['admin/products/(:num)'] 		= "admin/products/index/$1";
 $route['admin/products/(:num)/(:num)'] 	= "admin/products/index/$1/$2";
+
+//routes para groups
+$route['admin/groups/(:num)'] = 'admin/groups/index/$1';
