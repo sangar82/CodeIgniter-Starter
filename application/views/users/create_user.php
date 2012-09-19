@@ -10,11 +10,9 @@ $attributes = array('class' => 'tform', 'id' => '');
 echo ($updType == 'create') ? form_open_multipart('admin/users/create', $attributes) : form_open_multipart('admin/users/edit', $attributes); 
 ?>
 
-<?php echo form_open("auth/create_user");?>
-
 <p>
       <label class='labelform' for="first_name"><?=lang('web_name')?> <span class="required">*</span></label>
-      <input id="first_name" type="text" name="first_name" maxlength="256"value="<?php echo set_value('first_name', (isset($user->first_name)) ? $user->first_name : ''); ?>"  />
+      <input id="first_name" type="text" name="first_name" maxlength="256" value="<?php echo set_value('first_name', (isset($user->first_name)) ? $user->first_name : ''); ?>"  />
       <?php echo form_error('first_name'); ?>
 </p>
 

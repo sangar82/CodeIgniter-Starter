@@ -1,7 +1,7 @@
 <?php
 
 $lang['scaffolds_cont_name'] 			= 	'Nombre del Controlador (En plural)';
-$lang['scaffolds_mod_name'] 			= 	'Nonmbre del Modelo (En singular)';
+$lang['scaffolds_mod_name'] 			= 	'Nombre del Modelo (En singular)';
 $lang['scaffolds_code_info'] 			= 	'Pegue los bloques de código de la derecha aquí y separelos por comas.<br> Puede modificarlo todo menos el campo tipo';
 
 $lang['scaffolds_delete_bd'] 			= 	'Borrar tabla en la BD si existe';

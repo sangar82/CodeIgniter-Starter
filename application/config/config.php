@@ -75,7 +75,6 @@ $config['url_suffix'] = '';
 $config['language'] 				= "english";
 $config['prefix_language']			= "en";
 $config['languages'] 				= array("en" => "english","es" => "spanish");
-
 $config['language_default'] 		= "english";
 $config['prefix_language_default'] 	= "en";
 

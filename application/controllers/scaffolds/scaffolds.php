@@ -14,6 +14,7 @@ class Scaffolds extends MY_Controller
 
 		$this->load->library('sangar_scaffolds');
 		$this->load->language('sangar_scaffolds');
+		$this->template->set_layout('backend');
 	}
 
 	function create()
@@ -22,17 +23,13 @@ class Scaffolds extends MY_Controller
 		//Rules for validation
 		$this->_set_rules();
 
-		//create control variables
-		$data['title'] = "Scaffolds";
-		$data['updType'] = 'create';
-		//$data['user'] = getTableColumns('users', true);
-
 		//validate the fields of form
 		if ($this->form_validation->run() == FALSE) 
 		{			
-			//load the view and the layout
-			$layout['body'] = $this->load->view('scaffolds/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			$this->template->title(lang("Scaffolds"));
+			$this->template->set('updType', 'create');
+			$this->template->append_metadata("<script>$(function() {\$('#examples').accordion({autoHeight: false,navigation: true, collapsible:true, active:false});});</script>");
+			$this->template->build('scaffolds/create');
 		}
 		else
 		{
@@ -61,11 +58,12 @@ class Scaffolds extends MY_Controller
 				redirect("/admin/".$this->input->post('controller_name', TRUE));
 			}
 			else
-			{
-				$this->session->set_flashdata('message', array( 'type' => 'error', 'text' => $result ));
-				
-				$layout['body'] = $this->load->view('scaffolds/create', $data, TRUE);
-				$this->load->view('layouts/backend', $layout);
+			{	
+				$this->template->title(lang("Scaffolds"));
+				$this->template->set('updType', 'create');
+				$this->template->set('message', array( 'type' => 'error', 'text' => $result ));
+				$this->template->append_metadata("<script>$(function() {\$('#examples').accordion({autoHeight: false,navigation: true, collapsible:true, active:false});});</script>");
+				$this->template->build('scaffolds/create');
 			}
 	  	} 
 	}

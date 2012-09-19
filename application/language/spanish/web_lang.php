@@ -58,8 +58,12 @@ $lang['web_edit_user']	 			= 'Editar usuario';
 $lang['web_list_user']	 			= 'Listado de usuarios';
 $lang['web_list_deactivate_user']	= 'Desactivar usuario';
 $lang['web_list_deuser_conf']		= '¿Estás seguro de desactivar el usuario?';
-$lang['ggroups']					= 'Gestión de grupos';
+$lang['web_category_back'] 			= 'Volver al listado de usuarios';
 
+$lang['ggroups']					= 'Gestión de grupos';
+$lang['web_add_group'] 				= 'Crear grupo';
+$lang['web_edit_group']	 			= 'Editar grupo';
+$lang['web_list_group']	 			= 'Listado de grupos';
 
 $lang['web_active']					= 'Activo';
 $lang['web_inactive']				= 'Inactivo';

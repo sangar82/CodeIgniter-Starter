@@ -1,6 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth
+* Name:  Sangar Auth
+* Modified for work with php-activerecord
+* Author: Sangar
+* 		  sangar1982@gmail.com
+* 		  @sangar1982
+* 
+* Name Old:  Ion Auth
 *
 * Author: Ben Edmunds
 *		  ben.edmunds@gmail.com

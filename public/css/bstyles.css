@@ -325,6 +325,27 @@ div#bfooter-bottom p a {
     margin-right:20px;
 }
 
+.bcreategroup{
+    border-radius:4px;
+    -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px; 
+    border: 1px solid #919191;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 5px 12px 5px 30px; 
+    text-decoration:none; 
+    position:relative;
+    float:right;
+    background: url('/public/img/admin/group.png') no-repeat 6px 3px #fff;
+    color:#444;
+}
+
+.bcreategroup:hover{
+    color:#000;
+    border: 1px solid #333;
+}
+
+
 .ledit{
     padding-left:20px;
     background: url('/public/img/admin/page-pencil-16.png') no-repeat -1px -3px;
@@ -544,4 +565,10 @@ p{
 }
 /*Scaffolds*/
 
+.ui-widget-content{font-size:12px;}
+.ui-state-highlight{height:100%;}
+
+.datepicker{
+    width: 76px !important;
+}
 

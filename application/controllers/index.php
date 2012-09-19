@@ -5,33 +5,30 @@ class Index extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->template->set_layout('frontend');
 	}
 
 
 	public function index()
 	{
-		$layout['body'] = $this->load->view('/index/index', NULL, TRUE);
-		$this->load->view('/layouts/frontend', $layout);
+		$this->template->build('index/index');
 	}
 
 
 	public function contact($result = NULL)
 	{
-		$data['title']  = "Contacto";
+		$this->template->title('Contacto');
 
 		$this->load->library('form_validation');
 
 		$this->_set_rules();
 
-
 		if ($this->form_validation->run() == FALSE)
 		{
-			$layout['body'] = $this->load->view('/index/contact', $data, TRUE);
-			$this->load->view('/layouts/frontend', $layout);
+			$this->template->build('index/contact');
 		}
 		else
 		{
-
 			$form_data = array(
 		       	'name' 		=> $this->input->post('name', TRUE ), 
 		       	'lastname' 	=> $this->input->post('lastname', TRUE ), 
@@ -39,7 +36,6 @@ class Index extends MY_Controller
 		       	'phone' 	=> $this->input->post('phone', TRUE ), 
 		       	'comments'	=> $this->input->post('comments', TRUE)
 			);
-
 
 			$this->load->library('email');
 

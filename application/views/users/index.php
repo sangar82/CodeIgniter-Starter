@@ -1,7 +1,7 @@
 <div id="content-top">
     <h2><?=lang('web_list_user')?></h2>
     <a href='/admin/users/create/' class='bcreate'><?=lang('web_add_user')?></a>
-    <a href='/admin/groups/' class='bcreate bforwardmargin'><?=lang('ggroups')?></a>	
+    <a href='/admin/groups/' class='bcreategroup bforwardmargin'><?=lang('ggroups')?></a>	
     <span class="clearFix">&nbsp;</span>
 </div>
 

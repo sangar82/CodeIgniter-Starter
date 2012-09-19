@@ -4,7 +4,7 @@
     <?php if ($updType == 'create'): ?>
 
 	    <?php if ($parent_id != "0"): ?>
-	    	<a href='/admin/products/product_list/<?=$product->category_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
+	    	<a href='/admin/products/product_list/<?=$parent_id?>/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
 	    <?php else: ?>
 	    	 <a href='/admin/products/<?=$page?>/' class='bforward'><?=lang('web_back_to_list')?></a>
 	    <?php endif ?>
@@ -49,7 +49,7 @@ echo ($updType == 'create') ? form_open_multipart('admin/products/create', $attr
 	<select name='category_id' id='category_id'>
 		<option value=''><?=lang('web_choose_option')?></option>
 		<?php foreach ($categories as $category): ?>
-			<option value='<?=$category->id?>' <?= preset_select('category_id', $category->id, (isset($product->category_id)) ? $product->category_id : ''  ) ?>><?=$category->name?></option>
+			<option value='<?=$category->id?>' <?= preset_select('category_id', $category->id, (isset($product->category_id)) ? $product->category_id : $parent_id  ) ?>><?=$category->name?></option>
 		<?php endforeach ?>
 	</select>
 	<?php echo form_error('category_id'); ?>

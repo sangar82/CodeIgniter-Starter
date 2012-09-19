@@ -7,19 +7,19 @@ Custom Codeigniter with preinstalled features:
 - Sangar Auth Library. (Ion-Auth modified for me working under PHP-activerecord)
 - Sangar Scaffolding Library. A new way to do scaffolding!
 - Php-ActiveRecord installed (https://github.com/kla/php-activerecord) Version Nightly build May 2012
-- Toast Unit test 
-- Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
 - Backend & Full Access Control (login, logout, remember password, and protected access to the backend)
+- Template by Phil Sturgeon implemented (http://philsturgeon.co.uk/demos/codeigniter-template/user_guide/)
 - Basic layout (frontend, backend)
-- Backend Template
+- Toast Unit test (http://jensroland.com/projects/toast/)
+- Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
 - System Messages implemented as partials in layouts
 - Folder for public content (images, js, uploads, ...)
 - Subdomains for languages
 - Translation on 3 languages (english, spanish, catalan)
-- Methods for translate controllers and methods names 
+- Methods for translate controllers and methods names on URL
 - CRUD Users implemented.  
 - Example: CRUD Categories. Categories as a tree of categories (with order via ajax)
-- Example: CRUD Products with upload an image and make a thumbnail
+- Example: CRUD Products with upload an image  and thumbnail creation
 - Examples of testing (SangarAuth Test, users test, categories test, products test).
 
 
@@ -97,6 +97,8 @@ You can create forms with the followings elements:
 - upload images (with thumbnail creation and uploads rules)
 - upload files (with uploads rules)
 - hidden relational (It's a special element. Only one hidden relational by scaffolding is allowed. It will produce a form with relation 1:N linked with his parent form automatically)
+
+This version has more features that sangar scaffold spark.
 
 Each element has validation rules and the possibility to do it multilanguage.
 

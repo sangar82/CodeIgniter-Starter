@@ -1,5 +1,38 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Name:  Sangar-auth
+*
+* Author: 
+*		  sangar1982@gmail.com
+*         @sangar1982
+*
+*
+* Location: https://github.com/sangar82/CodeIgniter-Starter
+* Location: https://github.com/sangar82/sangar-scaffold-spark 
+* 
+*
+* Created:  06.2012
+*
+* Description:  
+*
+* Requirements: Sangar Scaffolds creates the files for CRUD operations for you!
+*               It creates the tables on the database, the controllers, the models and the views
+* 				Each element has validation rules and the possibility to do it multilanguage.
+* 				Create also a paginated list view.
+* 				
+* 				You can create forms with the followings elements:
+*				- name
+*    			- textarea
+*   			- radiobuttons
+*  				- checkboxes
+*    			- select
+*    			- select 1:N (populate the form select with a existent Model)
+*    			- upload images (with thumbnail creation and uploads rules)
+*    			- upload files (with uploads rules)
+*   			- hidden relational (It's a special element. Only one hidden relational by scaffolding is allowed. It will produce a form with relation 1:N linked with his parent form automatically)
+*/
+
 require_once FCPATH.'sparks/php-activerecord/0.0.2/vendor/php-activerecord/ActiveRecord.php'; 
 
 class Sangar_scaffolds
@@ -227,87 +260,86 @@ class Sangar_scaffolds
 		$this->array_thumbnails_uploads				= array();
 		$this->array_required_fields_uploads		= array();
 
-		//evitamos que se puedan crear los nombres de los campos con mayúsculas
-		//controlamos si hay imagenes o archivos que subir y miramos que campos tienen thumbnails y 
-		//cuales son required y los guardamos en un array 
-		//para manipular mas facilmente en el caso de que haya n uploads
-		foreach ($arrayjson as $index => $value)
-		{
-			if (strtolower($index) !== $index)
-			{
-				$arrayjson[strtolower($index)] = $arrayjson[$index];
-				unset($arrayjson[$index]);
-			}
-
-			if ($value['type'] == 'image')
-			{
-				$this->there_is_an_image = TRUE;
-
-				if ($value['multilanguage'] === "TRUE")
-				{
-					foreach ($this->languages as $prefix=>$language)
-					{
-						if ( isset ($value['thumbnail']) )
-							if ($value['thumbnail'])
-								array_push($this->array_thumbnails_uploads, $index."_".$prefix);
-
-				
-						if ($value['required'] === 'TRUE')
-							array_push($this->array_required_fields_uploads, $index."_".$prefix);							
-					}
-				}
-				else
-				{
-					if ( isset ($value['thumbnail']) )
-						if ($value['thumbnail'])
-							array_push($this->array_thumbnails_uploads, $index);
-
-					if ($value['required'] === 'TRUE')
-						array_push($this->array_required_fields_uploads, $index);
-				}
-
-			}
-
-			if ($value['type'] == 'file')
-			{
-				$this->there_is_a_file = TRUE;
-
-				if ($value['multilanguage'] === "TRUE")
-				{
-					foreach ($this->languages as $prefix=>$language)
-					{
-						if ( isset ($value['thumbnail']) )
-							if ($value['thumbnail'])
-								array_push($this->array_thumbnails_uploads, $index."_".$prefix);
-
-				
-						if ($value['required'] === 'TRUE')
-							array_push($this->array_required_fields_uploads, $index."_".$prefix);							
-					}
-				}
-				else
-				{
-					if ( isset ($value['thumbnail']) )
-						if ($value['thumbnail'])
-							array_push($this->array_thumbnails_uploads, $index);
-
-					if ($value['required'] === 'TRUE')
-						array_push($this->array_required_fields_uploads, $index);
-				}
-			}
-
-			if ($value['type'] == 'hidden')
-			{
-				$this->there_is_a_relational_field	=	TRUE;
-				$this->relational_field				=	$index;
-				$this->relational_controller		=   $value['controller'];
-				$this->relational_model				= 	$value['model'];
-			}
-		}
-
-
 		if ($arrayjson)
 		{
+			//evitamos que se puedan crear los nombres de los campos con mayúsculas
+			//controlamos si hay imagenes o archivos que subir y miramos que campos tienen thumbnails y 
+			//cuales son required y los guardamos en un array 
+			//para manipular mas facilmente en el caso de que haya n uploads
+			foreach ($arrayjson as $index => $value)
+			{
+				if (strtolower($index) !== $index)
+				{
+					$arrayjson[strtolower($index)] = $arrayjson[$index];
+					unset($arrayjson[$index]);
+				}
+
+				if ($value['type'] == 'image')
+				{
+					$this->there_is_an_image = TRUE;
+
+					if ($value['multilanguage'] === "TRUE")
+					{
+						foreach ($this->languages as $prefix=>$language)
+						{
+							if ( isset ($value['thumbnail']) )
+								if ($value['thumbnail'])
+									array_push($this->array_thumbnails_uploads, $index."_".$prefix);
+
+					
+							if ($value['required'] === 'TRUE')
+								array_push($this->array_required_fields_uploads, $index."_".$prefix);							
+						}
+					}
+					else
+					{
+						if ( isset ($value['thumbnail']) )
+							if ($value['thumbnail'])
+								array_push($this->array_thumbnails_uploads, $index);
+
+						if ($value['required'] === 'TRUE')
+							array_push($this->array_required_fields_uploads, $index);
+					}
+
+				}
+
+				if ($value['type'] == 'file')
+				{
+					$this->there_is_a_file = TRUE;
+
+					if ($value['multilanguage'] === "TRUE")
+					{
+						foreach ($this->languages as $prefix=>$language)
+						{
+							if ( isset ($value['thumbnail']) )
+								if ($value['thumbnail'])
+									array_push($this->array_thumbnails_uploads, $index."_".$prefix);
+
+					
+							if ($value['required'] === 'TRUE')
+								array_push($this->array_required_fields_uploads, $index."_".$prefix);							
+						}
+					}
+					else
+					{
+						if ( isset ($value['thumbnail']) )
+							if ($value['thumbnail'])
+								array_push($this->array_thumbnails_uploads, $index);
+
+						if ($value['required'] === 'TRUE')
+							array_push($this->array_required_fields_uploads, $index);
+					}
+				}
+
+				if ($value['type'] == 'hidden')
+				{
+					$this->there_is_a_relational_field	=	TRUE;
+					$this->relational_field				=	$index;
+					$this->relational_controller		=   $value['controller'];
+					$this->relational_model				= 	$value['model'];
+				}
+			}
+
 			$this->arrayjson	=	$arrayjson;
 		}
 		else
@@ -496,13 +528,15 @@ class ".ucfirst($this->controller_name)." extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
+
+		\$this->template->set_layout('backend');
 	}
 
 
 	public function index()
 	{	
 		//set the title of the page 
-		\$layout['title'] = 'Listado de ".$this->controller_name."';
+		\$this->template->title(lang('web_list_of', array(':name' => '".$this->controller_name."')));
 ";
 
 if ($this->there_is_a_relational_field)
@@ -510,6 +544,7 @@ if ($this->there_is_a_relational_field)
 $data .= "
 		//control of number page
 		\$data['".$this->relational_field."'] = (\$this->uri->segment(3)) ? \$this->uri->segment(3) : '';
+		\$this->template->set('".$this->relational_field."', \$data['".$this->relational_field."']) ;
 
 		//redirect if it´s no correct
 		if (!\$data['".$this->relational_field."']){
@@ -537,28 +572,44 @@ $data.="
 		\$page = (\$this->uri->segment(".(($this->there_is_a_relational_field) ? '4' : '3').")) ? \$this->uri->segment(".(($this->there_is_a_relational_field) ? '4' : '3').") : 1;
 
 		//find all the categories with paginate and save it in array to past to the view
-		\$data['".$this->controller_name."'] = ".$this->model_name_for_calls."::paginate_all(\$config['per_page'], \$page".( ($this->there_is_a_relational_field)  ? ", \$data['$this->relational_field']" : "" ).");
+		\$this->template->set('".$this->controller_name."', ".$this->model_name_for_calls."::paginate_all(\$config['per_page'], \$page".( ($this->there_is_a_relational_field)  ? ", \$data['$this->relational_field']" : "" )."));
 
 		//create paginate´s links
-		\$data['links'] = \$this->pagination->create_links();
+		\$this->template->set('links', \$this->pagination->create_links());
 
 		//control variables
-		\$data['page'] = \$page;
+		\$this->template->set('page', \$page);
 
-		//Guardamos en la variable \$layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
-		\$layout['body'] = \$this->load->view('".$this->controller_name."/list', \$data, TRUE);
-
-		//Cargamos el layout y le pasamos el contenido que esta en la variable \$layout
-		\$this->load->view('layouts/backend', \$layout);
+		//Load view
+		\$this->template->build('".$this->controller_name."/list');
 	}
 
 
 	function create(\$page = NULL) 
 	{
+		//load block submit helper and append in the head
+		\$this->template->append_metadata(block_submit_button());
+";
+		foreach ($this->arrayjson as $index => $value )
+		{
+	  		switch ($value['type'])
+	  		{
+	  			case 'textarea':
+
+	  				if ($value['ckeditor'] == "TRUE")
+	  				{
+	  				$data .= "		//ckeditor scripts
+	  	\$this->template->append_metadata(\"<script src='js/ckeditor/ckeditor.js' type='text/javascript'></script>\");
+	  				";
+	  				}
+	  		}
+	  	}
+
+$data.= "
 		//create control variables
-		\$data['title']		= 	'Crear ".$this->controller_name."';
-		\$data['updType']	= 	'create';
 		\$form_data_aux 	= 	array();
+		\$this->template->title(lang('web_create_t', array(':name' => '".$this->controller_name."')));
+		\$this->template->set('updType', 'create');
 		";
 
 	  	foreach ($this->arrayjson as $index => $value )
@@ -574,11 +625,13 @@ $data.="
         if ($this->there_is_a_relational_field)
         {
 			$data .= "\$data['".$index."'] = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('".$index."', TRUE);";
+			$data .= $this->sl.$this->tabx2."\$this->template->set('".$index."', \$data['".$index."']);";
         	$data .= $this->sl.$this->tabx2."\$data['page'] = ( \$this->uri->segment(5) )  ? \$this->uri->segment(5) : \$this->input->post('page', TRUE);";
+        	$data .= $this->sl.$this->tabx2."\$this->template->set('page', \$data['page']);";
         }
         else
         {
-			$data .= "\$data['page'] = ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('page', TRUE);";
+			$data .= "\$this->template->set('page', ( \$this->uri->segment(4) )  ? \$this->uri->segment(4) : \$this->input->post('page', TRUE));";
         }
 		
         $data .= "
@@ -589,9 +642,8 @@ $data.="
 		//validate the fields of form
 		if (\$this->form_validation->run() == FALSE) 
 		{
-			//load the view and the layout
-			\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-			\$this->load->view('layouts/backend', \$layout);	
+			//Load view
+			\$this->template->build('".$this->controller_name."/create');	
 		}
 		else
 		{
@@ -704,11 +756,9 @@ $data .= "
 					//upload the image
 					if ( ! \$this->upload->do_upload(\$index))
 					{
-						\$data['upload_error'][\$index] = \$this->upload->display_errors(\"<span class='error'>\", \"</span>\");
-						
-						//load the view and the layout
-						\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-						\$this->load->view('layouts/backend', \$layout);
+						//Load view
+						\$this->template->set('error_'.\$index, \$this->upload->display_errors(\"<span class='error'>\", \"</span>\"));
+						\$this->template->build('".$this->controller_name."/create');
 
 						return FALSE;
 					}
@@ -771,11 +821,9 @@ $data .= "
 							//create the thumbnail
 							if ( ! \$this->image_lib->resize())
 							{
-								\$data['upload_error'][\$index] = \$this->image_lib->display_errors(\"<span class='error'>\", \"</span>\");
-
-								//load the view and the layout
-								\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-								\$this->load->view('layouts/backend', \$layout);
+								//Load view
+								\$this->template->set('error_'.\$index, \$this->image_lib->display_errors(\"<span class='error'>\", \"</span>\"));
+								\$this->template->build('".$this->controller_name."/create');
 
 								return FALSE;
 							}
@@ -786,11 +834,9 @@ $data .= "
 				{
 					if (in_array(\$index, \$array_required))
 					{
-						\$data['upload_error'][\$index] = \"<span class='error'>\".lang('upload_no_file_selected').\"</span>\";
-
-						//load the view and the layout
-						\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-						\$this->load->view('layouts/backend', \$layout);
+						//Load view
+						\$this->template->set('error_'.\$index, \"<span class='error'>\".lang('upload_no_file_selected').\"</span>\");
+						\$this->template->build('".$this->controller_name."/create');
 
 						return FALSE;
 					}
@@ -873,7 +919,24 @@ $data .= "
 
 	function edit(\$id = FALSE, \$page = 1) 
 	{
+		//load block submit helper and append in the head
+		\$this->template->append_metadata(block_submit_button());
 ";
+		foreach ($this->arrayjson as $index => $value )
+		{
+	  		switch ($value['type'])
+	  		{
+	  			case 'textarea':
+
+	  				if ($value['ckeditor'] == "TRUE")
+	  				{
+	  				$data .= "		//ckeditor scripts
+	  	\$this->template->append_metadata(\"<script src='js/ckeditor/ckeditor.js' type='text/javascript'></script>\");
+	  				";
+	  				}
+	  		}
+	  	}
+
 if ($this->there_is_a_relational_field)
 {
 $data .= "
@@ -884,6 +947,8 @@ $data .= "
 		//get the relation and sanitize
 		\$data['".$this->relational_field."'] = (\$this->uri->segment(5)) ? \$this->uri->segment(5) : \$this->input->post('".$this->relational_field."', TRUE);
 		\$data['".$this->relational_field."'] = ( \$data['".$this->relational_field."'] != 0 ) ? filter_var(\$data['".$this->relational_field."'], FILTER_VALIDATE_INT) : NULL;
+		\$this->template->set('".$this->relational_field."', \$data['".$this->relational_field."']);
+
 
 		//get the \$page and sanitize
 		\$page = ( \$this->uri->segment(6) )  ? \$this->uri->segment(6) : \$this->input->post('page', TRUE);
@@ -937,19 +1002,17 @@ $data .= "
 		\$this->set_rules(\$id);
 
 		//create control variables
-		\$data['title'] = lang('web_edit');
-		\$data['updType'] = 'edit';
-		\$data['page'] = \$page;
-
+		\$this->template->title(lang('web_edit_t', array(':name' => '".$this->controller_name."')));
+		\$this->template->set('updType', 'edit');
+		\$this->template->set('page', \$page);
 
 		if (\$this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
 			//search the item to show in edit form
-			\$data['".$this->model_name."'] = ".$this->model_name_for_calls."::find_by_id(\$id);
+			\$this->template->set('".$this->model_name."', ".$this->model_name_for_calls."::find_by_id(\$id));
 			
-			//load the view and the layout
-			\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-			\$this->load->view('layouts/backend', \$layout);
+			//load the view
+			\$this->template->build('".$this->controller_name."/create');	
 		}
 		else
 		{";
@@ -1010,6 +1073,7 @@ $data .="
 
 $data .= "
 			\$data['".$this->model_name."'] = ".$this->model_name_for_calls."::find(\$this->input->post('id', TRUE));
+			\$this->template->set('".$this->model_name."', \$data['".$this->model_name."']);
 
 			\$this->load->library('upload');
 			\$this->load->library('image_lib');
@@ -1067,11 +1131,9 @@ $data .= "
 					//upload the image
 					if ( ! \$this->upload->do_upload(\$index))
 					{
-						\$data['upload_error'][\$index] = \$this->upload->display_errors(\"<span class='error'>\", \"</span>\");
-						
-						//load the view and the layout
-						\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-						\$this->load->view('layouts/backend', \$layout);
+						//Load view
+						\$this->template->set('error_'.\$index, \$this->upload->display_errors(\"<span class='error'>\", \"</span>\"));
+						\$this->template->build('".$this->controller_name."/create');
 
 						return FALSE;
 					}
@@ -1136,11 +1198,9 @@ $data .= "
 							//create the thumbnail
 							if ( ! \$this->image_lib->resize())
 							{
-								\$data['upload_error'][\$index] = \$this->image_lib->display_errors(\"<span class='error'>\", \"</span>\");
-
-								//load the view and the layout
-								\$layout['body'] = \$this->load->view('".$this->controller_name."/create', \$data, TRUE);
-								\$this->load->view('layouts/backend', \$layout);
+								//Load view
+								\$this->template->set('error_'.\$index, \$this->image_lib->display_errors(\"<span class='error'>\", \"</span>\"));
+								\$this->template->build('".$this->controller_name."/create');
 
 								return FALSE;
 							}
@@ -1814,7 +1874,7 @@ $data .= "
 
 	$(document).ready(function(){
 
-		CKEDITOR.replace( '".$index."', {filebrowserUploadUrl : \"/admin/ckeditor/\"});
+		CKEDITOR.replace( '".$index."', {filebrowserUploadUrl : \"/admin/admin/ckeditor/\"});
 
 		$('#submit').click(function() {
 
@@ -2004,7 +2064,7 @@ $data .= "
 	<input id='".$index."_".$prefix."' type='file' name='".$index."_".$prefix."' />
 
 	<br/><?php echo form_error('".$index."_".$prefix."'); ?>
-	<?php  echo ( isset(\$upload_error['".$index."_".$prefix."'])) ?  \$upload_error['".$index."_".$prefix."']  : \"\"; ?>
+	<?php  echo ( isset(\$error_".$index."_".$prefix.")) ?  \$error_".$index."_".$prefix."  : \"\"; ?>
 </p>
 ";
 				}
@@ -2023,7 +2083,7 @@ $data .= "
 	<input id='".$index."' type='file' name='".$index."' />
 
 	<br/><?php echo form_error('".$index."'); ?>
-	<?php  echo ( isset(\$upload_error['".$index."'])) ?  \$upload_error['".$index."']  : \"\"; ?>
+	<?php  echo ( isset(\$error_".$index.")) ?  \$error_".$index."  : \"\"; ?>
 </p>
 ";
 			}
@@ -2047,7 +2107,7 @@ $data .= "
 	<?php endif ?>
 
 	<br/><?php echo form_error('".$index."_".$prefix."'); ?>
-	<?php  echo ( isset(\$upload_error['".$index."_".$prefix."'])) ?  \$upload_error['".$index."_".$prefix."']  : \"\"; ?>
+	<?php  echo ( isset(\$error_".$index."_".$prefix.")) ?  \$error_".$index."_".$prefix."  : \"\"; ?>
 </p>
 ";
 				}
@@ -2066,7 +2126,7 @@ $data .= "
 	<?php endif ?>
 
 	<br/><?php echo form_error('".$index."'); ?>
-	<?php  echo ( isset(\$upload_error['".$index."'])) ?  \$upload_error['".$index."']  : \"\"; ?>
+	<?php  echo ( isset(\$error_".$index.")) ?  \$error_".$index."  : \"\"; ?>
 </p>
 ";
 			}

@@ -1,7 +1,8 @@
 <div id='content-top'>
-    <h2><?=lang('web_list_of', array(':name' => 'Groups'))?></h2>
+    <h2><?=lang('web_list_group')?></h2>
    
-    <a href='/admin/groups/create/<?=$page?>' class='bcreate'><?=lang('web_create_t', array(':name' => 'group'))?></a>
+    <a href='/admin/groups/create/<?=$page?>' class='bcreate'><?=lang('web_add_group')?></a>
+    <a href='/admin/users/' class='bforward bforwardmargin'><?=lang('web_category_back')?></a>
   
     <span class='clearFix'>&nbsp;</span>
 </div>

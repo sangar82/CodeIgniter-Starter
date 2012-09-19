@@ -23,14 +23,6 @@
     </label>
 
     <?php echo form_submit('submit', 'Login', "class='g-button g-button-submit'");?>
-
-    <label onclick="" class="remember">
-      
-      <?php echo form_checkbox('remember', '1', FALSE, "id='remember'");?>
-    
-      <strong class="remember-label"><?=lang('web_login_no_close')?></strong>
-
-    </label>
     
     <?php echo form_close();?>
 

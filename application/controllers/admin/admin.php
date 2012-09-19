@@ -11,6 +11,8 @@ class Admin extends MY_Controller {
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->template->set_layout('backend');
 	} 
 
 	public function index()
@@ -25,13 +27,10 @@ class Admin extends MY_Controller {
 		}
 
 		//create control variables
-		$layout['title'] = lang('web_home');	
-
-		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
-		$layout['body'] = $this->load->view('admin/index', FALSE, TRUE);
-
-		//Cargamos el layout y le pasamos el contenido que esta en la variable $layout
-		$this->load->view('layouts/backend', $layout);
+		$this->template->title(lang('web_home'));
+		
+		//load the view
+		$this->template->build('admin/index');
 	}
 
 	public function ckeditor()

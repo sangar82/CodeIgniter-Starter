@@ -11,12 +11,14 @@ class Products extends MY_Controller {
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->template->set_layout('backend');
 	}
 
 	public function index()
 	{	
 		//set the title of the page 
-		$layout['title'] = "Lista de productos";
+		$this->template->title(lang('web_list_product'));
 
 		//set the pagination configuration array and initialize the pagination
 		$config = $this->set_paginate_options('index');
@@ -26,30 +28,28 @@ class Products extends MY_Controller {
 
 		//control of number page
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
-		$data['parent_category'] = "";
+
+		$this->template->set('parent_category', "");
 
 		//find all the categories with paginate and save it in array to past to the view
-		$data["products"] = Product::paginate_all($config["per_page"], $page);
+		$this->template->set("products", Product::paginate_all($config["per_page"], $page));
 
 		//create paginate´s links
-		$data["links"] = $this->pagination->create_links();
+		$this->template->set("links", $this->pagination->create_links());
 
 		//control variables
-		$data['page'] = $page;
-		$data['category_id'] = NULL;
+		$this->template->set('page', $page);
+		$this->template->set('category_id', NULL);
 
-		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
-		$layout['body'] = $this->load->view('products/list', $data, TRUE);
-
-		//Cargamos el layout y le pasamos el contenido que esta en la variable $layout
-		$this->load->view('layouts/backend', $layout);
+		//load the view
+		$this->template->build('products/list');
 	}
 
 
 	public function product_list( $category_id = NULL, $page = 1)
 	{	
 		//set the title of the page 
-		$layout['title'] = "Lista de productos";
+		$this->template->title(lang('web_list_product'));
 
 		//set the pagination configuration array and initialize the pagination
 		$config = $this->set_paginate_options('product_list', $category_id);
@@ -61,41 +61,39 @@ class Products extends MY_Controller {
 		$page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 1;
 
 		//find all the categories with paginate and save it in array to past to the view
-		$data["products"] 			= 	Product::paginate($category_id, $config["per_page"], $page);
-		$data['category_id']		=	$category_id;
-		$data['page']				=	$page;
-		$data['control']			= 	TRUE;
+		$this->template->set("products", Product::paginate($category_id, $config["per_page"], $page));
+		$this->template->set('category_id',$category_id);
+		$this->template->set('page', $page);
+		$this->template->set('control', TRUE);
 		
 		if ( ! is_null( Category::find($category_id)->category) )
-			$data['parent_category']	=	Category::find($category_id)->category->id;
+			$this->template->set('parent_category',Category::find($category_id)->category->id);
 		else
-			$data['parent_category']	=	"";
-		
+			$this->template->set('parent_category',"");
 
 		//create paginate´s links
-		$data["links"] = $this->pagination->create_links();
+		$this->template->set("links", $this->pagination->create_links());
 
-		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
-		$layout['body'] = $this->load->view('products/list', $data, TRUE);
-
-		//Cargamos el layout y le pasamos el contenido que esta en la variable $layout
-		$this->load->view('layouts/backend', $layout);
+		//load the view
+		$this->template->build('products/list');
 	}
 
 
 	function create($category_id = NULL, $page = NULL) 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+
 		//search the categories and send to the view
 		$this->load->model('category');
-		$data['categories']  = Category::get_formatted_combo();
 
 		//create control variables
-		$data['title'] 					= 	"Crear producto";
-		$data['updType'] 				= 	'create';
-		//$data['product'] 				= 	getTableColumns('products', true);
-		$data['product']->category_id 	= 	$category_id;
-		$data['page']					=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('page', TRUE);
-		$data['parent_id']				=	( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
+		$this->template->title(lang('web_add_product'));
+		$this->template->set('updType', 'create');
+		$this->template->set('category_id', $category_id);
+		$this->template->set('categories', Category::get_formatted_combo());
+		$this->template->set('page', ( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('page', TRUE));
+		$this->template->set('parent_id', ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE));
 
 		//auxiliar variables for the upload
 		$form_data_aux	= array();
@@ -107,8 +105,7 @@ class Products extends MY_Controller {
 		if ($this->form_validation->run() == FALSE) 
 		{
 			//load the view and the layout
-			$layout['body'] = $this->load->view('products/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);	
+			$this->template->build('products/create');	
 		}
 		else
 		{
@@ -122,11 +119,10 @@ class Products extends MY_Controller {
 					//upload the image
 					if ( ! $this->upload->do_upload($index))
 					{
-						$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
+						$this->template->set('upload_error', $this->upload->display_errors("<span class='error'>", "</span>"));
 						
 						//load the view and the layout
-						$layout['body'] = $this->load->view('products/create', $data, TRUE);
-						$this->load->view('layouts/backend', $layout);
+						$this->template->build('products/create');
 
 						return FALSE;
 					}
@@ -145,11 +141,10 @@ class Products extends MY_Controller {
 						//create the thumbnail
 						if ( ! $this->image_lib->resize())
 						{
-							$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
+							$this->template->set('upload_error',  $this->image_lib->display_errors("<span class='error'>", "</span>"));
 
 							//load the view and the layout
-							$layout['body'] = $this->load->view('products/create', $data, TRUE);
-							$this->load->view('layouts/backend', $layout);
+							$this->template->build('products/create');
 
 							return FALSE;
 						}
@@ -194,19 +189,23 @@ class Products extends MY_Controller {
 
 	function edit($id = FALSE) 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+				
 		//get the $id and sanitize
 		$id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('id', TRUE);
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
 
 		//search the categories and send to the view
 		$this->load->model('category');
-		$data['categories']  = Category::get_formatted_combo();
+		
 
 		//create control variables
-		$data['title'] 		= 	"Editar producto";
-		$data['updType'] 	= 	'edit';
-		$data['page']		=	( $this->uri->segment(6) )  ? $this->uri->segment(6) : $this->input->post('page', TRUE);
-		$data['parent_id']	=	( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('parent_id', TRUE);
+		$this->template->title('web_edit_product');
+		$this->template->set('updType', 'edit');
+		$this->template->set('page', ( $this->uri->segment(6) )  ? $this->uri->segment(6) : $this->input->post('page', TRUE));
+		$this->template->set('parent_id', ( $this->uri->segment(5) )  ? $this->uri->segment(5) : $this->input->post('parent_id', TRUE));
+		$this->template->set('categories', Category::get_formatted_combo());
 
 		//variables for check the upload
 		$form_data_aux			= array();
@@ -224,16 +223,15 @@ class Products extends MY_Controller {
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
 			//search the item to show in edit form
-			$data['product'] = Product::find_by_id($id);
+			$this->template->set('product', Product::find_by_id($id));
 			
-			//load the view and the layout
-			$layout['body'] = $this->load->view('products/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			//load the view and the layout				
+			$this->template->build('products/create');
 		}
 		else
 		{
 
-			$data['product'] = Product::find($this->input->post('id', TRUE));
+			$this->template->set('product',Product::find($this->input->post('id', TRUE)));
 
 			foreach ($_FILES as $index => $value)
 			{
@@ -246,11 +244,10 @@ class Products extends MY_Controller {
 					//upload the image
 					if ( ! $this->upload->do_upload($index))
 					{
-						$data['upload_error'] = $this->upload->display_errors("<span class='error'>", "</span>");
+						$this->template->set('upload_error', $this->upload->display_errors("<span class='error'>", "</span>"));
 						
 						//load the view and the layout
-						$layout['body'] = $this->load->view('products/create', $data, TRUE);
-						$this->load->view('layouts/backend', $layout);
+						$this->template->build('products/create');
 
 						return FALSE;
 					}
@@ -272,11 +269,10 @@ class Products extends MY_Controller {
 						//create the thumbnail
 						if ( ! $this->image_lib->resize())
 						{
-							$data = array('upload_error' => $this->image_lib->display_errors("<span class='error'>", "</span>"));
+							$this->template->set('upload_error',  $this->image_lib->display_errors("<span class='error'>", "</span>"));
 
 							//load the view and the layout
-							$layout['body'] = $this->load->view('products/create', $data, TRUE);
-							$this->load->view('layouts/backend', $layout);
+							$this->template->build('products/create');
 
 							return FALSE;
 						}

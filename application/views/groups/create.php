@@ -1,5 +1,5 @@
 <div id='content-top'>
-    <h2><?=($updType == 'create') ? lang('web_create_t', array(':name' => 'group')) : lang('web_edit_t', array(':name' => 'group'));?></h2>
+    <h2><?=($updType == 'create') ? lang('web_add_group') : lang('web_edit_group');?></h2>
     <a href='/admin/groups/<?=$page?>' class='bforward'><?=lang('web_back_to_list')?></a>
     <span class='clearFix'>&nbsp;</span>
 </div>

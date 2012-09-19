@@ -12,31 +12,32 @@ class Categories extends MY_Controller {
 	{
 		parent::__construct();
 
-		//$this->output->cache(10000);
+		$this->template->set_layout('backend');
 	}
 
 
 	public function index($parent_id = NULL)
 	{
 		//set the title of the page 
-		$layout['title'] = lang('web_category_list');
+		$this->template->title(lang('web_category_list'));
 
 		//find all the categories with paginate and save it in array to past to the view
-		$data["categories"] 	= 	Category::findby($parent_id);
-		$data["category_id"] 	= 	$parent_id;
-		$data['category']		= 	Category::find($parent_id);
+		$this->template->set("categories", Category::findby($parent_id));
+		$this->template->set("category_id",$parent_id);
+		$this->template->set('category',Category::find($parent_id));
 
-		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
-		$layout['body'] = $this->load->view('categories/list', $data, TRUE);
-
-		//Cargamos el layout y le pasamos el contenido que esta en la variable $layout
-		$this->load->view('layouts/backend', $layout);
+		//load the view
+		$this->template->append_metadata("<script src='js/sortertables.js' type='text/javascript'></script>");
+		$this->template->build('categories/list');
 	}
 
 
 
 	function create($parent_id = FALSE) 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+
 		//get the parent id
 		$parent_id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('parent_id', TRUE);
 
@@ -47,16 +48,15 @@ class Categories extends MY_Controller {
 		$this->_set_rules();
 
 		//create control variables
-		$data['title'] = lang('web_category_create');
-		$data['updType'] = 'create';
-		$data['parent_id'] = $parent_id;		
+		$this->template->set('title', lang('web_category_create'));
+		$this->template->set('updType', 'create');
+		$this->template->set('parent_id',$parent_id);		
 
 		//validate the fields of form
 		if ($this->form_validation->run() == FALSE) 
 		{	
 			//load the view and the layout
-			$layout['body'] = $this->load->view('categories/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			$this->template->build('categories/create');
 		}
 		else
 		{
@@ -87,6 +87,9 @@ class Categories extends MY_Controller {
 
 	function edit($id = FALSE, $parent_id = FALSE) 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+				
 		//Rules for validation
 		$this->_set_rules('edit');
 
@@ -98,8 +101,6 @@ class Categories extends MY_Controller {
 		$id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('id', TRUE);
 		$id = ($id != 0) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
 
-		$data['category'] = Category::find_by_id($id);
-
 		//redirect if it´s no correct
 		if (!$id){
 			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_object_not_exit') ) );
@@ -107,16 +108,16 @@ class Categories extends MY_Controller {
 		}
 
 		//create control variables
-		$data['title'] = lang("web_category_edit");
-		$data['updType'] = 'edit';
-		$data['parent_id'] = $parent_id;
+		$this->template->title(lang("web_category_edit"));
+		$this->template->set('category', Category::find_by_id($id));
+		$this->template->set('updType', 'edit');
+		$this->template->set('parent_id', $parent_id);
 
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
 			//load the view and the layout
-			$layout['body'] = $this->load->view('categories/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			$this->template->build('categories/create');
 		}
 		else
 		{

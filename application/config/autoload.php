@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'sangar_auth');
+$autoload['libraries'] = array('session', 'form_validation', 'pagination', 'sangar_auth', 'template');
 $autoload['sparks'] = array('php-activerecord/0.0.2');
 
 
@@ -65,8 +65,7 @@ $autoload['sparks'] = array('php-activerecord/0.0.2');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-//$autoload['helper'] = array('url', 'language', 'form', 'tablecolumns', 'myform', 'transurl');
-$autoload['helper'] = array('url', 'language', 'form', 'myform', 'transurl');
+$autoload['helper'] = array('url', 'language', 'form', 'myform', 'transurl', 'block_submit_button');
 
 
 /*
@@ -82,7 +81,7 @@ $autoload['helper'] = array('url', 'language', 'form', 'myform', 'transurl');
 |
 */
 
-$autoload['config'] = array('sangar_auth');
+$autoload['config'] = array('sangar_auth', 'template');
 
 
 /*

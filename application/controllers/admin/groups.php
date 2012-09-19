@@ -11,13 +11,15 @@ class Groups extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->template->set_layout('backend');
 	}
 
 
 	public function index()
 	{	
 		//set the title of the page 
-		$layout['title'] = 'Listado de groups';
+		$this->template->title(lang('web_list_group'));
 
 		//set the pagination configuration array and initialize the pagination
 		$config = $this->set_paginate_options();
@@ -29,29 +31,28 @@ class Groups extends MY_Controller
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
 
 		//find all the categories with paginate and save it in array to past to the view
-		$data['groups'] = Group::paginate_all($config['per_page'], $page);
+		$this->template->set('groups', Group::paginate_all($config['per_page'], $page) );
 
 		//create paginate´s links
-		$data['links'] = $this->pagination->create_links();
-
+		$this->template->set('links', $this->pagination->create_links() );
+		
 		//control variables
-		$data['page'] = $page;
+		$this->template->set('page', $page);
 
-		//Guardamos en la variable $layout['body'] la vista renderizada users/list. Le pasamos tb la lista de todos los usuarios
-		$layout['body'] = $this->load->view('groups/list', $data, TRUE);
-
-		//Cargamos el layout y le pasamos el contenido que esta en la variable $layout
-		$this->load->view('layouts/backend', $layout);
+		//Load view
+		$this->template->build('groups/list');
 	}
 
 
 	function create($page = NULL) 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+
 		//create control variables
-		$data['title']		= 	'Crear groups';
-		$data['updType']	= 	'create';
-		$form_data_aux 	= 	array();
-		$data['page'] = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('page', TRUE);
+		$this->template->title(lang('web_add_group'));
+		$this->template->set('updType', 'create');
+		$this->template->set('page', ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('page', TRUE));
 
 		//Rules for validation
 		$this->set_rules();
@@ -59,10 +60,9 @@ class Groups extends MY_Controller
 		//validate the fields of form
 		if ($this->form_validation->run() == FALSE) 
 		{
-			//load the view and the layout
-			$layout['body'] = $this->load->view('groups/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);	
-		}
+			//load the view
+			$this->template->build('groups/create');
+		}		
 		else
 		{
 			//Validation OK!
@@ -70,8 +70,6 @@ class Groups extends MY_Controller
 				'name' => set_value('name'), 
 				'description' => set_value('description')
 			);
-
-
 
 			$group = Group::create($form_data);
 
@@ -93,7 +91,9 @@ class Groups extends MY_Controller
 
 	function edit($id = FALSE, $page = 1) 
 	{
-
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+		
 		//get the $id and sanitize
 		$id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('id', TRUE);
 		$id = ( $id != 0 ) ? filter_var($id, FILTER_VALIDATE_INT) : NULL;
@@ -116,19 +116,17 @@ class Groups extends MY_Controller
 		$this->set_rules($id);
 
 		//create control variables
-		$data['title'] = lang('web_edit');
-		$data['updType'] = 'edit';
-		$data['page'] = $page;
-
+		$this->template->title(lang('web_edit_group'));
+		$this->template->set('updType', 'edit');
+		$this->template->set('page', $page);
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
 			//search the item to show in edit form
-			$data['group'] = Group::find_by_id($id);
+			$this->template->set('group',  Group::find_by_id($id));
 			
 			//load the view and the layout
-			$layout['body'] = $this->load->view('groups/create', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			$this->template->build('groups/create');
 		}
 		else
 		{	
@@ -188,7 +186,6 @@ class Groups extends MY_Controller
 			
 			redirect('groups');		
 		}
-
 		
 
 		//delete the item
@@ -209,7 +206,6 @@ class Groups extends MY_Controller
 	{
 		//Creamos los parametros de la funcion del constructor.
 		// More validations: http://codeigniter.com/user_guide/libraries/form_validation.html
-
 		if ($id)
 		{
 			$this->form_validation->set_rules('name', 'name', "required|trim|xss_clean|min_length[0]|max_length[60]|is_unique[groups.name.id.$id]");
@@ -221,7 +217,7 @@ class Groups extends MY_Controller
 
 
 		$this->form_validation->set_rules('description', 'description', 'trim|xss_clean|min_length[0]|max_length[500]');
-							$this->form_validation->set_error_delimiters("<br /><span class='error'>", '</span>');
+		$this->form_validation->set_error_delimiters("<br /><span class='error'>", '</span>');
 	}		
 
 	

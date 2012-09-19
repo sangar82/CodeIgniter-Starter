@@ -11,16 +11,17 @@ class Users extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('session');
-		$this->load->library('form_validation');
-		$this->load->helper('url');
+
 		$this->load->model('group');
 		$this->load->model('usersgroup');
+
+		$this->template->set_layout('backend');
 	}
 
     function login()
     {
-		$this->data['title'] = "Login";
+    	$this->template->set_layout('frontend');
+		$this->template->title('Login');
 
 		//validate form input
 		$this->form_validation->set_rules('identity', 'lang:web_email', 'required|valid_email|trim|xss_clean');
@@ -28,13 +29,12 @@ class Users extends MY_Controller
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 
 		if ($this->form_validation->run() == true)
-		{ //check to see if the user is logging in
-			//check for "remember me"
-			$remember = (bool) $this->input->post('remember');
+		{ 
+			//check to see if the user is logging in
 
 			if (User::validate_login($this->input->post('identity'), $this->input->post('password')))
-			{ //if the login is successful
-
+			{ 
+				//if the login is successful
 				$this->sangar_auth->register_session();
 
 				//redirect them back to the home page
@@ -42,7 +42,8 @@ class Users extends MY_Controller
 				redirect('admin', 'refresh');
 			}
 			else
-			{ //if the login was un-successful
+			{ 
+				//if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('web_login_incorrect') ));
 				redirect('login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
@@ -51,57 +52,51 @@ class Users extends MY_Controller
 		else
 		{  //the user is not logging in so display the login page
 			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->template->set('message',  (validation_errors()) ? validation_errors() : $this->session->flashdata('message'));
 
-			$this->data['identity'] = array('name' => 'identity',
+			$this->template->set('identity', array('name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('identity'),
-			);
-			$this->data['password'] = array('name' => 'password',
+			));
+			$this->template->set('password', array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
-			);
+			));
 
-			$layout['body'] = $this->load->view('users/login', $this->data, TRUE);
-			$this->load->view('layouts/login', $layout);
+			//$layout['body'] = $this->load->view('users/login', $this->data, TRUE);
+			//$this->load->view('layouts/login', $layout);
+
+			$this->template->build('users/login');
 		}
     }
 
 
 	function index()
 	{
-		//print_r($this->session->userdata());
-
-		$data['title'] = lang('web_list_user');
-
-		$data['users'] = User::find('all');
-
-		$layout['body'] = $this->load->view('users/index', $data, TRUE);
-
-		$this->load->view('layouts/backend', $layout);		
+		$this->template->title(lang("web_list_user"));
+		$this->template->set('users', User::find('all'));
+		$this->template->build('users/index');		
 	}    
 
 
 	function create() 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+
 		//Rules for validation
 		$this->_set_rules();
-
-		//create control variables
-		$data['title'] = lang('web_add_user');
-		$data['updType'] = 'create';
 
 		//validate the fields of form
 		if ($this->form_validation->run() == FALSE) 
 		{			
-			//load the view and the layout
-			$layout['body'] = $this->load->view('users/create_user', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			$this->template->title(lang("web_add_user"));
+			$this->template->set('updType', 'create');
+			$this->template->build('users/create_user');
 		}
 		else
 		{
-
 			$data = array(
 							'username'		=>	$this->input->post('email'),
 							'email'			=>	$this->input->post('email'),
@@ -133,6 +128,9 @@ class Users extends MY_Controller
 
 	function edit($id = FALSE) 
 	{
+		//load block submit helper and append in the head
+		$this->template->append_metadata(block_submit_button());
+
 		//get the $id
 		$id = ( $this->uri->segment(4) )  ? $this->uri->segment(4) : $this->input->post('id', TRUE);
 
@@ -150,17 +148,10 @@ class Users extends MY_Controller
 
 		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
 		{
-			//create control variables
-			$data['title'] = lang("web_edit_user");
-			$data['updType'] = 'edit';
-
-
-			//search the item to show in edit form
-			$data['user'] = User::find_by_id($id);
-			
-			//load the view and the layout
-			$layout['body'] = $this->load->view('users/create_user', $data, TRUE);
-			$this->load->view('layouts/backend', $layout);
+			$this->template->title(lang("web_edit_user"));
+			$this->template->set('updType', 'edit');
+			$this->template->set('user', User::find_by_id($id));
+			$this->template->build('users/create_user');	
 		}
 		else
 		{
@@ -331,19 +322,21 @@ class Users extends MY_Controller
 	//forgot password
 	function forgot_password()
 	{
+    	$this->template->set_layout('frontend');
+		$this->template->title('Login');
+
 		$this->form_validation->set_rules('email', 'lang:web_email', 'required|trim|clean_xss|valid_email');
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 
 		if ($this->form_validation->run() == false)
 		{
 			//setup the input
-			$this->data['email'] = array('name' => 'email',
-				'id' => 'email',
-			);
+			$this->template->set('email', array('name' => 'email', 'id' => 'email',));
+
 			//set any errors and display the form
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$layout['body'] = $this->load->view('users/forgot_password', $this->data, TRUE);
-			$this->load->view('layouts/login', $layout);
+			$this->template->set('message', (validation_errors()) ? validation_errors() : $this->session->flashdata('message'));
+
+			$this->template->build('users/forgot_password');
 		}
 		else
 		{
@@ -351,14 +344,15 @@ class Users extends MY_Controller
 			$forgotten = $this->sangar_auth->forgotten_password($this->input->post('email'));
 
 			if ($forgotten)
-			{ //if there were no errors
+			{ 
+				//if there were no errors
 				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('remember_pass_successful') ));
-				redirect("users/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect("/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('remember_pass_unsuccessful') ));
-				redirect("users/forgot_password", 'refresh');
+				redirect("/forgot_password", 'refresh');
 			}
 		}
 	}
@@ -369,16 +363,17 @@ class Users extends MY_Controller
 		$reset = $this->sangar_auth->forgotten_password_complete($code);
 
 		if ($reset)
-		{  //if the reset worked then send them to the login page
+		{  
+			//if the reset worked then send them to the login page
 			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('password_change_successful')) );
-			redirect("users/login", 'refresh');
+			redirect("/login", 'refresh');
 		}
 		else
-		{ //if the reset didnt work then send them back to the forgot password page
+		{ 
+			//if the reset didnt work then send them back to the forgot password page
 			$this->session->set_flashdata('message', array( 'type' => 'warning', 'text' => lang('password_change_unsuccessful')) );
-			redirect("users/forgot_password", 'refresh');
+			redirect("/forgot_password", 'refresh');
 		}
-	}	    
-	
-
+	}
+	    
 }

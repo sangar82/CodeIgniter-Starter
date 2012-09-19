@@ -51,7 +51,7 @@ $user = $this->user;
 
 			<?php $this->load->view("partials/_flashdata");?>
 		
-			<?=$body?>
+			<?php echo $template['body']; ?>
 
 		</div>
 

@@ -57,8 +57,12 @@ $lang['web_edit_user']	 			= 'Edit user';
 $lang['web_list_user']	 			= 'User list';
 $lang['web_list_deactivate_user']	= 'Disable user';
 $lang['web_list_deuser_conf']		= 'Are you sure to disable the user?';
-$lang['ggroups']					= 'Group Management';
+$lang['web_category_back'] 			= 'Back to the users list';
 
+$lang['ggroups']					= 'Group Management';
+$lang['web_add_group'] 				= 'Create group';
+$lang['web_edit_group']	 			= 'Edit group';
+$lang['web_list_group']	 			= 'Group list';
 
 $lang['web_active']					= 'Active';
 $lang['web_inactive']				= 'Inactive';

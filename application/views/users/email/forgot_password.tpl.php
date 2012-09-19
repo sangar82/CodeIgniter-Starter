@@ -5,7 +5,7 @@
 	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'><?=lang('changpass_p1')?></p>
 
 	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'>
-		<?=lang('changpass_p2')?> <?php echo anchor('auth/reset_password/'. $forgotten_password_code, lang('changpass_rest'));?>		
+		<?=lang('changpass_p2')?> <?php echo anchor('/reset_password/'. $forgotten_password_code, lang('changpass_rest'));?>		
 	</p>
 
 	<p style='font-family: lucida grande,tahoma,verdana,arial,sans-serif;font-size:13px;'>
