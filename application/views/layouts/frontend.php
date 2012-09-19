@@ -6,7 +6,8 @@ $user = $this->user;
 <html xmlns="http://www.w3.org/1999/xhtml">
 
   <head>
-  	<title></title>
+  	<title><? echo $template['title'];?></title>
+  	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='expires' content='1200' />
 	<meta http-equiv='content-language' content='<?php echo $this->config->item('prefix_language') ?>' />

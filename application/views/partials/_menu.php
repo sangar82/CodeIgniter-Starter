@@ -5,7 +5,7 @@
 <li <?=$mactive?>><a href="/admin/users/" style="background-position: 0px 0px;"><?=lang('web_users')?></a></li>
 
 <?php  $mactive = ($this->uri->rsegment(1) == 'categories')  ? "class='selected'" : "" ?>
-<li <?=$mactive?>><a href="/admin/categories/" style="background-position: 0px 0px;">Categorias</a></li>
+<li <?=$mactive?>><a href="/admin/categories/" style="background-position: 0px 0px;"><?=lang('web_categories')?></a></li>
 
 <?php  $mactive = ($this->uri->rsegment(1) == 'products')  ? "class='selected'" : "" ?>
-<li <?=$mactive?>><a href="/admin/products/" style="background-position: 0px 0px;">Productos</a></li>
+<li <?=$mactive?>><a href="/admin/products/" style="background-position: 0px 0px;"><?=lang('web_products')?></a></li>

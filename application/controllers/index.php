@@ -17,9 +17,7 @@ class Index extends MY_Controller
 
 	public function contact($result = NULL)
 	{
-		$this->template->title('Contacto');
-
-		$this->load->library('form_validation');
+		$this->template->title(lang('web_contact'));
 
 		$this->_set_rules();
 

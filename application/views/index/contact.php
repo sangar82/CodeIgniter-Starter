@@ -3,6 +3,8 @@ $attributes = array('class' => 'tform', 'id' => '');
 echo form_open('contact', $attributes);
 ?>
 
+<h1><?=lang('web_contact')?></h1>
+
 <p>
 	<label class='labelform' for="name"><?=lang('web_name')?> <span class="required">*</span></label>
 	<input id="name" type="text" name="name" maxlength="256" value="<?php echo set_value('name'); ?>"  />

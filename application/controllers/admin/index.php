@@ -10,8 +10,7 @@ class Index extends MY_Controller
 
 	public function index()
 	{
-		$layout['body'] = $this->load->view('/index/index', NULL, TRUE);
-		$this->load->view('/layouts/frontend', $layout);
+		$this->template->build('/index/index');
 	}
 
 
@@ -26,8 +25,7 @@ class Index extends MY_Controller
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$layout['body'] = $this->load->view('/index/contact', $data, TRUE);
-			$this->load->view('/layouts/frontend', $layout);
+			$this->template->build('/index/contact');
 		}
 		else
 		{

@@ -92,6 +92,7 @@ $lang['web_home_lang_trans']		= 'Exemple de url amb traducció';
 $lang['web_first']					= 'Primer';
 $lang['web_last']					= 'Últim';
 $lang['web_my_account']				= 'La meva compte';
+$lang['web_contact']				= 'Contacte';
 
 
 $lang['web_hello']					= 'Hola';
