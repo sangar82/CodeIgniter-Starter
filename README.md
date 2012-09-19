@@ -31,7 +31,7 @@ The Codeigniter Version is 2.1.2
 ##Server Requirements
 
 PHP version 5.3.5 or newer.
-At this moment, Scaffolding works only with MySql
+At this moment, Scaffolding works only with MySql and models works with phpactiverecord
 
 
 ##Installation
