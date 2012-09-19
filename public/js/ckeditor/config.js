@@ -4,7 +4,7 @@
 	   // config.language = 'fr';
 	   // config.skin = 'office2003';
 	   //config.removePlugins =  'elementspath,enterkey,entities,forms,pastefromword,htmldataprocessor,specialchar' ;
-	   config.removePlugins =  'elementspath,enterkey,entities,forms,pastefromword,htmldataprocessor,specialchar,horizontalrule,wsc' ;
+	   config.removePlugins =  'elementspath,enterkey,entities,forms,htmldataprocessor,specialchar,horizontalrule,wsc' ;
 	   
 	   //config.toolbar = 'Basic';
 	   CKEDITOR.config.toolbar = [

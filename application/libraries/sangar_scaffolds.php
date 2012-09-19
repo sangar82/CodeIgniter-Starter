@@ -1,7 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* Name:  Sangar-auth
+* Name:  Sangar-scaffolds
 *
 * Author: 
 *		  sangar1982@gmail.com
@@ -10,7 +10,7 @@
 *
 * Location: https://github.com/sangar82/CodeIgniter-Starter
 * Location: https://github.com/sangar82/sangar-scaffold-spark 
-* 
+* Location: http://getsparks.org/packages/sangar-scaffold/versions/HEAD/show
 *
 * Created:  06.2012
 *
@@ -1846,7 +1846,7 @@ $data .= "
 ";
 						foreach ($this->languages as $prefix=>$language)
 						{
-							$data.="CKEDITOR.replace( '".$index."_".$prefix."', {filebrowserUploadUrl : \"/admin/ckeditor/\"});";
+							$data.="CKEDITOR.replace( '".$index."_".$prefix."', {language: '<?=\$this->config->item('prefix_language')?>', filebrowserUploadUrl : \"/admin/ckeditor/\"});";
 						}
 $data .= "
 		$('#submit').click(function() {
@@ -1874,7 +1874,7 @@ $data .= "
 
 	$(document).ready(function(){
 
-		CKEDITOR.replace( '".$index."', {filebrowserUploadUrl : \"/admin/admin/ckeditor/\"});
+		CKEDITOR.replace( '".$index."', {language: '<?=\$this->config->item('prefix_language')?>',filebrowserUploadUrl : \"/admin/admin/ckeditor/\"});
 
 		$('#submit').click(function() {
 
