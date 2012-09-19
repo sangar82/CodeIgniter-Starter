@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Codeigniter Starter : Codeigniter 2.1.2 base for fast development" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Codeigniter Starter</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/sangar82/CodeIgniter-Starter">View on GitHub</a>
+
+          <h1 id="project_title">Codeigniter Starter</h1>
+          <h2 id="project_tagline">Codeigniter 2.1.2 base for fast development</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/sangar82/CodeIgniter-Starter/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/sangar82/CodeIgniter-Starter/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Codeigniter Starter</h1>
+
+<p>Custom Codeigniter with preinstalled features:</p>
+
+<ul>
+<li>Sparks installed (<a href="http://getsparks.org/">http://getsparks.org/</a>)</li>
+<li>Sangar Auth Library. (Ion-Auth modified for me working under PHP-activerecord)</li>
+<li>Sangar Scaffolding Library. A new way to do scaffolding!</li>
+<li>Php-ActiveRecord installed (<a href="https://github.com/kla/php-activerecord">https://github.com/kla/php-activerecord</a>) Version Nightly build May 2012</li>
+<li>Backend &amp; Full Access Control (login, logout, remember password, and protected access to the backend)</li>
+<li>Template by Phil Sturgeon implemented (<a href="http://philsturgeon.co.uk/demos/codeigniter-template/user_guide/">http://philsturgeon.co.uk/demos/codeigniter-template/user_guide/</a>)</li>
+<li>Basic layout (frontend, backend)</li>
+<li>Toast Unit test (<a href="http://jensroland.com/projects/toast/">http://jensroland.com/projects/toast/</a>)</li>
+<li>Includes basic before_filter and after_filter support (Matthew Machuga) <a href="https://github.com/machuga/codeigniter-filter">https://github.com/machuga/codeigniter-filter</a>
+</li>
+<li>System Messages implemented as partials in layouts</li>
+<li>Folder for public content (images, js, uploads, ...)</li>
+<li>Subdomains for languages</li>
+<li>Translation on 3 languages (english, spanish, catalan)</li>
+<li>Methods for translate controllers and methods names on URL</li>
+<li>CRUD Users implemented.<br>
+</li>
+<li>Example: CRUD Categories. Categories as a tree of categories (with order via ajax)</li>
+<li>Example: CRUD Products with upload an image  and thumbnail creation</li>
+<li>Examples of testing (SangarAuth Test, users test, categories test, products test).</li>
+</ul><h2>Codeigniter Version</h2>
+
+<p>The Codeigniter Version is 2.1.2 </p>
+
+<h2>Server Requirements</h2>
+
+<p>PHP version 5.3.5 or newer.
+At this moment, Scaffolding works only with MySql</p>
+
+<h2>Installation</h2>
+
+<p>The installation is the same as Codeigniter.</p>
+
+<p>Please see the installation instruccions of Codeigniter <a href="http://codeigniter.com/user_guide/installation/index.html">http://codeigniter.com/user_guide/installation/index.html</a></p>
+
+<p>Create the database with the mysql_dump.sql file</p>
+
+<p>Edit the files with your preferences (domain, languages, database, authentification):</p>
+
+<ul>
+<li>config.php</li>
+<li>database.php</li>
+<li>sangar_auth.php</li>
+</ul><p>Create a virtualhost with the the same domain that you write in config.php.
+If you want more languages, create more ServerAlias</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+
+    ServerName www.mydomain.com
+
+    ServerAlias en.mydomain.com
+
+    ServerAlias es.mydomain.com
+
+    ServerAlias ca.mydomain.com
+
+    DocumentRoot /www/mydomain.com
+
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<p>Enjoy!!</p>
+
+<h2>Backend user and password</h2>
+
+<p>The default user to access to the private zone is:</p>
+
+<pre><code>user:       admin@admin.com
+
+password:   password
+</code></pre>
+
+<h2>How create a new scaffold</h2>
+
+<p>Sangar Scaffolds creates the files for CRUD operations for you!</p>
+
+<p>It creates the tables on the database, the controllers, the models and the views.</p>
+
+<p>It also modifies the routes.php file.</p>
+
+<p>You can create forms with the followings elements:</p>
+
+<ul>
+<li>name</li>
+<li>textarea</li>
+<li>radiobuttons</li>
+<li>checkboxes</li>
+<li>select</li>
+<li>select 1:N (populate the form select with a existent Model)</li>
+<li>upload images (with thumbnail creation and uploads rules)</li>
+<li>upload files (with uploads rules)</li>
+<li>hidden relational (It's a special element. Only one hidden relational by scaffolding is allowed. It will produce a form with relation 1:N linked with his parent form automatically)</li>
+</ul><p>This version has more features that sangar scaffold spark.</p>
+
+<p>Each element has validation rules and the possibility to do it multilanguage.</p>
+
+<p>Create also a paginated list view.</p>
+
+<p>To create a new scaffold, login into the private zone, and search the link 'Scaffolds' on the top of the page</p>
+
+<ul>
+<li>Write the Controller name you want produce.</li>
+<li>Write the Model name you want produce.</li>
+<li>Copy the code blocks of elements you need and paste to scaffold code textarea. Each code block must be separated by commas. The scaffold code is a JSON without the first '{' and the last '}'</li>
+<li>Choose the options you want</li>
+<li>Scaffold!</li>
+</ul><h2>Translate controllers name and controllers method names</h2>
+
+<p>If you want to translate controllers names and controllers method names edit the file </p>
+
+<pre><code>/application/language/controller_translations.php
+</code></pre>
+
+<p>and </p>
+
+<pre><code>/application/language/method_translations.php. 
+</code></pre>
+
+<p>For use in your views use the helper transurl_helper.php:</p>
+
+<pre><code>&lt;?=lang_anchor(controller_name, method_name, params)?&gt;
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code>&lt;?=lang_anchor('users', 'edit', '1')?&gt;
+</code></pre>
+
+<p>(It produces a link in the actual language, with the controller and method names translated)</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Codeigniter Starter maintained by <a href="https://github.com/sangar82">sangar82</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
