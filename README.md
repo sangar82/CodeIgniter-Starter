@@ -8,13 +8,13 @@ Custom Codeigniter with preinstalled features:
 - Sangar Scaffolding Library. A new way to do scaffolding!
 - Php-ActiveRecord installed (https://github.com/kla/php-activerecord) Version Nightly build May 2012
 - Backend & Full Access Control (login, logout, remember password, and protected access to the backend)
-- Template by Phil Sturgeon implemented (http://philsturgeon.co.uk/demos/codeigniter-template/user_guide/)
+- Template Library by Phil Sturgeon implemented (http://philsturgeon.co.uk/demos/codeigniter-template/user_guide/)
 - Basic layout (frontend, backend)
 - Toast Unit test (http://jensroland.com/projects/toast/)
 - Includes basic before_filter and after_filter support (Matthew Machuga) https://github.com/machuga/codeigniter-filter
-- System Messages implemented as partials in layouts
+- System Messages implemented as a partial in layouts
 - Folder for public content (images, js, uploads, ...)
-- Subdomains for languages
+- Subdomains for multi-language
 - Translation on 3 languages (english, spanish, catalan)
 - Methods for translate controllers and methods names on URL
 - CRUD Users implemented.  
@@ -112,7 +112,6 @@ To create a new scaffold, login into the private zone, and search the link 'Scaf
 - Copy the code blocks of elements you need and paste to scaffold code textarea. Each code block must be separated by commas. The scaffold code is a JSON without the first '{' and the last '}'
 - Choose the options you want
 - Scaffold!
-
 
 
 
