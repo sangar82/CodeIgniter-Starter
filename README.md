@@ -25,7 +25,7 @@ Custom Codeigniter with preinstalled features:
 
 ##Codeigniter Version
 
-The Codeigniter Version is 2.1.2 
+The Codeigniter Version is 2.1.3 
 
 
 ##Server Requirements
@@ -98,7 +98,7 @@ You can create forms with the followings elements:
 - upload files (with uploads rules)
 - hidden relational (It's a special element. Only one hidden relational by scaffolding is allowed. It will produce a form with relation 1:N linked with his parent form automatically)
 
-This version has more features that sangar scaffold spark.
+This version has more features that sangar scaffold spark. http://getsparks.org/packages/sangar-scaffold/versions/HEAD/show
 
 Each element has validation rules and the possibility to do it multilanguage.
 

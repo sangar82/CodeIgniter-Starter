@@ -18,3 +18,5 @@ application/config/config_blank.php
 application/config/database_blank.php
 
 application/config/sangar_auth_blank.php
+
+application/views/.DS_Store
