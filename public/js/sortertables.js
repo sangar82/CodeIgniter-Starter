@@ -3,7 +3,10 @@ $(document).ready(function() {
 
 		$( "#tcategories tbody" ).sortable({
 
-			placeholder: "ui-state-highlight",
+      start: function (event, ui) {
+        ui.placeholder.html("<tr><td colspan='5'>&nbsp;</td></tr>");
+      },
+      forcePlaceholderSize:true,
 			update: function(event, ui){
 				saveOrderClick();
 			}
