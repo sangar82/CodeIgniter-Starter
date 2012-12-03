@@ -231,7 +231,8 @@ class Products extends MY_Controller {
 		else
 		{
 
-			$this->template->set('product',Product::find($this->input->post('id', TRUE)));
+			$data['product'] = Product::find($this->input->post('id', TRUE));
+			$this->template->set('product',$data['product']);
 
 			foreach ($_FILES as $index => $value)
 			{
