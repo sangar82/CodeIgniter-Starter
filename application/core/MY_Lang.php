@@ -39,19 +39,27 @@ class MY_Lang extends CI_Lang
   }
  }
 
- function get_subdomain()
- {
- 
-  $url = $_SERVER['HTTP_HOST'];
+    function get_subdomain()
+    {
+        $url = $_SERVER['HTTP_HOST'];
 
-  $parsedUrl = parse_url($url);
+        $parsedUrl = parse_url($url);
 
-  $host = explode('.', $parsedUrl['path']);
+        $host = explode('.', $parsedUrl['path']);
 
-  $subdomain = $host[0];
+        $subdomain = $host[0];
 
-  return $subdomain; 
+        $config =& get_config();
 
- }
+        if (array_key_exists($subdomain, $config['languages']))
+        {
+            return $subdomain;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
 
 }

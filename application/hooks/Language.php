@@ -7,8 +7,9 @@ class Language {
 
         $subdomain = $this->get_subdomain();
                 
-        if ( $subdomain != "www")
+        if ( $subdomain )
         {
+            echo "entra";die();
             $config['language']=$config['languages'][$subdomain];
             $config['base_url'] = "http://$subdomain.".$config['base_domain']; 
         }        
@@ -25,7 +26,17 @@ class Language {
 
         $subdomain = $host[0];
 
-        return $subdomain; 
+        $config =& get_config();
+
+        if (array_key_exists($subdomain, $config['languages']))
+        {
+            return $subdomain;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 }  
