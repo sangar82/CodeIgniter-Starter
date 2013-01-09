@@ -9,7 +9,6 @@ class Language {
                 
         if ( $subdomain )
         {
-            echo "entra";die();
             $config['language']=$config['languages'][$subdomain];
             $config['base_url'] = "http://$subdomain.".$config['base_domain']; 
         }        

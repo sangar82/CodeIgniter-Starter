@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';  //example: http://www.yourdomain.com
-$config['base_domain'] = '';			//example: yourdomain.com
+$config['base_url']	= '';  			//example: http://www.yourdomain.com
+$config['base_domain'] = '';		//example: yourdomain.com
 
 
 /*
