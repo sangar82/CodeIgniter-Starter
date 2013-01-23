@@ -40,7 +40,9 @@ The installation is the same as Codeigniter.
 
 Please see the installation instruccions of Codeigniter <http://codeigniter.com/user_guide/installation/index.html>
 
-Create the database with the mysql_dump.sql file
+Create your mysql database
+
+Import the tables in your database with the mysql_dump.sql file
 
 Edit the files with your preferences (domain, languages, database, authentification):
 
