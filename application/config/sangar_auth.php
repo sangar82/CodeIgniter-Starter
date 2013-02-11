@@ -26,6 +26,21 @@
 	 * Admin Email, admin@example.com
 	 */
 	$config['admin_email']		   = "info@mydomain.com";
+
+	/**
+	 * Email host, mail.example.com
+	 */
+	$config['mail_host'] = '';
+	
+	/**
+	 * Email pass, use your email password
+	 */		
+	$config['mail_pass'] = '';
+
+	/**
+	 * Email protocol, use email protocol ( mail,sendmail or smtp )
+	 */
+	$config['mail_protocol']  = '';
 	
 	/**
 	 * Default group, use name
