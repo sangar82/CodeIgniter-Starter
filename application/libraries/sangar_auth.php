@@ -259,6 +259,17 @@ class Sangar_auth
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
 
+			//config to send email 
+			$config['protocol']  = $this->ci->config->item('mail_protocol');
+
+			if ($config ['protocol'] == 'smtp')
+			{
+				$config['smtp_host'] = $this->ci->config->item('mail_host');
+				$config['smtp_user'] = $this->ci->config->item('admin_email');
+				$config['smtp_pass'] = $this->ci->config->item('mail_pass');
+			} 
+
+			$this->ci->email->initialize($config);
 			$this->ci->email->clear();
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
