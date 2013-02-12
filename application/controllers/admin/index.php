@@ -41,8 +41,20 @@ class Index extends MY_Controller
 
 			$this->load->library('email');
 
-			$this->email->from('sangar1982@gmail.com', 'Contacto Codeigniter');
-			$this->email->to('sangar1982@gmail.com');
+			$config['protocol']  = $this->config->item('mail_protocol');
+
+			if ($config ['protocol'] == 'smtp')
+			{
+				$config['smtp_host'] = $this->config->item('mail_host');
+				$config['smtp_user'] = $this->config->item('admin_email');
+				$config['smtp_pass'] = $this->config->item('mail_pass');
+			} 
+
+			$this->email->initialize($config);
+
+			$this->email->from($this->config->item('admin_email'), $this->config->item('site_title'));
+
+			$this->email->to($this->config->item('mail_to'));
 
 			$this->email->subject('Formulario de Contacto Codeigniter');
 
