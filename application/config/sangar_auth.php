@@ -41,8 +41,13 @@
 	 * Email protocol, use email protocol ( mail,sendmail or smtp )
 	 */
 	$config['mail_protocol']  = '';
-	
+
 	/**
+ 	* Email to, use email
+ 	*/
+ 	$config['mail_to'] = '';
+
+ 	/**
 	 * Default group, use name
 	 */
 	$config['default_group']       = 'members';
