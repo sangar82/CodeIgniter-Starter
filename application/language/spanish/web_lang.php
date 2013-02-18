@@ -87,7 +87,7 @@ $lang['web_comments']				= 'Comentarios';
 
 
 $lang['web_home']					= 'Inicio';
-$lang['web_welcome']				= 'Bienvenido a CodeIgniter-Starter 2.1';
+$lang['web_welcome']				= 'Bienvenido a CodeIgniter-Starter 2.1.3';
 $lang['web_home_lang']				= 'El idioma actual es';
 $lang['web_home_lang_trans']		= 'Ejemplo de url con traducción';
 $lang['web_first']					= 'Primero';
