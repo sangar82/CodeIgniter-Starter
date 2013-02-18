@@ -617,7 +617,8 @@ $data.= "
       		switch ($value['type'])
       		{
         		case 'selectbd':
-        			$data .= "\$data['array_".strtolower($value['options']['model'])."']	= 	".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' ));";
+        			$data .= $this->sl.$this->tabx2."//Select 1:N data";
+        			$data .= $this->sl.$this->tabx2."\$this->template->set('array_".strtolower($value['options']['model'])."',	".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' )));".$this->sl.$this->sl.$this->tabx2;
         		break;
         	}
         }
