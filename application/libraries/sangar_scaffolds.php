@@ -993,7 +993,8 @@ $data .= "
       		switch ($value['type'])
       		{
         		case 'selectbd':
-        			$data .= "\$data['array_".strtolower($value['options']['model'])."']	= 	".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' ));";
+        			$data .= $this->sl.$this->tabx2."//Select 1:N data";
+        			$data .= $this->sl.$this->tabx2."\$this->template->set('array_".strtolower($value['options']['model'])."', ".$value['options']['model']."::find('all', array('order' => '".$value['options']['order']."' )));".$this->sl.$this->sl.$this->tabx2;
         		break;
         	}
         }
@@ -1505,7 +1506,7 @@ $data .= "
         				if ( $value['ckeditor'] == "TRUE")
         					$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
         				else
-        					$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|xss_clean|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
+        					$data .= $this->sl.$this->tabx2."\$this->form_validation->set_rules('$index', '$index', '".(($value['required'] == 'TRUE') ? 'required|' : '')."trim|min_length[".$value['minlength']."]|max_length[".$value['maxlength']."]');".$this->sl;
         				$data .= $this->tabx5;
         			}
 
@@ -1847,7 +1848,7 @@ $data .= "
 ";
 						foreach ($this->languages as $prefix=>$language)
 						{
-							$data.="CKEDITOR.replace( '".$index."_".$prefix."', {language: '<?=\$this->config->item('prefix_language')?>', filebrowserUploadUrl : \"/admin/ckeditor/\"});";
+							$data.=$this->tabx2."CKEDITOR.replace( '".$index."_".$prefix."', {language: '<?=\$this->config->item('prefix_language')?>', filebrowserUploadUrl : \"/admin/admin/ckeditor/\"});".$this->sl;
 						}
 $data .= "
 		$('#submit').click(function() {
@@ -1855,10 +1856,11 @@ $data .= "
 
 						foreach ($this->languages as $prefix=>$language)
 						{
-							$data .="CKEDITOR.instances.".$index."_".$prefix.".updateElement();";
+							$data .=$this->sl.$this->tabx3."CKEDITOR.instances.".$index."_".$prefix.".updateElement();";
 						}
 			
 $data.="
+
 			return true;
 
 		});
