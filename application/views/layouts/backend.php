@@ -33,7 +33,7 @@ $user = $this->user;
 
 			<div id="btop">
 			  <h1><a href="#"><?=$this->config->item('site_title');?></a></h1>
-			  <p id="userbox"><strong><?=$user->first_name?> <?=$user->last_name?></strong> &nbsp;| &nbsp;<a href="/admin/users/edit/<?=$user->id?>"><?=lang('web_my_account')?></a> &nbsp;|&nbsp; <a href='/scaffolds/scaffolds/create'>Scaffolds</a> &nbsp;|&nbsp;<a href="/logout"><?=lang('web_logout')?></a> <br>
+			  <p id="userbox"><strong><?=$user->first_name?> <?=$user->last_name?></strong> &nbsp;| &nbsp;<a href="/admin/users/edit/<?=$user->id?>"><?=lang('web_my_account')?></a> &nbsp;|&nbsp; <a href='/scaffolds/scaffolds/create'>Scaffolding</a> &nbsp;|&nbsp;<a href="/logout"><?=lang('web_logout')?></a> <br>
 			  <span class="clearFix">&nbsp;</span>
 			</div>
 
