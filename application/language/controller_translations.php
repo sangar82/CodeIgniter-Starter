@@ -2,20 +2,28 @@
 global $cn_trans;
 
 $cn_trans = array(
-        "spanish"       =>      array(      
-                        "productos"         =>      'products',
-                        "categorias"        =>      'categories',
-                        "usuarios"          =>      'users'),
-                                
-                                
-        "catalan"       =>      array(      
+        "spanish"       =>      array(
+                "productos"         =>      'products',
+                "categorias"        =>      'categories',
+                "usuarios"          =>      'users'
+        ),
+
+        "catalan"       =>      array(
                         "productes"         =>      'products',
                         "categories"        =>      'categories',
-                        "usuaris"           =>      'users'),
+                        "usuaris"           =>      'users'
+        ),
 
-
-        "english"       =>      array(      
+        "english"       =>      array(
                         "products"          =>      'products',
                         "categories"        =>      'categories',
-                        "users"             =>      'users')
+                        "users"             =>      'users'
+        ),
+
+        "turkish"       =>      array(
+                        "productos"         =>      'Ürünler',
+                        "categorias"        =>      'Kategoriler',
+                        "usuarios"          =>      'Kullanıcılar'
+        )
+
 );
